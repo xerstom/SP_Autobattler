@@ -13,9 +13,9 @@
 
         // files
         "files.insertFinalNewline": true,
-
+		"javascript.preferences.importModuleSpecifierEnding": "js",
+		
         // vsCode eslint support
-        "eslint.enable": true,
         "eslint.validate": ["javascript", "typescript"],
         "editor.codeActionsOnSave": {
             "source.fixAll.eslint": true

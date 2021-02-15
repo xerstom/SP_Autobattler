@@ -1,10 +1,13 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import Grid from "./Grid/Grid.jsx";
+
 const GamingMap = props => (
-	<div>
+	<>
 		GAMING MAAAP
-	</div>
+		<Grid columns={10} rows={10}></Grid>
+	</>
 );
 
 GamingMap.propTypes = {

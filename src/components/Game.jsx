@@ -28,7 +28,7 @@ const Game = props => {
 };
 
 Game.propTypes = {
-	
+	manager: PropTypes.object,
 };
 
 export default Game;

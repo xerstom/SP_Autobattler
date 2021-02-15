@@ -1,11 +1,14 @@
-/* eslint-disable */
+/* eslint-disable no-unused-vars */
 import Head from "next/head";
+
+import Game from "../components/Game.jsx";
+import Manager from "../core/GameManager.js";
 import styles from "../styles/Home.module.css";
 
-import Game from '../components/Game.jsx'
-
+const manager = new Manager();
 export default function Home() {
-    return ( 
-		<Game/>
-    );
+	manager.start();
+	return (
+		<Game manager={manager}/>
+	);
 }

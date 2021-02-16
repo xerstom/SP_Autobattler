@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
@@ -19,10 +19,9 @@ const Game = props => {
 		<div>
 			{
 				view === true
-					? <GamingMap manager={manager}/>
-					: <GamingBoard manager={manager}/>
+					? <GamingMap manager={manager} onClickHandler={changeView}/>
+					: <GamingBoard manager={manager} onClickHandler={changeView}/>
 			}
-			<Button onClick={changeView}>{ view ? ">>" : "<<" }</Button>
 		</div>
 	);
 };

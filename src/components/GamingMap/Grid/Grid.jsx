@@ -76,21 +76,21 @@ const Grid = props => {
 	);
 };
 Grid.propTypes = {
-	columns: PropTypes.Number,
-	rows: PropTypes.Number,
-	borders: {
-		 x1: PropTypes.Number,
-		 x2: PropTypes.Number,
-		 y1: PropTypes.Number,
-		 y2: PropTypes.Number,
-	},
-	nextBorders: {
-		x1: PropTypes.Number,
-		x2: PropTypes.Number,
-		y1: PropTypes.Number,
-		y2: PropTypes.Number,
-	},
-	mouvementPoints: PropTypes.Number,
+	columns: PropTypes.number,
+	rows: PropTypes.number,
+	borders: PropTypes.shape( {
+		 x1: PropTypes.number,
+		 x2: PropTypes.number,
+		 y1: PropTypes.number,
+		 y2: PropTypes.number,
+	} ),
+	nextBorders: PropTypes.shape( {
+		x1: PropTypes.number,
+		x2: PropTypes.number,
+		y1: PropTypes.number,
+		y2: PropTypes.number,
+	} ),
+	mouvementPoints: PropTypes.number,
 };
 
 export default Grid;

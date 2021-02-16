@@ -1,4 +1,4 @@
-import { Button, GridItem } from "@chakra-ui/react";
+import { background, Button, GridItem } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
@@ -22,6 +22,13 @@ const Box = props => {
 				borderRadius="none"
 				bg={colorBg ?? color}
 				w="100%" h="100%"
+				_hover={{ bg: colorBg ?? color }}
+				_active={{
+					borderColor: "grey",
+				  }}
+				  _focus={{
+					color: "grey",
+				  }}
 				onClick={() => handleOnClick(x, y)}
 			>
 			</Button>

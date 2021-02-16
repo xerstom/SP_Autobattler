@@ -3,11 +3,11 @@ import React from "react";
 
 const Board = props => (
 	<div>
-		Board
+		Board {props.user}
 	</div>
 );
 
 Board.propTypes = {
-	
+	user: PropTypes.string,
 };
 export default Board;

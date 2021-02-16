@@ -1,14 +1,14 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-const Bench = props => (
+const Profile = props => (
 	<div>
-		BENCH {props.user}
+			Profile {props.user}
 	</div>
 );
 
-Bench.propTypes = {
+Profile.propTypes = {
 	user: PropTypes.string,
 };
 
-export default Bench;
+export default Profile;

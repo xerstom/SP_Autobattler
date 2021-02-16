@@ -4,13 +4,13 @@ import React from "react";
 
 const Market = props => (
 	<div>
-		Market
+		Market {props.user}
 		<Button>REROLL</Button>
 	</div>
 );
 
 Market.propTypes = {
-	
+	user: PropTypes.string,
 };
 
 export default Market;

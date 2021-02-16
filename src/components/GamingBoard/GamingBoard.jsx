@@ -9,11 +9,18 @@ import Profile from "./Profile/Profile.jsx";
 
 const GamingBoard = props => {
 	const { manager } = props;
-	const onCombat = false;
+	const onCombat = true;
 	return (
 		<>
-			<Grid templateColumns="repeat(12, 1fr)" templateRows="repeat(12, 1fr)" h="100vh" w="100vw">
-				<GridItem rowStart={1} colStart={1} bg="grey" >
+			<Grid
+				templateColumns="repeat(12, 1fr)"
+				templateRows="repeat(12, 1fr)"
+				bgImage="url('/ressources/bg-image.png')"
+				bgPosition="center"
+				bgSize="cover"
+				bgRepeat= "no-repeat"
+				h="100vh" w="100vw">
+				<GridItem rowStart={1} colStart={1} >
 					<Button w="10%" onClick={props.onClickHandler}>{ "<<" }</Button>
 				</GridItem>
 				{
@@ -42,16 +49,16 @@ const GamingBoard = props => {
 
 				{
 					onCombat
-						? <GridItem rowStart={2} colStart={1} rowSpan={3} colSpan={2} bg="purple">
-							<Profile manager={manager} user="enemy"/>
+						? <GridItem rowStart={2} colStart={1} rowSpan={3} colSpan={2} m={3}>
+							<Profile manager={manager} user={manager.agents[0]}/>
 						</GridItem>
 						: ""
 				}
 				<GridItem rowStart={5} colStart={1} rowSpan={4} colSpan={3} >
 					<Code p={0} h="100%" w="100%">Enemy monster destroyed super monster</Code>
 				</GridItem>
-				<GridItem rowStart={9} colStart={1} rowSpan={4} colSpan={2} bg="purple">
-					<Profile manager={manager} user="you"/>
+				<GridItem rowStart={9} colStart={1} rowSpan={4} colSpan={2} m={4}>
+					<Profile manager={manager} user={manager.player} />
 				</GridItem>
 				<GridItem rowStart={9} colStart={4} rowSpan={4} colSpan={3} bg="pink">
 					Input zone

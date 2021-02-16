@@ -1,3 +1,4 @@
+import Agent from "./agents/Agent.js";
 import generateAgents from "./factory/AgentFactory.js";
 import { generateTemplateCards } from "./factory/CardFactory.js";
 import { COLORS } from "./utils/constants.js";
@@ -10,6 +11,7 @@ import { COLORS } from "./utils/constants.js";
  */
 class GameManager {
 	constructor() {
+		this.player = new Agent(COLORS[0] );
 		this.agents = generateAgents(7, COLORS);
 		this.templates = generateTemplateCards(100);
 		

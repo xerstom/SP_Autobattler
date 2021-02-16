@@ -9,18 +9,27 @@ import Profile from "./Profile/Profile.jsx";
 
 const GamingBoard = props => {
 	const { manager } = props;
+	const onCombat = false;
 	return (
 		<>
 			<Grid templateColumns="repeat(12, 1fr)" templateRows="repeat(12, 1fr)" h="100vh" w="100vw">
 				<GridItem rowStart={1} colStart={1} bg="grey" >
 					<Button w="10%" onClick={props.onClickHandler}>{ "<<" }</Button>
 				</GridItem>
-				<GridItem rowStart={1} colStart={5} rowSpan={2} colSpan={7} bg="yellow">
-					<Bench manager={manager} user="enemy"/>
-				</GridItem>
-				<GridItem rowStart={3} colStart={4} rowSpan={2} colSpan={9} mb={2} bg="red">
-					<Board manager={manager} user="enemy"/>
-				</GridItem>
+				{
+					onCombat
+						? <GridItem rowStart={1} colStart={5} rowSpan={2} colSpan={7} bg="yellow">
+							<Bench manager={manager} user="enemy"/>
+						</GridItem>
+						: ""
+				}
+				{
+					onCombat
+						? <GridItem rowStart={3} colStart={4} rowSpan={2} colSpan={9} mb={2} bg="red">
+							<Board manager={manager} user="enemy"/>
+						</GridItem>
+						: ""
+				}
 				<GridItem rowStart={5} colStart={4} rowSpan={2} colSpan={9} mt={2} bg="green">
 					<Board manager={manager} user="you"/>
 				</GridItem>
@@ -31,9 +40,13 @@ const GamingBoard = props => {
 					<Market manager={manager} user="you"/>
 				</GridItem>
 
-				<GridItem rowStart={2} colStart={1} rowSpan={3} colSpan={2} bg="purple">
-					<Profile manager={manager} user="enemy"/>
-				</GridItem>
+				{
+					onCombat
+						? <GridItem rowStart={2} colStart={1} rowSpan={3} colSpan={2} bg="purple">
+							<Profile manager={manager} user="enemy"/>
+						</GridItem>
+						: ""
+				}
 				<GridItem rowStart={5} colStart={1} rowSpan={4} colSpan={3} >
 					<Code p={0} h="100%" w="100%">Enemy monster destroyed super monster</Code>
 				</GridItem>

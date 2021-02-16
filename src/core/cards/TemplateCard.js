@@ -22,7 +22,6 @@ class TemplateCard {
 		this.adaptative = rand(l.minAdaptative, l.maxAdaptative);
 		
 		this.price = this.stats;
-		console.log(this);
 	}
 }
 

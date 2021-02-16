@@ -22,7 +22,6 @@ class GameManager {
 
 	init() {
 		this.agents.forEach(e => e.init(3, this.templates) );
-		console.log(this.agents);
 		// genere cartes template
 		// genere 7 agents
 		// donne des cartes aux agents
@@ -30,7 +29,6 @@ class GameManager {
 	}
 	
 	start() {
-		console.log("start");
 		while (this.end) {
 			//
 		}

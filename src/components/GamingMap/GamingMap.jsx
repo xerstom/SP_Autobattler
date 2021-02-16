@@ -12,7 +12,7 @@ const GamingMap = props => {
 			<Grid columns={10} rows={10} borders={borders} nextBorders={nextBorders} mouvementPoints={5} ></Grid>
 			<Flex flexDirection="column" justifyContent="space-between" w="100%">
 
-				<Flex h="100%" alignItems="flex-end" justifyContent="flex-end">
+				<Flex h="100%" alignItems="flex-start" justifyContent="flex-end">
 					<Button w="10%" onClick={props.onClickHandler}>{ ">>" }</Button>
 				</Flex>
 				<Box h="50vh">
@@ -25,7 +25,7 @@ const GamingMap = props => {
 };
 
 GamingMap.propTypes = {
-	
+	onClickHandler: PropTypes.func,
 };
 	
 export default GamingMap;

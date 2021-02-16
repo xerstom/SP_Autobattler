@@ -5,8 +5,6 @@ import React, { useState } from "react";
 import GamingBoard from "./GamingBoard/GamingBoard.jsx";
 import GamingMap from "./GamingMap/GamingMap.jsx";
 
-
-
 const Game = props => {
 	const { manager } = props;
 	const [view, setView] = useState(true);

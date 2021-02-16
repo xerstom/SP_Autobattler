@@ -1,4 +1,4 @@
-import { Code, Grid, GridItem } from "@chakra-ui/react";
+import { Button, Code, Grid, GridItem } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -13,7 +13,7 @@ const GamingBoard = props => {
 		<>
 			<Grid templateColumns="repeat(12, 1fr)" templateRows="repeat(12, 1fr)" h="100vh" w="100vw">
 				<GridItem rowStart={1} colStart={1} bg="grey" >
-					{"<<"}
+					<Button w="10%" onClick={props.onClickHandler}>{ "<<" }</Button>
 				</GridItem>
 				<GridItem rowStart={1} colStart={5} rowSpan={2} colSpan={7} bg="yellow">
 					<Bench manager={manager} user="enemy"/>
@@ -50,6 +50,7 @@ const GamingBoard = props => {
 };
 
 GamingBoard.propTypes = {
+	onClickHandler: PropTypes.func,
 	manager: PropTypes.object,
 };
 

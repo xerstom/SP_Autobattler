@@ -30,12 +30,12 @@ const Box = props => {
 };
 
 Box.propTypes = {
-	x: Number,
-	y: Number,
-	clickedOn: Function,
-	color: String,
-	perc: Number,
-	disable: Boolean,
+	x: PropTypes.number,
+	y: PropTypes.number,
+	clickedOn: PropTypes.func,
+	color: PropTypes.string,
+	perc: PropTypes.number,
+	disable: PropTypes.bool,
 };
 
 export default Box;

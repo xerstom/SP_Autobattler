@@ -1,7 +1,8 @@
 import Agent from "./agents/Agent.js";
 import generateAgents from "./factory/AgentFactory.js";
-import { generateTemplateCards } from "./factory/CardFactory.js";
-import { COLORS } from "./utils/constants.js";
+import { generateGameCard, generateTemplateCards } from "./factory/CardFactory.js";
+import { COLORS, LEVEL_PROPORTION } from "./utils/constants.js";
+import { rand } from "./utils/utils.js";
 
 /**
  *
@@ -33,6 +34,12 @@ class GameManager {
 		while (this.end) {
 			//
 		}
+	}
+
+	createGameCard(level) {
+		const max = Math.floor(this.templates.length * LEVEL_PROPORTION[level] );
+		const card = rand(0, max - 1);
+		return generateGameCard(this.templates[card] );
 	}
 }
 

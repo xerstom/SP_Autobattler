@@ -43,7 +43,7 @@ const GamingBoard = props => {
 				<GridItem rowStart={7} colStart={5} rowSpan={2} colSpan={7} bg="yellow">
 					<Bench manager={manager} user="you"/>
 				</GridItem>
-				<GridItem rowStart={9} colStart={8} rowSpan={4} colSpan={4} bg="blue">
+				<GridItem rowStart={9} colStart={8} rowSpan={4} colSpan={4}>
 					<Market manager={manager} user="you"/>
 				</GridItem>
 

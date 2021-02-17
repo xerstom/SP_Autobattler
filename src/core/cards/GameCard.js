@@ -1,7 +1,9 @@
 import { rand } from "../utils/utils.js";
 
 /**
- * @prop {Number} baseAdptative Base adaptative stats at card creation
+ * @prop {String} name The card name
+ * @prop {Number} level The card level
+ * @prop {Number} baseadaptative Base adaptative stats at card creation
  * @prop {Number} adaptative Additional adaptative stats from "boosting"
  * @prop {Number} attack Attack value for this card
  * @prop {Number} life Life value for this card
@@ -9,13 +11,15 @@ import { rand } from "../utils/utils.js";
  * @class GameCard
  */
 class GameCard {
-	constructor(attack, life, adptative, price) {
-		this.baseAdptative = adptative;
-		this.adptative = 0;
-		const attackAdaptative = rand(0, adptative);
+	constructor(name, level, attack, life, adaptative, price) {
+		this.name = name;
+		this.level = level;
+		this.baseadaptative = adaptative;
+		this.adaptative = 0;
+		const attackAdaptative = rand(0, adaptative);
 		
 		this.attack = attack + attackAdaptative;
-		this.life = life + (adptative - attackAdaptative);
+		this.life = life + (adaptative - attackAdaptative);
 		this.price = price;
 	}
 }

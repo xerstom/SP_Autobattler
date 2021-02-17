@@ -7,12 +7,12 @@ export function generateTemplateCards(x) {
 	for (let j = 0; j < LEVEL_PROPORTION.length; ++j) {
 		const max = Math.floor(x * LEVEL_PROPORTION[0] );
 		for (let i = 0; i < max; ++i) {
-			cards.push(new TemplateCard(j) );
+			cards.push(new TemplateCard(i, j) );
 		}
 	}
 	return cards;
 }
 
 export function generateGameCard(template) {
-	return new GameCard(template.attack, template.life, template.adaptative, template.price);
+	return new GameCard(template.name, template.level, template.attack, template.life, template.adaptative, template.price);
 }

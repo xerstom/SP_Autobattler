@@ -1,22 +1,23 @@
+import { Flex, Text } from "@chakra-ui/react";
+import PropTypes from "prop-types";
 import React from "react";
-import Style from "./Card.module.css";
 
-const Card = (props) => {
-  return (
-    <div className={Style.card}>
-      <h4>{props.nickname}</h4>
-      <h4 className="italic">{props.name}</h4>
-      <img
-        src={`/ressources/Card/${props.path}`}
-        alt="Avatar"
-        style={{ width: "100%" }}
-      />
-      <div className={Style.container}>
-        <div>Attack: {props.attack}</div>
-        <div>Life: {props.life}</div>
-      </div>
-    </div>
-  );
+const Card = props => (
+	<Flex flexDirection="column" p={3} w="100%" h="100%" mr={5} justifyContent="space-between" bgColor="rgba(255, 255, 255, .40)">
+		<Text textAlign="center">Card: {props.card.name}</Text>
+		<Flex flexDirection="row" h="fit-content" justifyContent="space-between">
+			<Text>LVL: {props.card.level}</Text>
+			<Text>BUFF: {props.card.adaptative}</Text>
+		</Flex>
+		<Flex flexDirection="row" h="fit-content" justifyContent="space-between">
+			<Text>A: {props.card.attack}</Text>
+			<Text>L: {props.card.life}</Text>
+		</Flex>
+	</Flex>
+);
+
+Card.propTypes = {
+	card: PropTypes.object,
 };
 
 export default Card;

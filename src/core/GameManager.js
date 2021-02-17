@@ -21,6 +21,7 @@ class GameManager {
 	}
 
 	init() {
+		this.player.init(3, this.templates);
 		this.agents.forEach(e => e.init(3, this.templates) );
 		// genere cartes template
 		// genere 7 agents

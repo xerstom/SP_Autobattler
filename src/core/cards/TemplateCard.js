@@ -3,6 +3,7 @@ import { rand } from "../utils/utils.js";
 
 /**
  *
+ * @prop {String} name The card name
  * @prop {Number} level The card level (how good / how rare)
  * @prop {Number} stats The card stats point (to split up between attack / life)
  * @prop {Number} attack The card attack value
@@ -12,7 +13,8 @@ import { rand } from "../utils/utils.js";
  * @class TemplateCard
  */
 class TemplateCard {
-	constructor(level) {
+	constructor(name, level) {
+		this.name = String(name);
 		const l = LEVELS[level];
 		this.level = level + 1;
 		this.stats = rand(l.minStat, l.maxStat);

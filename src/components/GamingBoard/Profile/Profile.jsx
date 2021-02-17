@@ -8,11 +8,9 @@ const Profile = props => (
 		<Text>HP: {props.user.life}</Text>
 		<Text>Money: {props.user.money}</Text>
 	</Flex>
-
 );
 
 Profile.propTypes = {
-	manager: PropTypes.object,
 	user: PropTypes.object,
 };
 

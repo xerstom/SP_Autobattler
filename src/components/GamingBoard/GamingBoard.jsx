@@ -32,13 +32,13 @@ const GamingBoard = props => {
 				}
 				{
 					onCombat
-						? <GridItem rowStart={3} colStart={4} rowSpan={2} colSpan={9} mb={2} bg="red">
-							<Board manager={manager} user="enemy"/>
+						? <GridItem rowStart={3} colStart={4} rowSpan={2} colSpan={9} mb={2}>
+							<Board user={manager.agents[0]}/>
 						</GridItem>
 						: ""
 				}
-				<GridItem rowStart={5} colStart={4} rowSpan={2} colSpan={9} mt={2} bg="green">
-					<Board manager={manager} user="you"/>
+				<GridItem rowStart={5} colStart={4} rowSpan={2} colSpan={9} mt={2}>
+					<Board user={manager.player}/>
 				</GridItem>
 				<GridItem rowStart={7} colStart={5} rowSpan={2} colSpan={7} bg="yellow">
 					<Bench manager={manager} user="you"/>
@@ -50,7 +50,7 @@ const GamingBoard = props => {
 				{
 					onCombat
 						? <GridItem rowStart={2} colStart={1} rowSpan={3} colSpan={2} m={3}>
-							<Profile manager={manager} user={manager.agents[0]}/>
+							<Profile user={manager.agents[0]}/>
 						</GridItem>
 						: ""
 				}
@@ -58,7 +58,7 @@ const GamingBoard = props => {
 					<Code p={0} h="100%" w="100%">Enemy monster destroyed super monster</Code>
 				</GridItem>
 				<GridItem rowStart={9} colStart={1} rowSpan={4} colSpan={2} m={4}>
-					<Profile manager={manager} user={manager.player} />
+					<Profile user={manager.player} />
 				</GridItem>
 				<GridItem rowStart={9} colStart={4} rowSpan={4} colSpan={3} bg="pink">
 					Input zone

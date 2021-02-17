@@ -4,7 +4,7 @@ import { rand } from "../utils/utils.js";
 
 class Agent {
 	constructor(color) {
-		this.name = `Mr ${color}`;
+		this.name = `Mr ${color.charAt(0).toUpperCase() + color.slice(1)}`;
 		this.color = color;
 		this.life = 100;
 		this.strategy = 0; // strategy

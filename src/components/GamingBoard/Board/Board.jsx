@@ -5,17 +5,19 @@ import React from "react";
 import Card from "../Card/Card.jsx";
 
 const Board = props => {
-	const ref = props.user.board;
+	const { cards, sellCard, swapCard } = props;
 	return (
 		<Flex flexDirection="row" p={2} w="100%" h="100%" bgColor="rgba(255, 255, 255, .40)">
 			{
-				ref.map( (e, i) => <Card key={i} card={e}/>)
+				cards.map( (e, index) => <Card key={`board${index}`} card={e} sell={() => sellCard(index, "board")} swap={() => swapCard(index, "board")}/>)
 			}
 		</Flex>
 	);
 };
 
 Board.propTypes = {
-	user: PropTypes.object,
+	cards: PropTypes.array,
+	sellCard: PropTypes.func,
+	swapCard: PropTypes.func,
 };
 export default Board;

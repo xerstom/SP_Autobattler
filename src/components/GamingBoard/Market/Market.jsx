@@ -1,20 +1,11 @@
 import { Button, Flex } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React from "react";
 
 import Card from "../Card/Card.jsx";
 
 const Market = props => {
-	const [card, setCard] = useState(props.manager.createGameCard(0) );
-	const rerollCard = () => {
-		setCard(props.manager.createGameCard(0) );
-	};
-
-	const buyCard = () => {
-		props.manager.player.board.push(card);
-		setCard(props.manager.createGameCard(0) );
-	};
-
+	const { card, rerollCard, buyCard } = props;
 	return (
 		<Flex flexDirection="row" p={2} w="100%" h="100%" bgColor="rgba(255, 255, 255, .40)">
 			<Card card={card}></Card>
@@ -28,8 +19,9 @@ const Market = props => {
 };
 
 Market.propTypes = {
-	manager: PropTypes.object,
-	user: PropTypes.string,
+	card: PropTypes.object,
+	rerollCard: PropTypes.func,
+	buyCard: PropTypes.func,
 };
 
 export default Market;

@@ -8,19 +8,20 @@ const GamingMap = props => {
 	const { onClickHandler, manager } = props;
 	
 	const [playerPosition, setPlayerPosition] = useState(manager.player.position);
-	const [selectedBox, setSelectedBox] = useState(playerPosition);
+	const [selectedBox, setSelectedBox] = useState(null);
 
 	const handleValidation = () => {
 		if (selectedBox) {
 			manager.move(selectedBox);
 			setPlayerPosition(selectedBox);
+			setSelectedBox(null);
 		}
 	};
 
 	const nextBorders = { x1: 0, x2: 8, y1: 0, y2: 9 };
 
 	const HandleClick = (x, y) => {
-		if (!manager.canPlayerMove(x, y) || manager.isDisabled(x, y) ) {
+		if (!manager.canPlayerMove(x, y) || manager.isDisabled(x, y) || manager.willBeDisabled(x, y) ) {
 			return true;
 		}
 		setSelectedBox( { x, y } );

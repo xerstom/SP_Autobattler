@@ -1,7 +1,9 @@
 import Agent from "./agents/Agent.js";
 import generateAgents from "./factory/AgentFactory.js";
 import { generateGameCard, generateTemplateCards } from "./factory/CardFactory.js";
-import { canMove, initPosition, isDisabled, setPosition } from "./positions/PositionManager.js";
+import {
+	canMove, initPosition, isDisabled, moveAgents, setPosition,
+} from "./positions/PositionManager.js";
 import { COLORS, LEVEL_PROPORTION } from "./utils/constants.js";
 import { rand } from "./utils/utils.js";
 
@@ -53,6 +55,8 @@ class GameManager {
 	move(position) {
 		if (this.canPlayerMove(position.x, position.y) ) {
 			setPosition(this.player, position);
+			moveAgents(this.agents, this.mouvementPoints, this.nextBorders);
+			console.log(this.agents);
 		}
 	}
 

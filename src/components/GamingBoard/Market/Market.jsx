@@ -11,6 +11,7 @@ const Market = props => {
 	};
 
 	const buyCard = () => {
+		props.manager.player.board.push(card);
 		setCard(props.manager.createGameCard(0) );
 	};
 

@@ -15,7 +15,7 @@ class Agent {
 		};
 		
 		this.money = 10;
-		this.board = []; // list of cards on board
+		this.board = [];
 		this.bench = []; // list of cards on bench
 	}
 

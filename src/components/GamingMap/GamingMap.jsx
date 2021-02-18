@@ -2,18 +2,17 @@ import { Box, Button, Code, Flex } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
-import { canMove, isDisabled } from "../../core/utils/utils.js";
 import Grid from "./Grid/Grid.jsx";
 
 const GamingMap = props => {
 	const { onClickHandler, manager } = props;
 	
-	const [playerPosition, setPlayerPosition] = useState( { x: 0, y: 0 } );
+	const [playerPosition, setPlayerPosition] = useState(manager.player.position);
 	const [selectedBox, setSelectedBox] = useState(playerPosition);
 
 	const handleValidation = () => {
 		if (selectedBox) {
-			manager.setPlayerPosition(selectedBox);
+			manager.move(selectedBox);
 			setPlayerPosition(selectedBox);
 		}
 	};
@@ -21,7 +20,7 @@ const GamingMap = props => {
 	const nextBorders = { x1: 0, x2: 8, y1: 0, y2: 9 };
 
 	const HandleClick = (x, y) => {
-		if (!canMove(x, y, playerPosition, 5) || isDisabled(x, y, nextBorders) ) {
+		if (!manager.canPlayerMove(x, y) || manager.isDisabled(x, y) ) {
 			return true;
 		}
 		setSelectedBox( { x, y } );
@@ -52,6 +51,7 @@ GamingMap.propTypes = {
 		y1: PropTypes.number,
 		y2: PropTypes.number,
 	} ),
+	manager: PropTypes.object,
 };
 	
 export default GamingMap;

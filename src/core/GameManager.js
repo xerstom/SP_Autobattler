@@ -1,7 +1,7 @@
 import Agent from "./agents/Agent.js";
 import generateAgents from "./factory/AgentFactory.js";
 import { generateGameCard, generateTemplateCards } from "./factory/CardFactory.js";
-import { initPosition, setPlayerPosition } from "./positions/PositionManager.js";
+import { canMove, initPosition, isDisabled, setPosition } from "./positions/PositionManager.js";
 import { COLORS, LEVEL_PROPORTION } from "./utils/constants.js";
 import { rand } from "./utils/utils.js";
 
@@ -17,7 +17,8 @@ class GameManager {
 		this.agents = generateAgents(7, COLORS);
 		this.templates = generateTemplateCards(100);
 		this.borders = { x1: 0, x2: 9, y1: 0, y2: 9 };
-		
+		this.nextBorders = { x1: 1, x2: 9, y1: 0, y2: 9 };
+		this.mouvementPoints = 5;
 		this.phase = 0; //
 		this.end = false;
 		this.init();
@@ -33,9 +34,7 @@ class GameManager {
 		initPosition(this.agents, this.player, this.borders);
 	}
 
-	setPlayerPosition(position) {
-		setPlayerPosition(this.player, position);
-	}
+	
 
 	start() {
 		while (this.end) {
@@ -47,6 +46,26 @@ class GameManager {
 		const max = Math.floor(this.templates.length * LEVEL_PROPORTION[level] );
 		const card = rand(0, max - 1);
 		return generateGameCard(this.templates[card] );
+	}
+	/* FACADE */
+
+	// Position Manager
+	move(position) {
+		if (this.canPlayerMove(position.x, position.y) ) {
+			setPosition(this.player, position);
+		}
+	}
+
+	canPlayerMove(x, y) {
+		return canMove(x, y, this.player.position, this.mouvementPoints);
+	}
+
+	isDisabled(x, y) {
+		return isDisabled(x, y, this.borders);
+	}
+
+	willBeDisabled(x, y) {
+		return isDisabled(x, y, this.nextBorders);
 	}
 }
 

@@ -2,20 +2,19 @@ import { SimpleGrid } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 
-import { isDisabled } from "../../../core/utils/utils.js";
 import Box from "./Box/Box.jsx";
 
 
 
-const bgColor = (selectedBox, i, j, playerPosition, borders, agents) => {
-	const agent = agents.find(a => a.position.x === i && a.position.y === j);
+const bgColor = (selectedBox, i, j, manager) => {
+	const agent = manager.agents.find(a => a.position.x === i && a.position.y === j);
 	if (agent) {
 		return agent.color;
 	}
-	if (playerPosition.x === i && playerPosition.y === j) {
+	if (manager.player.position.x === i && manager.player.position.y === j) {
 		return "blue";
 	}
-	if (isDisabled(i, j, borders) ) {
+	if (manager.willBeDisabled(i, j) ) {
 		return "yellow";
 	}
 	if (selectedBox?.x === i && selectedBox?.y === j) {
@@ -30,7 +29,7 @@ const bgColor = (selectedBox, i, j, playerPosition, borders, agents) => {
 const Grid = props => {
 	// Props
 	const {
-		columns, rows, nextBorders, manager, playerPosition, selectedBox, HandleClick,
+		columns, rows, manager, selectedBox, HandleClick,
 	} = props;
 	
 	// UseState
@@ -46,7 +45,7 @@ const Grid = props => {
 	const boxes = [];
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < columns; j++) {
-			boxes.push(<Box key = {`${i}-${j}`} x={i} y={j} perc={100 / columns} disable={ isDisabled(i, j, manager.borders) } color={bgColor(selectedBox, i, j, playerPosition, nextBorders, manager.agents)
+			boxes.push(<Box key = {`${i}-${j}`} x={i} y={j} perc={100 / columns} disable={ manager.isDisabled(i, j, manager.borders) } color={bgColor(selectedBox, i, j, manager)
 			} clickedOn={HandleClick}>cc</Box>);
 		}
 	}
@@ -76,6 +75,12 @@ Grid.propTypes = {
 		y2: PropTypes.number,
 	} ),
 	mouvementPoints: PropTypes.number,
+	manager: PropTypes.object,
+	selectedBox: PropTypes.shape( {
+		x: PropTypes.number,
+		y: PropTypes.number,
+	} ),
+	HandleClick: PropTypes.func,
 };
 
 export default Grid;

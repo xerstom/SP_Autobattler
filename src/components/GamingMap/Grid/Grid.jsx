@@ -8,6 +8,10 @@ import Box from "./Box/Box.jsx";
 
 
 const bgColor = (selectedBox, i, j, playerPosition, borders, agents) => {
+	const agent = agents.find(a => a.position.x === i && a.position.y === j);
+	if (agent) {
+		return agent.color;
+	}
 	if (playerPosition.x === i && playerPosition.y === j) {
 		return "blue";
 	}

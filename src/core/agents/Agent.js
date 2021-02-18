@@ -26,6 +26,11 @@ class Agent {
 			this.board.push(generateGameCard(templates[card] ) );
 		}
 	}
+
+	setPosition(x, y) {
+		this.position.x = x;
+		this.position.y = y;
+	}
 }
 
 export default Agent;

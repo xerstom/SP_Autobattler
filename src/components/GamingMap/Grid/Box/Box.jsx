@@ -1,4 +1,4 @@
-import { background, Button, GridItem } from "@chakra-ui/react";
+import { Button, GridItem } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
@@ -9,12 +9,13 @@ const Box = props => {
 		x, y, clickedOn, color, perc, disable,
 	} = props;
 	const [colorBg, setColor] = useState(null);
-	const handleOnClick = (x, y) => {
+	const handleOnClick = () => {
 		if (clickedOn(x, y) ) {
-			setColor("red");
 			setTimeout( () => setColor(null), 400);
+			setColor("red");
 		}
 	};
+
 	return (
 		<GridItem h={`${perc}vh`} w={`${perc}vh`} border="solid black 1px" borderRadius="none" >
 			<Button
@@ -29,7 +30,7 @@ const Box = props => {
 				  _focus={{
 					color: "grey",
 				  }}
-				onClick={() => handleOnClick(x, y)}
+				onClick={handleOnClick}
 			>
 			</Button>
 		</GridItem>

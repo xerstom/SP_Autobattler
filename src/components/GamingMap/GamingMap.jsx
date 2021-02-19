@@ -14,6 +14,7 @@ const GamingMap = props => {
 	const handleValidation = () => {
 		if (selectedBox) {
 			manager.move(selectedBox);
+			manager.generateNewBorders();
 			setPlayerPosition(selectedBox);
 			setSelectedBox(null);
 		}
@@ -30,7 +31,7 @@ const GamingMap = props => {
 	};
 	return (
 		<Flex bg="gray.200">
-			<Grid columns={10} rows={10} HandleClick={HandleClick} manager={manager} nextBorders={nextBorders} playerPosition={playerPosition} selectedBox={selectedBox} ></Grid>
+			<Grid columns={manager.getGridSize()} rows={manager.getGridSize()} HandleClick={HandleClick} manager={manager} nextBorders={nextBorders} playerPosition={playerPosition} selectedBox={selectedBox} ></Grid>
 			<Flex flexDirection="column" justifyContent="space-between" w="100%">
 				<Flex h="100%" alignItems="flex-start" justifyContent="space-between">
 					<AgentDisplayer manager={manager}></AgentDisplayer>

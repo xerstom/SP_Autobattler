@@ -61,5 +61,17 @@ export function moveAgents(agents, mouvementPoints, nextBorders) {
 	}
 }
 
+export function generateNextBorders(border) {
+	const nextBorders = { ...border };
+	const xOry = rand(0, 1);
+	const oneOrTwo = rand(1, 2);
+	
+	
+	const toChange = `${xOry === 0 ? "x" : "y"}${oneOrTwo}`;
+
+	oneOrTwo === 1 ? nextBorders[toChange]++ : nextBorders[toChange]--;
+	return nextBorders;
+}
+
 
 

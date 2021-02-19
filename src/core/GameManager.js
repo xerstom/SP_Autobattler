@@ -44,11 +44,73 @@ class GameManager {
 		}
 	}
 
-	createGameCard(level) {
+	getPlayerBoard() {
+		return [...this.player.board];
+	}
+
+	getPlayerBench() {
+		return [...this.player.bench];
+	}
+
+	getPlayerProfile() {
+		return this.player;
+	}
+
+	createGameCard() {
+		const { level } = this.player;
 		const max = Math.floor(this.templates.length * LEVEL_PROPORTION[level] );
 		const card = rand(0, max - 1);
-		return generateGameCard(this.templates[card] );
+		this.marketCard = generateGameCard(this.templates[card] );
+		return this.marketCard;
 	}
+
+	buyCard() {
+		const res = [false, ""];
+		if (this.player.money < this.marketCard.price) {
+			return res;
+		}
+		if (this.player.isBoardFull() ) {
+			if (this.player.isBenchFull() ) {
+				return res;
+			}
+			this.player.addBench(this.marketCard);
+			res[1] = "bench";
+		} else {
+			this.player.addBoard(this.marketCard);
+			res[1] = "board";
+		}
+		res[0] = true;
+		this.player.decreaseMoney(this.marketCard);
+		return res;
+	}
+
+	sellCard(index, location) {
+		let card = null;
+		if (location === "board") {
+			card = this.player.rmBoard(index);
+		} else if (location === "bench") {
+			card = this.player.rmBench(index);
+		} else {
+			return false;
+		}
+		this.player.increaseMoney(card);
+		return true;
+	}
+
+	swapCard(index, location) {
+		let card = null;
+		if (location === "board" && !this.player.isBenchFull() ) {
+			card = this.player.rmBoard(index);
+			this.player.addBench(card);
+		} else if (location === "bench" && !this.player.isBoardFull() ) {
+			card = this.player.rmBench(index);
+			this.player.addBoard(card);
+		} else {
+			return false;
+		}
+		return true;
+	}
+
 	/* FACADE */
 
 	// Position Manager

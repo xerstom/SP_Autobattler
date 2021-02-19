@@ -9,51 +9,36 @@ import Profile from "./Profile/Profile.jsx";
 
 const GamingBoard = props => {
 	const { manager } = props;
-	const [playerBoard, setPlayerBoard] = useState(manager.player.board);
-	const [playerBench, setPlayerBench] = useState(manager.player.bench);
-	const [marketCard, setMarketCard] = useState(manager.createGameCard(0) );
+	const [playerBoard, setPlayerBoard] = useState(manager.getPlayerBoard() );
+	const [playerBench, setPlayerBench] = useState(manager.getPlayerBench() );
 
 	const buyCard = () => {
-		if (manager.player.board.length < 5) {
-			manager.player.board.push(marketCard);
-			setPlayerBoard( [...manager.player.board] );
-		} else if (manager.player.bench.length < 7) {
-			manager.player.bench.push(marketCard);
-			setPlayerBench( [...manager.player.bench] );
-		} else {
-			// error
-			return;
+		const res = manager.buyCard();
+		if (!res[0] ) {
+			return false;
 		}
-		manager.player.money -= marketCard.price;
-		setMarketCard(manager.createGameCard(0) );
-	};
-
-	const rerollCard = () => {
-		setMarketCard(manager.createGameCard(0) );
+		if (res[1] === "board") {
+			setPlayerBoard(manager.getPlayerBoard() );
+		} else if (res[1] === "bench") {
+			setPlayerBench(manager.getPlayerBench() );
+		}
+		return true;
 	};
 
 	const sellCard = (index, location) => {
-		const deleted = manager.player[location].splice(index, 1);
-		manager.player.money += deleted[0].price;
+		manager.sellCard(index, location);
 		if (location === "bench") {
-			setPlayerBench( [...manager.player.bench] );
+			setPlayerBench(manager.getPlayerBench() );
 		} else {
-			setPlayerBoard( [...manager.player.board] );
+			setPlayerBoard(manager.getPlayerBoard() );
 		}
 	};
 
 	const swapCard = (index, location) => {
-		console.log(index, location);
-		const deleted = manager.player[location].splice(index, 1);
-		if (location === "bench") {
-			manager.player.board.push(deleted[0] );
-		} else {
-			manager.player.bench.push(deleted[0] );
+		if (manager.swapCard(index, location) ) {
+			setPlayerBench(manager.getPlayerBench() );
+			setPlayerBoard(manager.getPlayerBoard() );
 		}
-		console.log("deletede", deleted);
-		console.log(manager.player.bench, manager.player.board);
-		setPlayerBench( [...manager.player.bench] );
-		setPlayerBoard( [...manager.player.board] );
 	};
 
 	const onCombat = false;
@@ -92,13 +77,13 @@ const GamingBoard = props => {
 					<Bench cards={playerBench} sellCard={sellCard} swapCard={swapCard}/>
 				</GridItem>
 				<GridItem rowStart={9} colStart={8} rowSpan={4} colSpan={4}>
-					<Market card={marketCard} buyCard={buyCard} rerollCard={rerollCard}/>
+					<Market manager={manager} buyCard={buyCard}/>
 				</GridItem>
 
 				{
 					onCombat
 						? <GridItem rowStart={2} colStart={1} rowSpan={3} colSpan={2} m={3}>
-							<Profile user={manager.agents[0]}/>
+							<Profile user={playerCombat}/>
 						</GridItem>
 						: ""
 				}
@@ -106,7 +91,7 @@ const GamingBoard = props => {
 					<Code p={0} h="100%" w="100%">Enemy monster destroyed super monster</Code>
 				</GridItem>
 				<GridItem rowStart={9} colStart={1} rowSpan={4} colSpan={2} m={4}>
-					<Profile user={manager.player} />
+					<Profile user={manager.getPlayerProfile()} />
 				</GridItem>
 				<GridItem rowStart={9} colStart={4} rowSpan={4} colSpan={3} bg="pink">
 					Input zone

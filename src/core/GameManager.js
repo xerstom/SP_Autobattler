@@ -19,7 +19,7 @@ class GameManager {
 	constructor() {
 		this.player = new Agent(COLORS[0] );
 		this.agents = generateAgents(7, COLORS);
-		this.templates = generateTemplateCards(100);
+		this.templates = generateTemplateCards(10);
 		this.borders = { x1: 0, x2: 9, y1: 0, y2: 9 };
 		this.nextBorders = { x1: 1, x2: 9, y1: 0, y2: 9 };
 		this.mouvementPoints = 5;
@@ -91,7 +91,11 @@ class GameManager {
 		if (!this.player.hasEnoughMoney(this.marketCard.price) ) {
 			return res;
 		}
-		if (this.player.isBoardFull() ) {
+		const [existing, location] = this.player.cardExist(this.marketCard);
+		if (existing) {
+			existing.buff(1);
+			res[1] = location;
+		} else if (this.player.isBoardFull() ) {
 			if (this.player.isBenchFull() ) {
 				return res;
 			}

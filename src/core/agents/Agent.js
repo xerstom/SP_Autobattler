@@ -30,6 +30,27 @@ class Agent {
 		}
 	}
 
+	/**
+	 * wether the card already exist in board / bench
+	 *
+	 * @param {*} card
+	 * @returns
+	 * @memberof Agent
+	 */
+	cardExist(card) {
+		const res = [null, ""];
+		res[0] = this.board.find(c => c.name === card.name);
+		if (res[0] ) {
+			res[1] = "board";
+		} else {
+			res[0] = this.bench.find(c => c.name === card.name);
+			if (res[0] ) {
+				res[1] = "bench";
+			}
+		}
+		return res;
+	}
+
 	setPosition(x, y) {
 		this.position.x = x;
 		this.position.y = y;

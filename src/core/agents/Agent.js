@@ -35,6 +35,10 @@ class Agent {
 		this.position.y = y;
 	}
 
+	hasEnoughMoney(money) {
+		return this.money > money;
+	}
+
 	isBoardFull() {
 		return this.board.length === BOARD_PLACE;
 	}

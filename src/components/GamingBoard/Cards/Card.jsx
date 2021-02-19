@@ -1,7 +1,8 @@
-import { Button, Flex } from "@chakra-ui/react";
+import { Flex, IconButton } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 
+import { SellICon, SwapIcon } from "../Icon.js";
 import Stats from "./Stats.jsx";
 
 const Card = props => {
@@ -12,8 +13,8 @@ const Card = props => {
 			{
 				interactable
 					? <Flex flexDirection="row" h="fit-content" justifyContent="space-between">
-						<Button onClick={sell} p={1} fontSize={12} height="2rem">Vendre</Button>
-						<Button onClick={swap} p={1} fontSize={12} height="2rem">Swap</Button>
+						<IconButton aria-label="sell" icon={<SellICon color="gray"/>} onClick={sell} p={1} height="2rem"> </IconButton>
+						<IconButton aria-label="swap" icon={<SwapIcon color="gray"/>} onClick={swap} p={1} height="2rem"> </IconButton>
 					</Flex>
 					: ""
 			}

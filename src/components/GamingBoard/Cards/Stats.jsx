@@ -5,7 +5,7 @@ import React from "react";
 const Stats = props => {
 	const { card } = props;
 	return (
-		<Flex flexDirection="column" w="100%" h="100%" justifyContent="space-between">
+		<Flex flexDirection="column" w="100%" h="100%" fontSize={14} justifyContent="space-between">
 			<Text textAlign="center">Card: {card.name}</Text>
 			<Flex flexDirection="row" h="fit-content" justifyContent="space-between">
 				<Text>LVL: {card.level}</Text>

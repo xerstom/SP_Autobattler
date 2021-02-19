@@ -7,6 +7,8 @@ import {
 import { COLORS, LEVEL_PROPORTION } from "./utils/constants.js";
 import { rand } from "./utils/utils.js";
 
+const REROLL_PRICE = 2;
+
 /**
  *
  * @prop {Array<Agent>} agents
@@ -23,6 +25,7 @@ class GameManager {
 		this.mouvementPoints = 5;
 		this.phase = 0; //
 		this.end = false;
+		this.createGameCard();
 		this.init();
 	}
 
@@ -61,7 +64,11 @@ class GameManager {
 	}
 
 	getPlayerProfile() {
-		return this.player;
+		return { ...this.player };
+	}
+
+	getMarketCard() {
+		return { ...this.marketCard };
 	}
 
 	createGameCard() {
@@ -69,12 +76,19 @@ class GameManager {
 		const max = Math.floor(this.templates.length * LEVEL_PROPORTION[level] );
 		const card = rand(0, max - 1);
 		this.marketCard = generateGameCard(this.templates[card] );
-		return this.marketCard;
+	}
+
+	rerollCard() {
+		if (this.player.hasEnoughMoney(REROLL_PRICE) ) {
+			this.player.decreaseMoney( { price: REROLL_PRICE } );
+			return true;
+		}
+		return false;
 	}
 
 	buyCard() {
 		const res = [false, ""];
-		if (this.player.money < this.marketCard.price) {
+		if (!this.player.hasEnoughMoney(this.marketCard.price) ) {
 			return res;
 		}
 		if (this.player.isBoardFull() ) {
@@ -126,7 +140,6 @@ class GameManager {
 		if (this.canPlayerMove(position.x, position.y) ) {
 			setPosition(this.player, position);
 			moveAgents(this.agents, this.mouvementPoints, this.nextBorders);
-			console.log(this.agents);
 		}
 	}
 

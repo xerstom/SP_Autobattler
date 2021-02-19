@@ -6,18 +6,24 @@ import MarketCard from "../Cards/MarketCard.jsx";
 import { BuyIcon, RerollIcon } from "../Icon.js";
 
 const Market = props => {
-	const { manager, buyCard } = props;
+	const { manager, buyCard, rerollCard } = props;
 
-	const [marketCard, setMarketCard] = useState(manager.createGameCard() );
+	const [marketCard, setMarketCard] = useState(manager.getMarketCard() );
 
+	const rerollNewCard = () => {
+		rerollCard();
+		manager.createGameCard();
+		setMarketCard(manager.getMarketCard() );
+	};
 	const reroll = () => {
-		setMarketCard(manager.createGameCard() );
+		if (manager.rerollCard() ) {
+			rerollNewCard();
+		}
 	};
 
 	const buy = () => {
 		if (buyCard() ) {
-			// TODO REROLL PRICE
-			reroll();
+			rerollNewCard();
 		}
 	};
 
@@ -36,6 +42,7 @@ const Market = props => {
 Market.propTypes = {
 	manager: PropTypes.object,
 	buyCard: PropTypes.func,
+	rerollCard: PropTypes.func,
 };
 
 export default Market;

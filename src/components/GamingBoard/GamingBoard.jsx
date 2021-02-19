@@ -11,6 +11,7 @@ const GamingBoard = props => {
 	const { manager } = props;
 	const [playerBoard, setPlayerBoard] = useState(manager.getPlayerBoard() );
 	const [playerBench, setPlayerBench] = useState(manager.getPlayerBench() );
+	const [playerProfile, setPlayerProfile] = useState(manager.getPlayerProfile() );
 
 	const buyCard = () => {
 		const res = manager.buyCard();
@@ -22,6 +23,7 @@ const GamingBoard = props => {
 		} else if (res[1] === "bench") {
 			setPlayerBench(manager.getPlayerBench() );
 		}
+		setPlayerProfile(manager.getPlayerProfile() );
 		return true;
 	};
 
@@ -32,6 +34,7 @@ const GamingBoard = props => {
 		} else {
 			setPlayerBoard(manager.getPlayerBoard() );
 		}
+		setPlayerProfile(manager.getPlayerProfile() );
 	};
 
 	const swapCard = (index, location) => {
@@ -39,6 +42,10 @@ const GamingBoard = props => {
 			setPlayerBench(manager.getPlayerBench() );
 			setPlayerBoard(manager.getPlayerBoard() );
 		}
+	};
+
+	const rerollCard = () => {
+		setPlayerProfile(manager.getPlayerProfile() );
 	};
 
 	const onCombat = true;
@@ -77,7 +84,7 @@ const GamingBoard = props => {
 					<Bench cards={playerBench} interactable={true} sellCard={sellCard} swapCard={swapCard}/>
 				</GridItem>
 				<GridItem rowStart={9} colStart={8} rowSpan={4} colSpan={4}>
-					<Market manager={manager} buyCard={buyCard}/>
+					<Market manager={manager} buyCard={buyCard} rerollCard={rerollCard}/>
 				</GridItem>
 
 				{
@@ -91,7 +98,7 @@ const GamingBoard = props => {
 					<Code p={0} h="100%" w="100%">Enemy monster destroyed super monster</Code>
 				</GridItem>
 				<GridItem rowStart={9} colStart={1} rowSpan={4} colSpan={2} m={4}>
-					<Profile user={manager.getPlayerProfile()} />
+					<Profile user={playerProfile} />
 				</GridItem>
 				<GridItem rowStart={9} colStart={4} rowSpan={4} colSpan={3} bg="pink">
 					Input zone

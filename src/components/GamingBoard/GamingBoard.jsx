@@ -41,7 +41,7 @@ const GamingBoard = props => {
 		}
 	};
 
-	const onCombat = false;
+	const onCombat = true;
 	const playerCombat = manager.agents[0];
 	return (
 		<>
@@ -59,22 +59,22 @@ const GamingBoard = props => {
 				{
 					onCombat
 						? <GridItem rowStart={1} colStart={5} rowSpan={2} colSpan={7} mt={2}>
-							<Bench cards={playerCombat.bench} user="enemy"/>
+							<Bench cards={playerCombat.bench} interactable={false}/>
 						</GridItem>
 						: ""
 				}
 				{
 					onCombat
 						? <GridItem rowStart={3} colStart={4} rowSpan={2} colSpan={9} mb={2}>
-							<Board cards={playerCombat.board}/>
+							<Board cards={playerCombat.board} interactable={false}/>
 						</GridItem>
 						: ""
 				}
 				<GridItem rowStart={5} colStart={4} rowSpan={2} colSpan={9} mt={2}>
-					<Board cards={playerBoard} sellCard={sellCard} swapCard={swapCard}/>
+					<Board cards={playerBoard} interactable={true} sellCard={sellCard} swapCard={swapCard}/>
 				</GridItem>
 				<GridItem rowStart={7} colStart={5} rowSpan={2} colSpan={7} mt={2}>
-					<Bench cards={playerBench} sellCard={sellCard} swapCard={swapCard}/>
+					<Bench cards={playerBench} interactable={true} sellCard={sellCard} swapCard={swapCard}/>
 				</GridItem>
 				<GridItem rowStart={9} colStart={8} rowSpan={4} colSpan={4}>
 					<Market manager={manager} buyCard={buyCard}/>

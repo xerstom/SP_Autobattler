@@ -38,7 +38,6 @@ export function initPosition(agents, player, borders) {
 }
 
 export function setPosition(player, position) {
-	console.log(player);
 	player.setPosition(position.x, position.y);
 }
 

@@ -64,7 +64,6 @@ class GameManager {
 	}
 
 	createGameCard() {
-		console.log("HERE");
 		const { level } = this.player;
 		const max = Math.floor(this.templates.length * LEVEL_PROPORTION[level] );
 		const card = rand(0, max - 1);
@@ -133,7 +132,6 @@ class GameManager {
 		if (this.canPlayerMove(position.x, position.y) ) {
 			setPosition(this.player, position);
 			moveAgents(this.agents, this.mouvementPoints, this.nextBorders);
-			console.log(this.agents);
 		}
 	}
 

@@ -5,12 +5,10 @@ import React, { useState } from "react";
 const percentageCalc = (colors, i) => (Math.round(100 / colors.length) ) * (i + 1);
 	
 const colorCalc =  (colors) => {
-	// console.log(colors);
 	if (colors.length === 1) {
 		return colors[0];
 	}
 	let str = `linear-gradient(${colors.length === 2 ? 45 : 90}deg`;
-	// console.log(colors);
 	for (let i = 0; i < colors.length - 1; i++) {
 		str += `, ${colors[i]} ${percentageCalc(colors, i)}%, ${colors[i + 1]} ${percentageCalc(colors, i)}%`;
 	}

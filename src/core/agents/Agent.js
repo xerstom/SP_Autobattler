@@ -68,10 +68,7 @@ class Agent {
 	}
 
 	decreaseMoney(card) {
-		console.log(card);
-		console.log(this.money, card.price);
 		this.money -= card.price;
-		console.log(this.money);
 	}
 }
 

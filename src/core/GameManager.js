@@ -20,8 +20,8 @@ class GameManager {
 	constructor() {
 		this.player = new Agent(COLORS[0] );
 		this.agents = generateAgents(7, COLORS);
-		this.templates = generateTemplateCards(100);
-		this.gridSize = 10;
+		this.templates = generateTemplateCards(30);
+		this.gridSize = 14;
 		this.borders = { x1: 0, x2: this.gridSize - 1, y1: 0, y2: this.gridSize - 1 };
 		this.nextBorders = generateNextBorders(this.borders);
 		this.mouvementPoints = 5;
@@ -40,8 +40,6 @@ class GameManager {
 		// position agents
 		initPosition(this.agents, this.player, this.borders);
 	}
-
-	
 
 	start() {
 		while (this.end) {

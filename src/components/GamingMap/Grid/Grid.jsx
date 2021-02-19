@@ -46,27 +46,18 @@ const Grid = props => {
 	const {
 		columns, rows, manager, selectedBox, HandleClick,
 	} = props;
-	
-	// UseState
-
-
-
-	// Events handler
-
-
-
 
 	// Grid creation
 	const boxes = [];
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < columns; j++) {
-			boxes.push(<Box key = {`${i}-${j}`} x={i} y={j} perc={100 / columns} disable={ manager.isDisabled(i, j, manager.borders) } colors={bgColor(i, j, manager, selectedBox)} activeColors={activeColors(i, j, manager, selectedBox)} clickedOn={HandleClick}>cc</Box>);
+			boxes.push(<Box key = {`${i}-${j}`} x={i} y={j} perc={100 / columns} disable={ manager.isDisabled(i, j) } colors={bgColor(i, j, manager, selectedBox)} activeColors={activeColors(i, j, manager, selectedBox)} clickedOn={HandleClick}>cc</Box>);
 		}
 	}
 
 	return (
 		<>
-			<SimpleGrid id="grid" columns={columns} w="fit-content" /* ref={measuredRef}*/ >
+			<SimpleGrid id="grid" columns={columns} w="fit-content" >
 				{boxes}
 			</SimpleGrid>
 

@@ -72,6 +72,8 @@ Box.propTypes = {
 	color: PropTypes.string,
 	perc: PropTypes.number,
 	disable: PropTypes.bool,
+	colors: PropTypes.array,
+	activeColors: PropTypes.array,
 };
 
 export default Box;

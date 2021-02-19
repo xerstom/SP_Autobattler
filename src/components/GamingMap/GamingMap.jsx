@@ -2,6 +2,7 @@ import { Box, Button, Code, Flex } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
+import AgentDisplayer from "./AgentDisplayer/AgentDisplayer.jsx";
 import Grid from "./Grid/Grid.jsx";
 
 const GamingMap = props => {
@@ -28,12 +29,15 @@ const GamingMap = props => {
 		return false;
 	};
 	return (
-		<Flex>
+		<Flex bg="gray.200">
 			<Grid columns={10} rows={10} HandleClick={HandleClick} manager={manager} nextBorders={nextBorders} playerPosition={playerPosition} selectedBox={selectedBox} ></Grid>
 			<Flex flexDirection="column" justifyContent="space-between" w="100%">
 				<Flex h="100%" alignItems="flex-start" justifyContent="space-between">
-					<Button onClick={handleValidation}>VALIDER</Button>
-					<Button w="10%" onClick={onClickHandler}>{ ">>" }</Button>
+					<AgentDisplayer manager={manager}></AgentDisplayer>
+					<Flex flexDirection="column" justifyContent="space-between" alignItems="flex-end" h="100%">
+						<Button w="10%" onClick={onClickHandler} color="white" bg="gray.500" _hover={{ bg: "gray.600" }}>{ ">>" } </Button>
+						<Button onClick={handleValidation} color="white" bg="gray.500" _hover={{ bg: "gray.600" }}>VALIDER</Button>
+					</Flex>
 				</Flex>
 				<Box h="50vh">
 					<Code h="100%" w="100%">La partie input</Code>

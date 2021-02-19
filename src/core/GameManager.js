@@ -52,6 +52,14 @@ class GameManager {
 		return [...this.player.bench];
 	}
 
+	getAgents() {
+		return [...this.agents];
+	}
+
+	getPlayer() {
+		return { ...this.player };
+	}
+
 	getPlayerProfile() {
 		return this.player;
 	}

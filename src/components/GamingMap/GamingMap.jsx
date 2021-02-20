@@ -12,7 +12,7 @@ const GamingMap = props => {
 	const [selectedBox, setSelectedBox] = useState(null);
 
 	const handleValidation = () => {
-		if (selectedBox) {
+		if (selectedBox && gInterface.canPlayerMove(selectedBox.x, selectedBox.y) ) {
 			gInterface.move(selectedBox);
 			gInterface.generateNewBorders();
 			setPlayerPosition(selectedBox);

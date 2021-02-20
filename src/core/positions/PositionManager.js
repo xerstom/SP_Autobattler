@@ -7,7 +7,7 @@ function generatePosition(borders) {
 
 function generateValidPosition(position, movementPoints, nextBorders) {
 	const d1 = distance(position.x, nextBorders.x1);
-	const d2 = distance(position.x, nextBorders.x2);
+	const d2 = distance(nextBorders.x2, position.x);
 
 	const xNegativeMove = d1 <= movementPoints ? d1 : movementPoints;
 	const xMove = rand(0, d2 <= movementPoints ? d2 + xNegativeMove : movementPoints + xNegativeMove) - xNegativeMove;
@@ -15,11 +15,11 @@ function generateValidPosition(position, movementPoints, nextBorders) {
 	const moveDistLeft = movementPoints - Math.abs(xMove);
 
 	const d3 = distance(position.y, nextBorders.y1);
-	const d4 = distance(position.y, nextBorders.y2);
+	const d4 = distance(nextBorders.y2, position.y);
 
 	const yNegativeMove = d3 <= movementPoints ? d3 : movementPoints;
 	const yMove = rand(0, d4 <= moveDistLeft ? d4 + yNegativeMove : moveDistLeft + yNegativeMove) - yNegativeMove;
-	
+
 	return { x: position.x + xMove, y: position.y + yMove };
 }
 

@@ -61,7 +61,7 @@ const Grid = props => {
 
 	return (
 		<>
-			<SimpleGrid id="grid" columns={columns} w="fit-content" >
+			<SimpleGrid id="grid" columns={columns} w="fit-content" alignSelf='baseline'>
 				{boxes}
 			</SimpleGrid>
 		</>

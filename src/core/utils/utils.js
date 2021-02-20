@@ -17,7 +17,7 @@ export function rand(min, max) {
  * @returns {Number} The distance from x1 to x2
  */
 export function distance(x1, x2) {
-	return Math.abs( (x1 - x2) );
+	return x1 - x2;
 }
 
 /**

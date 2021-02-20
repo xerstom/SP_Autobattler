@@ -1,10 +1,25 @@
-const BOARD_PLACE = 5;
-const BENCH_PLACE = 7;
+import { CONFIG } from "../utils/constants.js";
+
+/**
+ *
+ * @prop {String} name
+ * @prop {String} color
+ * @prop {Number} life
+ * @prop {Object} strategy
+ * @prop {Object} position
+ * @prop {Number} position.x
+ * @prop {Number} position.y
+ * @prop {Number} money
+ * @prop {Array<GameCard>} board
+ * @prop {Array<GameCard>} bench
+ *
+ * @class Agent
+ */
 class Agent {
 	constructor(color) {
 		this.name = `Mr ${color.charAt(0).toUpperCase() + color.slice(1)}`;
 		this.color = color;
-		this.life = 100;
+		this.life = CONFIG.BASE_LIFE;
 		this.strategy = 0; // strategy
 
 		this.position = {
@@ -13,7 +28,7 @@ class Agent {
 		};
 		this.level = 0;
 		
-		this.money = 1000;
+		this.money = CONFIG.BASE_MONEY;
 		this.board = [];
 		this.bench = []; // list of cards on bench
 	}
@@ -21,8 +36,8 @@ class Agent {
 	/**
 	 * wether the card already exist in board / bench
 	 *
-	 * @param {*} card
-	 * @returns
+	 * @param {GameCard} card
+	 * @returns {Array<GameCard, String>} [card, location]
 	 * @memberof Agent
 	 */
 	cardExist(card) {
@@ -49,11 +64,11 @@ class Agent {
 	}
 
 	isBoardFull() {
-		return this.board.length === BOARD_PLACE;
+		return this.board.length === CONFIG.BOARD_PLACE;
 	}
 
 	isBenchFull() {
-		return this.bench.length === BENCH_PLACE;
+		return this.bench.length === CONFIG.BENCH_PLACE;
 	}
 
 	setBoard(board) {

@@ -20,8 +20,6 @@ const GamingMap = props => {
 		}
 	};
 
-	const nextBorders = { x1: 0, x2: 8, y1: 0, y2: 9 };
-
 	const handleClick = (x, y) => {
 		if (!gInterface.canPlayerMove(x, y) || gInterface.isDisabled(x, y) || gInterface.willBeDisabled(x, y) ) {
 			return true;
@@ -32,7 +30,12 @@ const GamingMap = props => {
 
 	return (
 		<Flex bg="gray.200">
-			<Grid columns={gInterface.getGridSize()} rows={gInterface.getGridSize()} handleClick={handleClick} gInterface={gInterface} nextBorders={nextBorders} playerPosition={playerPosition} selectedBox={selectedBox} ></Grid>
+			<Grid gInterface={gInterface}
+				columns={gInterface.getGridSize()}
+				rows={gInterface.getGridSize()}
+				handleClick={handleClick}
+				playerPosition={playerPosition}>
+			</Grid>
 			<Flex flexDirection="column" justifyContent="space-between" w="100%">
 				<Flex h="100%" alignItems="flex-start" justifyContent="space-between">
 					<AgentDisplayer gInterface={gInterface}></AgentDisplayer>

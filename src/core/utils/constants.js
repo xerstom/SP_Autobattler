@@ -6,6 +6,10 @@ export const CONFIG = {
 	GRID_SIZE: 14,
 	REROLL_PRICE: 2,
 	MOVEMENT_POINTS: 3,
+	BASE_LIFE: 100,
+	BASE_MONEY: 500,
+	BOARD_PLACE: 5,
+	BENCH_PLACE: 7,
 };
 
 export const LEVELS = [

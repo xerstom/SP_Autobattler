@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 const percentageCalc = (colors, i) => (Math.round(100 / colors.length) ) * (i + 1);
 	
-const colorCalc =  (colors) => {
+const colorCalc = (colors) => {
 	if (colors.length === 1) {
 		return colors[0];
 	}
@@ -14,31 +14,32 @@ const colorCalc =  (colors) => {
 	}
 	return `${str});`;
 };
-	
-	
-
 
 const Box = props => {
 	const {
 		x, y, clickedOn, colors, perc, disable, activeColors,
 	} = props;
+
 	const [colorBg, setColor] = useState(null);
+
 	const handleOnClick = () => {
 		if (clickedOn(x, y) ) {
 			setTimeout( () => setColor(null), 400);
 			setColor("red");
 		}
 	};
-	const bgColor =  colorCalc(colors);
-	let activeColor =  colorCalc(activeColors);
+	const bgColor = colorCalc(colors);
+	let activeColor = colorCalc(activeColors);
 
-	
 	if (!bgColor.includes("%") ) {
 		activeColor = activeColor !== bgColor ? activeColor : "black";
 	}
 	return (
-		<GridItem h={`${perc}vh`} w={`${perc}vh`} border={`solid ${activeColor} ${activeColor === "black" ? "1px" : "5px"}`} borderRadius="none"
-			 _active={{
+		<GridItem h={`${perc}vh`}
+			w={`${perc}vh`}
+			border={`solid ${activeColor} ${activeColor === "black" ? "1px" : "5px"}`}
+			borderRadius="none"
+			_active={{
 				borderColor: activeColor,
 				// borderColor: "#FF0000",
 
@@ -55,7 +56,7 @@ const Box = props => {
 				w="100%" h="100%"
 				_hover={{ bg: colorBg ?? bgColor }}
 				_active={{}}
-				 _focus={{}}
+				_focus={{}}
 				onClick={handleOnClick}
 			>
 			</Button>

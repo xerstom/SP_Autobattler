@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React from "react";
 
 import Agent from "./Agent/Agent.jsx";
 

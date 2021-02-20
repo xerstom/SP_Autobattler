@@ -21,7 +21,7 @@ class GameManager {
 		this.player = new Agent(COLORS[0] );
 		this.agents = generateAgents(7, COLORS);
 		this.templates = generateTemplateCards(100);
-		this.gridSize = 10;
+		this.gridSize = 15;
 		this.borders = { x1: 0, x2: this.gridSize - 1, y1: 0, y2: this.gridSize - 1 };
 		this.nextBorders = generateNextBorders(this.borders);
 		this.mouvementPoints = 5;

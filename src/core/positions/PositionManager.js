@@ -6,12 +6,12 @@ function generatePosition(borders) {
 	return rand(borders.x1, borders.x2);
 }
 function distance(x1, x2) {
-	return Math.abs( (x1 - x2) );
+	return x1 - x2;
 }
 
 function generateValidPosition(position, mouvementPoints, nextBorders) {
 	const d1 = distance(position.x, nextBorders.x1);
-	const d2 = distance(position.x, nextBorders.x2);
+	const d2 = distance(nextBorders.x2, position.x);
 
 	const xNegativeMove = d1 <= mouvementPoints ? d1 : mouvementPoints;
 	const xMove = rand(0, d2 <= mouvementPoints ? d2 + xNegativeMove : mouvementPoints + xNegativeMove) - xNegativeMove;
@@ -21,11 +21,11 @@ function generateValidPosition(position, mouvementPoints, nextBorders) {
 	const moveDistLeft = mouvementPoints - Math.abs(xMove);
 
 	const d3 = distance(position.y, nextBorders.y1);
-	const d4 = distance(position.y, nextBorders.y2);
+	const d4 = distance(nextBorders.y2, position.y);
 
 	const yNegativeMove = d3 <= mouvementPoints ? d3 : mouvementPoints;
 	const yMove = rand(0, d4 <= moveDistLeft ? d4 + yNegativeMove : moveDistLeft + yNegativeMove) - yNegativeMove;
-	
+
 	return { x: position.x + xMove, y: position.y + yMove };
 }
 
@@ -56,7 +56,7 @@ export function canMove(x, y, playerPositon, mouvementPoints) {
 
 export function moveAgents(agents, mouvementPoints, nextBorders) {
 	for (let i = 0; i < agents.length; i++) {
-		const newPos = generateValidPosition(agents[i].position, mouvementPoints, nextBorders);
+		const newPos = generateValidPosition(agents[i].position, mouvementPoints, nextBorders, agents[i].color);
 		agents[i].setPosition(newPos.x, newPos.y);
 	}
 }

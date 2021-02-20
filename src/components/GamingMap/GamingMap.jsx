@@ -12,7 +12,7 @@ const GamingMap = props => {
 	const [selectedBox, setSelectedBox] = useState(null);
 
 	const handleValidation = () => {
-		if (selectedBox) {
+		if (selectedBox && manager.canPlayerMove(selectedBox.x, selectedBox.y) ) {
 			manager.move(selectedBox);
 			manager.generateNewBorders();
 			setPlayerPosition(selectedBox);

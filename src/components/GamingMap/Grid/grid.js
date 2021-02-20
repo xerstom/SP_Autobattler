@@ -1,12 +1,9 @@
 export const bgColor = (i, j, gInterface, selectedBox) => {
 	const colors = [];
-	const agents = gInterface.getBots().filter(a => a.position.x === i && a.position.y === j);
+	const agents = gInterface.getAgents().filter(a => a.position.x === i && a.position.y === j);
 
 	if (agents?.length > 0) {
 		agents.forEach( (a) => colors.push(a.color) );
-	}
-	if (gInterface.getPlayer().position.x === i && gInterface.getPlayer().position.y === j) {
-		colors.push("blue");
 	}
 	
 	if (colors.length === 0) {

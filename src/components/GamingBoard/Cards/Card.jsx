@@ -2,7 +2,7 @@ import { Flex, IconButton } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 
-import { SellICon, SwapIcon } from "../Icon.js";
+import { SellICon, SwapIcon } from "../Icon.jsx";
 import Stats from "./Stats.jsx";
 
 const Card = props => {

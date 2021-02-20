@@ -1,4 +1,13 @@
 /* eslint-disable no-magic-numbers */
+export const CONFIG = {
+	AGENTS: 8, // 1 player, 7 bot
+	TEMPLATE_CARDS: 30,
+	BASE_CARDS: 3,
+	GRID_SIZE: 14,
+	REROLL_PRICE: 2,
+	MOVEMENT_POINTS: 3,
+};
+
 export const LEVELS = [
 	{
 		minStat: 8,
@@ -36,3 +45,14 @@ export const COLORS = [
 	"purple",
 	"cyan",
 ];
+
+export const COLOR_HEX = {
+	blue: "ffffff", // player
+	white: "ffffff",
+	orange: "ffffff",
+	pink: "ffffff",
+	brown: "ffffff",
+	teal: "ffffff",
+	purple: "ffffff",
+	cyan: "ffffff",
+};

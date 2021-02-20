@@ -8,48 +8,48 @@ import Market from "./Market/Market.jsx";
 import Profile from "./Profile/Profile.jsx";
 
 const GamingBoard = props => {
-	const { manager } = props;
-	const [playerBoard, setPlayerBoard] = useState(manager.getPlayerBoard() );
-	const [playerBench, setPlayerBench] = useState(manager.getPlayerBench() );
-	const [playerProfile, setPlayerProfile] = useState(manager.getPlayerProfile() );
+	const { gInterface } = props;
+	const [playerBoard, setPlayerBoard] = useState(gInterface.getPlayerBoard() );
+	const [playerBench, setPlayerBench] = useState(gInterface.getPlayerBench() );
+	const [playerProfile, setPlayerProfile] = useState(gInterface.getPlayerProfile() );
 
 	const buyCard = () => {
-		const res = manager.buyCard();
+		const res = gInterface.buyCard();
 		if (!res[0] ) {
 			return false;
 		}
 		if (res[1] === "board") {
-			setPlayerBoard(manager.getPlayerBoard() );
+			setPlayerBoard(gInterface.getPlayerBoard() );
 		} else if (res[1] === "bench") {
-			setPlayerBench(manager.getPlayerBench() );
+			setPlayerBench(gInterface.getPlayerBench() );
 		}
-		setPlayerProfile(manager.getPlayerProfile() );
+		setPlayerProfile(gInterface.getPlayerProfile() );
 		return true;
 	};
 
 	const sellCard = (index, location) => {
-		manager.sellCard(index, location);
+		gInterface.sellCard(index, location);
 		if (location === "bench") {
-			setPlayerBench(manager.getPlayerBench() );
+			setPlayerBench(gInterface.getPlayerBench() );
 		} else {
-			setPlayerBoard(manager.getPlayerBoard() );
+			setPlayerBoard(gInterface.getPlayerBoard() );
 		}
-		setPlayerProfile(manager.getPlayerProfile() );
+		setPlayerProfile(gInterface.getPlayerProfile() );
 	};
 
 	const swapCard = (index, location) => {
-		if (manager.swapCard(index, location) ) {
-			setPlayerBench(manager.getPlayerBench() );
-			setPlayerBoard(manager.getPlayerBoard() );
+		if (gInterface.swapCard(index, location) ) {
+			setPlayerBench(gInterface.getPlayerBench() );
+			setPlayerBoard(gInterface.getPlayerBoard() );
 		}
 	};
 
 	const rerollCard = () => {
-		setPlayerProfile(manager.getPlayerProfile() );
+		setPlayerProfile(gInterface.getPlayerProfile() );
 	};
 
 	const onCombat = true;
-	const playerCombat = manager.agents[0];
+	const playerCombat = gInterface.getBots()[0];
 	return (
 		<>
 			<Grid
@@ -84,7 +84,7 @@ const GamingBoard = props => {
 					<Bench cards={playerBench} interactable={true} sellCard={sellCard} swapCard={swapCard}/>
 				</GridItem>
 				<GridItem rowStart={9} colStart={8} rowSpan={4} colSpan={4}>
-					<Market manager={manager} buyCard={buyCard} rerollCard={rerollCard}/>
+					<Market gInterface={gInterface} buyCard={buyCard} rerollCard={rerollCard}/>
 				</GridItem>
 
 				{
@@ -110,8 +110,8 @@ const GamingBoard = props => {
 };
 
 GamingBoard.propTypes = {
+	gInterface: PropTypes.object,
 	onClickHandler: PropTypes.func,
-	manager: PropTypes.object,
 };
 
 export default GamingBoard;

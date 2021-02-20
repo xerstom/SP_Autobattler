@@ -1,7 +1,3 @@
-import { generateGameCard } from "../factory/CardFactory.js";
-import { LEVEL_PROPORTION } from "../utils/constants.js";
-import { rand } from "../utils/utils.js";
-
 const BOARD_PLACE = 5;
 const BENCH_PLACE = 7;
 class Agent {
@@ -20,14 +16,6 @@ class Agent {
 		this.money = 1000;
 		this.board = [];
 		this.bench = []; // list of cards on bench
-	}
-
-	init(x, templates) {
-		for (let i = 0; i < x; ++i) {
-			const max = Math.floor(templates.length * LEVEL_PROPORTION[0] );
-			const card = rand(0, max - 1);
-			this.board.push(generateGameCard(templates[card] ) );
-		}
 	}
 
 	/**
@@ -66,6 +54,10 @@ class Agent {
 
 	isBenchFull() {
 		return this.bench.length === BENCH_PLACE;
+	}
+
+	setBoard(board) {
+		this.board = board;
 	}
 
 	addBoard(card) {

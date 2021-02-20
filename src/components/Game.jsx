@@ -6,7 +6,7 @@ import GamingBoard from "./GamingBoard/GamingBoard.jsx";
 import GamingMap from "./GamingMap/GamingMap.jsx";
 
 const Game = props => {
-	const { manager } = props;
+	const { gInterface } = props;
 	const [view, setView] = useState(true);
 
 	const changeView = () => {
@@ -17,15 +17,15 @@ const Game = props => {
 		<div>
 			{
 				view === true
-					? <GamingMap manager={manager} onClickHandler={changeView}/>
-					: <GamingBoard manager={manager} onClickHandler={changeView}/>
+					? <GamingMap gInterface={gInterface} onClickHandler={changeView}/>
+					: <GamingBoard gInterface={gInterface} onClickHandler={changeView}/>
 			}
 		</div>
 	);
 };
 
 Game.propTypes = {
-	manager: PropTypes.object,
+	gInterface: PropTypes.object,
 };
 
 export default Game;

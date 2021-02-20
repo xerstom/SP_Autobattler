@@ -22,6 +22,14 @@ class GameCard {
 		this.life = life + (adaptative - attackAdaptative);
 		this.price = price;
 	}
+
+	buff(value) {
+		this.adaptative += value;
+		const attack = rand(0, value);
+		this.attack += attack;
+		const life = rand(0, value - attack);
+		this.life += life;
+	}
 }
 
 export default GameCard;

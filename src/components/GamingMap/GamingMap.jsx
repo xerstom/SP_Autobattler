@@ -6,35 +6,39 @@ import AgentDisplayer from "./AgentDisplayer/AgentDisplayer.jsx";
 import Grid from "./Grid/Grid.jsx";
 
 const GamingMap = props => {
-	const { onClickHandler, manager } = props;
+	const { gInterface, onClickHandler } = props;
 	
-	const [playerPosition, setPlayerPosition] = useState(manager.player.position);
+	const [playerPosition, setPlayerPosition] = useState(gInterface.getPlayer().position);
 	const [selectedBox, setSelectedBox] = useState(null);
 
 	const handleValidation = () => {
-		if (selectedBox && manager.canPlayerMove(selectedBox.x, selectedBox.y) ) {
-			manager.move(selectedBox);
-			manager.generateNewBorders();
+		if (selectedBox && gInterface.canPlayerMove(selectedBox.x, selectedBox.y) ) {
+			gInterface.move(selectedBox);
+			gInterface.generateNewBorders();
 			setPlayerPosition(selectedBox);
 			setSelectedBox(null);
 		}
 	};
 
-	const nextBorders = { x1: 0, x2: 8, y1: 0, y2: 9 };
-
-	const HandleClick = (x, y) => {
-		if (!manager.canPlayerMove(x, y) || manager.isDisabled(x, y) || manager.willBeDisabled(x, y) ) {
+	const handleClick = (x, y) => {
+		if (!gInterface.canPlayerMove(x, y) || gInterface.isDisabled(x, y) || gInterface.willBeDisabled(x, y) ) {
 			return true;
 		}
 		setSelectedBox( { x, y } );
 		return false;
 	};
+
 	return (
 		<Flex bg="gray.200">
-			<Grid columns={manager.getGridSize()} rows={manager.getGridSize()} HandleClick={HandleClick} manager={manager} nextBorders={nextBorders} playerPosition={playerPosition} selectedBox={selectedBox} ></Grid>
+			<Grid gInterface={gInterface}
+				columns={gInterface.getGridSize()}
+				rows={gInterface.getGridSize()}
+				handleClick={handleClick}
+				playerPosition={playerPosition}>
+			</Grid>
 			<Flex flexDirection="column" justifyContent="space-between" w="100%">
 				<Flex h="100%" alignItems="flex-start" justifyContent="space-between">
-					<AgentDisplayer manager={manager}></AgentDisplayer>
+					<AgentDisplayer gInterface={gInterface}></AgentDisplayer>
 					<Flex flexDirection="column" justifyContent="space-between" alignItems="flex-end" h="100%">
 						<Button w="10%" onClick={onClickHandler} color="white" bg="gray.500" _hover={{ bg: "gray.600" }}>{ ">>" } </Button>
 						<Button onClick={handleValidation} color="white" bg="gray.500" _hover={{ bg: "gray.600" }}>VALIDER</Button>
@@ -50,14 +54,8 @@ const GamingMap = props => {
 };
 
 GamingMap.propTypes = {
+	gInterface: PropTypes.object,
 	onClickHandler: PropTypes.func,
-	borders: PropTypes.shape( {
-		x1: PropTypes.number,
-		x2: PropTypes.number,
-		y1: PropTypes.number,
-		y2: PropTypes.number,
-	} ),
-	manager: PropTypes.object,
 };
 	
 export default GamingMap;

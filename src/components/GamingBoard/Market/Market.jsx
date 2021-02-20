@@ -3,20 +3,21 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 
 import MarketCard from "../Cards/MarketCard.jsx";
-import { BuyIcon, RerollIcon } from "../Icon.js";
+import { BuyIcon, RerollIcon } from "../Icon.jsx";
 
 const Market = props => {
-	const { manager, buyCard, rerollCard } = props;
+	const { gInterface, buyCard, rerollCard } = props;
 
-	const [marketCard, setMarketCard] = useState(manager.getMarketCard() );
+	const [marketCard, setMarketCard] = useState(gInterface.getMarketCard() );
 
 	const rerollNewCard = () => {
 		rerollCard();
-		manager.createGameCard();
-		setMarketCard(manager.getMarketCard() );
+		gInterface.createMarketCard();
+		setMarketCard(gInterface.getMarketCard() );
 	};
+
 	const reroll = () => {
-		if (manager.rerollCard() ) {
+		if (gInterface.rerollCard() ) {
 			rerollNewCard();
 		}
 	};
@@ -40,7 +41,7 @@ const Market = props => {
 };
 
 Market.propTypes = {
-	manager: PropTypes.object,
+	gInterface: PropTypes.object,
 	buyCard: PropTypes.func,
 	rerollCard: PropTypes.func,
 };

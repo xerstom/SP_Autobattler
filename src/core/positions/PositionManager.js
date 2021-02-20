@@ -1,77 +1,73 @@
-import { rand } from "../utils/utils.js";
+import Manager from "../Manager.js";
+import { distance, rand } from "../utils/utils.js";
 
-
-// Private functions
 function generatePosition(borders) {
 	return rand(borders.x1, borders.x2);
 }
-function distance(x1, x2) {
-	return x1 - x2;
-}
 
-function generateValidPosition(position, mouvementPoints, nextBorders) {
+function generateValidPosition(position, movementPoints, nextBorders) {
 	const d1 = distance(position.x, nextBorders.x1);
 	const d2 = distance(nextBorders.x2, position.x);
 
-	const xNegativeMove = d1 <= mouvementPoints ? d1 : mouvementPoints;
-	const xMove = rand(0, d2 <= mouvementPoints ? d2 + xNegativeMove : mouvementPoints + xNegativeMove) - xNegativeMove;
+	const xNegativeMove = d1 <= movementPoints ? d1 : movementPoints;
+	const xMove = rand(0, d2 <= movementPoints ? d2 + xNegativeMove : movementPoints + xNegativeMove) - xNegativeMove;
 
-
-	
-	const moveDistLeft = mouvementPoints - Math.abs(xMove);
+	const moveDistLeft = movementPoints - Math.abs(xMove);
 
 	const d3 = distance(position.y, nextBorders.y1);
 	const d4 = distance(nextBorders.y2, position.y);
 
-	const yNegativeMove = d3 <= mouvementPoints ? d3 : mouvementPoints;
+	const yNegativeMove = d3 <= movementPoints ? d3 : movementPoints;
 	const yMove = rand(0, d4 <= moveDistLeft ? d4 + yNegativeMove : moveDistLeft + yNegativeMove) - yNegativeMove;
 
 	return { x: position.x + xMove, y: position.y + yMove };
 }
 
+class PositionManager extends Manager {
+	constructor(gameManager) {
+		super(gameManager);
 
-export function initPosition(agents, player, borders) {
-	for (let i = 0; i < agents.length; i++) {
-		agents[i].setPosition(generatePosition(borders), i);
+		this.positions = [];
 	}
-	player.setPosition(generatePosition(borders), 7);
-}
 
-export function setPosition(player, position) {
-	player.setPosition(position.x, position.y);
-}
+	init() {
+		const agents = this.m.getAgents();
+		for (let i = 0; i < agents.length; i++) {
+			agents[i].setPosition(generatePosition(this.m.mapManager.borders), i);
+		}
+	}
 
-export function movePositions() {
-	return "initPo";
-}
+	setPosition(player, position) {
+		player.setPosition(position.x, position.y);
+	}
 
+	/**
+	 * Move all agents when player has chosen where to go
+	 *
+	 * @param {*} position
+	 * @memberof PositionManager
+	 */
+	move(position) {
+		if (this.canPlayerMove(position.x, position.y) ) {
+			this.setPosition(this.m.getPlayer(), position);
+			this.moveBots(this.m.getBots(), this.m.getMovementPoints(), this.m.getNextBorders() );
+		}
+	}
 
-export function isDisabled(x, y, borders) {
-	return x < borders.x1 || x > borders.x2 || y < borders.y1 || y > borders.y2;
-}
+	canPlayerMove(x, y) {
+		return this.canMove(x, y, this.m.getPlayer().position, this.m.getMovementPoints() );
+	}
 
-export function canMove(x, y, playerPositon, mouvementPoints) {
-	return Math.abs(x - playerPositon.x) + Math.abs(y - playerPositon.y) <= mouvementPoints;
-}
+	canMove(x, y, playerPositon, movementPoints) {
+		return Math.abs(x - playerPositon.x) + Math.abs(y - playerPositon.y) <= movementPoints;
+	}
 
-export function moveAgents(agents, mouvementPoints, nextBorders) {
-	for (let i = 0; i < agents.length; i++) {
-		const newPos = generateValidPosition(agents[i].position, mouvementPoints, nextBorders, agents[i].color);
-		agents[i].setPosition(newPos.x, newPos.y);
+	moveBots(agents, movementPoints, nextBorders) {
+		for (let i = 0; i < agents.length; i++) {
+			const newPos = generateValidPosition(agents[i].position, movementPoints, nextBorders);
+			agents[i].setPosition(newPos.x, newPos.y);
+		}
 	}
 }
 
-export function generateNextBorders(border) {
-	const nextBorders = { ...border };
-	const xOry = rand(0, 1);
-	const oneOrTwo = rand(1, 2);
-	
-	
-	const toChange = `${xOry === 0 ? "x" : "y"}${oneOrTwo}`;
-
-	oneOrTwo === 1 ? nextBorders[toChange]++ : nextBorders[toChange]--;
-	return nextBorders;
-}
-
-
-
+export default PositionManager;

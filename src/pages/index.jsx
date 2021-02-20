@@ -2,6 +2,7 @@
 import dynamic from "next/dynamic";
 import Head from "next/head";
 
+import GameInterface from "../core/GameInterface.js";
 import Manager from "../core/GameManager.js";
 import styles from "../styles/Home.module.css";
 
@@ -9,10 +10,10 @@ import styles from "../styles/Home.module.css";
 const Game = dynamic( () => import("../components/Game.jsx"),
 	{ ssr: false } );
 
-const manager = new Manager();
+const gameInterface = new GameInterface();
 export default function Home() {
-	manager.start();
+	gameInterface.start();
 	return (
-		<Game manager={manager}/>
+		<Game gInterface={gameInterface}/>
 	);
 }

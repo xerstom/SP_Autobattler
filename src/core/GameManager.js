@@ -1,14 +1,7 @@
-import Agent from "./agents/Agent.js";
-import generateAgents from "./factory/AgentFactory.js";
-import { generateGameCard, generateTemplateCards } from "./factory/CardFactory.js";
-import {
-	canMove, generateNextBorders,
-	initPosition, isDisabled, moveAgents, setPosition,
-} from "./positions/PositionManager.js";
-import { COLORS, LEVEL_PROPORTION } from "./utils/constants.js";
-import { rand } from "./utils/utils.js";
-
-const REROLL_PRICE = 2;
+import AgentManager from "./agents/AgentManager.js";
+import CardManager from "./cards/CardManager.js";
+import MapManager from "./map/MapManager.js";
+import PositionManager from "./positions/PositionManager.js";
 
 /**
  *
@@ -18,27 +11,17 @@ const REROLL_PRICE = 2;
  */
 class GameManager {
 	constructor() {
-		this.player = new Agent(COLORS[0] );
-		this.agents = generateAgents(7, COLORS);
-		this.templates = generateTemplateCards(30);
-		this.gridSize = 14;
-		this.borders = { x1: 0, x2: this.gridSize - 1, y1: 0, y2: this.gridSize - 1 };
-		this.nextBorders = generateNextBorders(this.borders);
-		this.mouvementPoints = 5;
-		this.phase = 0; //
-		this.end = false;
-		this.createGameCard();
-		this.init();
+		this.agentManager = new AgentManager(this);
+		this.positionManager = new PositionManager(this);
+		this.cardManager = new CardManager(this);
+		this.mapManager = new MapManager(this);
 	}
 
 	init() {
-		this.player.init(3, this.templates);
-		this.agents.forEach(e => e.init(3, this.templates) );
-		// genere cartes template
-		// genere 7 agents
-		// donne des cartes aux agents
-		// position agents
-		initPosition(this.agents, this.player, this.borders);
+		this.agentManager.init();
+		this.cardManager.init();
+		this.mapManager.init();
+		this.positionManager.init();
 	}
 
 	start() {
@@ -47,125 +30,76 @@ class GameManager {
 		}
 	}
 
-	generateNewBorders() {
-		this.borders = this.nextBorders;
-		this.nextBorders = generateNextBorders(this.borders);
-	}
-
-	getPlayerBoard() {
-		return [...this.player.board];
-	}
-
-	getPlayerBench() {
-		return [...this.player.bench];
-	}
-
+	// GETTERS
 	getAgents() {
-		return [...this.agents];
+		return this.agentManager.getAll();
 	}
 
 	getPlayer() {
-		return { ...this.player };
+		return this.agentManager.getPlayer();
 	}
 
-	getPlayerProfile() {
-		return { ...this.player };
+	getBots() {
+		return this.agentManager.getBots();
 	}
 
-	getMarketCard() {
-		return { ...this.marketCard };
+	getMovementPoints() {
+		return this.mapManager.getMovementPoints();
 	}
 
-	createGameCard() {
-		const { level } = this.player;
-		const max = Math.floor(this.templates.length * LEVEL_PROPORTION[level] );
-		const card = rand(0, max - 1);
-		this.marketCard = generateGameCard(this.templates[card] );
-	}
-
-	rerollCard() {
-		if (this.player.hasEnoughMoney(REROLL_PRICE) ) {
-			this.player.decreaseMoney( { price: REROLL_PRICE } );
-			return true;
-		}
-		return false;
-	}
-
-	buyCard() {
-		const res = [false, ""];
-		if (!this.player.hasEnoughMoney(this.marketCard.price) ) {
-			return res;
-		}
-		const [existing, location] = this.player.cardExist(this.marketCard);
-		if (existing) {
-			existing.buff(1);
-			res[1] = location;
-		} else if (this.player.isBoardFull() ) {
-			if (this.player.isBenchFull() ) {
-				return res;
-			}
-			this.player.addBench(this.marketCard);
-			res[1] = "bench";
-		} else {
-			this.player.addBoard(this.marketCard);
-			res[1] = "board";
-		}
-		res[0] = true;
-		this.player.decreaseMoney(this.marketCard);
-		return res;
-	}
-
-	sellCard(index, location) {
-		let card = null;
-		if (location === "board") {
-			card = this.player.rmBoard(index);
-		} else if (location === "bench") {
-			card = this.player.rmBench(index);
-		} else {
-			return false;
-		}
-		this.player.increaseMoney(card);
-		return true;
-	}
-
-	swapCard(index, location) {
-		let card = null;
-		if (location === "board" && !this.player.isBenchFull() ) {
-			card = this.player.rmBoard(index);
-			this.player.addBench(card);
-		} else if (location === "bench" && !this.player.isBoardFull() ) {
-			card = this.player.rmBench(index);
-			this.player.addBoard(card);
-		} else {
-			return false;
-		}
-		return true;
-	}
-
-	/* FACADE */
-
-	// Position Manager
-	move(position) {
-		if (this.canPlayerMove(position.x, position.y) ) {
-			setPosition(this.player, position);
-			moveAgents(this.agents, this.mouvementPoints, this.nextBorders);
-		}
-	}
-
-	canPlayerMove(x, y) {
-		return canMove(x, y, this.player.position, this.mouvementPoints);
-	}
-
-	isDisabled(x, y) {
-		return isDisabled(x, y, this.borders);
-	}
-
-	willBeDisabled(x, y) {
-		return isDisabled(x, y, this.nextBorders);
+	getNextBorders() {
+		return this.mapManager.getNextBorders();
 	}
 
 	getGridSize() {
-		return this.gridSize;
+		return this.mapManager.getGridSize();
+	}
+
+	getMarketCard() {
+		return this.cardManager.getMarketCard();
+	}
+
+	// CARDS
+	createMarketCard() {
+		this.cardManager.rerollMarketCard();
+	}
+
+	rerollCard() {
+		return this.cardManager.rerollCard();
+	}
+
+	buyCard() {
+		return this.cardManager.buyCard();
+	}
+
+	sellCard(index, location) {
+		return this.cardManager.sellCard(index, location);
+	}
+
+	swapCard(index, location) {
+		return this.cardManager.swapCard(index, location);
+	}
+
+	// POSITION
+	move(position) {
+		this.positionManager.move(position);
+	}
+
+	canPlayerMove(x, y) {
+		return this.positionManager.canPlayerMove(x, y);
+	}
+
+	// MAP
+	isDisabled(x, y) {
+		return this.mapManager.isDisabled(x, y);
+	}
+
+	willBeDisabled(x, y) {
+		return this.mapManager.willBeDisabled(x, y);
+	}
+
+	generateNewBorders() {
+		this.mapManager.generateNewBorders();
 	}
 }
 

@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Flex, Image, Text } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -9,7 +9,7 @@ const Stats = props => {
 			<Text textAlign="center">Card: {card.name}</Text>
 			<Flex flexDirection="row" h="fit-content" justifyContent="space-between">
 				<Flex flexDirection="row">
-					<Text mr={1} textAlign="right" >{card.adaptative}</Text>
+					<Text mr={1} textAlign="right" >{card.level}</Text>
 					<Image boxSize="25px" src="/ressources/level.png"></Image>
 				</Flex>
 				<Flex flexDirection="row">

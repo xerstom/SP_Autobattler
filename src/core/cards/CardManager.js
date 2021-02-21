@@ -6,14 +6,9 @@ class CardManager extends Manager {
 	constructor(gameManager) {
 		super(gameManager);
 		this.templates = generateTemplateCards(CONFIG.TEMPLATE_CARDS);
-
-		this.marketCard = generateGameCard(this.templates);
+		this.marketCard = generateGameCard(this.templates, 1);
 	}
-
-	get player() {
-		return this.m.getPlayer();
-	}
-
+	
 	init() {
 		this.m.getAgents()
 			.forEach(e => this.initCards(e, CONFIG.BASE_CARDS) );
@@ -34,70 +29,70 @@ class CardManager extends Manager {
 	// logic
 	// TODO rerollMarketCard / rerollCard
 	rerollMarketCard() {
-		this.marketCard = generateGameCard(this.templates);
+		this.marketCard = generateGameCard(this.templates, this.m.getPlayer().level);
 	}
 
 	rerollCard() {
-		if (this.player.hasEnoughMoney(CONFIG.REROLL_PRICE) ) {
-			this.player.decreaseMoney( { price: CONFIG.REROLL_PRICE } );
+		const player = this.m.getPlayer();
+		if (player.hasEnoughMoney(CONFIG.REROLL_PRICE) ) {
+			player.decreaseMoney(CONFIG.REROLL_PRICE);
 			return true;
 		}
 		return false;
 	}
 
 	buyCard() {
+		const player = this.m.getPlayer();
 		const res = [false, ""];
-		if (!this.player.hasEnoughMoney(this.marketCard.price) ) {
+		if (!player.hasEnoughMoney(this.marketCard.price) ) {
 			return res;
 		}
-		const [existing, location] = this.player.cardExist(this.marketCard);
+		const [existing, location] = player.cardExist(this.marketCard);
 		if (existing) {
 			existing.buff(1);
 			res[1] = location;
-		} else if (this.player.isBoardFull() ) {
-			if (this.player.isBenchFull() ) {
+		} else if (player.isBoardFull() ) {
+			if (player.isBenchFull() ) {
 				return res;
 			}
-			this.player.addBench(this.marketCard);
+			player.addBench(this.marketCard);
 			res[1] = "bench";
 		} else {
-			this.player.addBoard(this.marketCard);
+			player.addBoard(this.marketCard);
 			res[1] = "board";
 		}
 		res[0] = true;
-		this.player.decreaseMoney(this.marketCard);
+		player.decreaseMoney(this.marketCard.price);
 		return res;
 	}
 
 	sellCard(index, location) {
+		const player = this.m.getPlayer();
 		let card = null;
 		if (location === "board") {
-			card = this.player.rmBoard(index);
+			card = player.rmBoard(index);
 		} else if (location === "bench") {
-			card = this.player.rmBench(index);
+			card = player.rmBench(index);
 		} else {
 			return false;
 		}
-		this.player.increaseMoney(card);
+		player.increaseMoney(card.price);
 		return true;
 	}
 
 	swapCard(index, location) {
+		const player = this.m.getPlayer();
 		let card = null;
-		if (location === "board" && !this.player.isBenchFull() ) {
-			card = this.player.rmBoard(index);
-			this.player.addBench(card);
-		} else if (location === "bench" && !this.player.isBoardFull() ) {
-			card = this.player.rmBench(index);
-			this.player.addBoard(card);
+		if (location === "board" && !player.isBenchFull() ) {
+			card = player.rmBoard(index);
+			player.addBench(card);
+		} else if (location === "bench" && !player.isBoardFull() ) {
+			card = player.rmBench(index);
+			player.addBoard(card);
 		} else {
 			return false;
 		}
 		return true;
-	}
-
-	has(player, card) {
-		//
 	}
 }
 

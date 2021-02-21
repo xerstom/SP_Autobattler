@@ -86,6 +86,15 @@ class GameInterface {
 	generateNewBorders() {
 		this._gameManager.generateNewBorders();
 	}
+
+	//
+	boardUp() {
+		return this._gameManager.boardUp();
+	}
+
+	levelUp() {
+		return this._gameManager.levelUp();
+	}
 }
 
 export default GameInterface;

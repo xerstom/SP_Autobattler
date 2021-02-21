@@ -31,6 +31,26 @@ class AgentManager extends Manager {
 	getName(name) {
 		return this.agents.find(a => a.name === name);
 	}
+
+	boardUp() {
+		const player = this.getPlayer();
+		if (!player.isBoardSizeMax() && player.hasEnoughMoney(player.boardUpPrice) ) {
+			player.decreaseMoney(player.boardSize);
+			player.upBoard();
+			return true;
+		}
+		return false;
+	}
+
+	levelUp() {
+		const player = this.getPlayer();
+		if (!player.isLevelMax() && player.hasEnoughMoney(player.levelUpPrice) ) {
+			player.decreaseMoney(player.levelUpPrice);
+			player.upLevel();
+			return true;
+		}
+		return false;
+	}
 }
 
 export default AgentManager;

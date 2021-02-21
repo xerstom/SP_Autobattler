@@ -7,6 +7,8 @@ const Profile = props => (
 		<Text>Profile: {props.user.name}</Text>
 		<Text>HP: {props.user.life}</Text>
 		<Text>Money: {props.user.money}</Text>
+		<Text>Board size: {props.user.boardSize}</Text>
+		<Text>Level: {props.user.level}</Text>
 	</Flex>
 );
 

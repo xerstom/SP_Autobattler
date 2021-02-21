@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 import Bench from "./Bench/Bench.jsx";
 import Board from "./Board/Board.jsx";
+import Management from "./Management/Management.jsx";
 import Market from "./Market/Market.jsx";
 import Profile from "./Profile/Profile.jsx";
 
@@ -46,6 +47,18 @@ const GamingBoard = props => {
 
 	const rerollCard = () => {
 		setPlayerProfile(gInterface.getPlayerProfile() );
+	};
+
+	const levelUp = () => {
+		if (gInterface.levelUp() ) {
+			setPlayerProfile(gInterface.getPlayerProfile() );
+		}
+	};
+
+	const boardUp = () => {
+		if (gInterface.boardUp() ) {
+			setPlayerProfile(gInterface.getPlayerProfile() );
+		}
 	};
 
 	const onCombat = true;
@@ -100,8 +113,8 @@ const GamingBoard = props => {
 				<GridItem rowStart={9} colStart={1} rowSpan={4} colSpan={2} m={4}>
 					<Profile user={playerProfile} />
 				</GridItem>
-				<GridItem rowStart={9} colStart={4} rowSpan={4} colSpan={3} bg="pink">
-					Input zone
+				<GridItem rowStart={9} colStart={4} rowSpan={4} colSpan={3}>
+					<Management levelUp={levelUp} boardUp={boardUp}/>
 				</GridItem>
 				
 			</Grid>

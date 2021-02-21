@@ -8,14 +8,12 @@ import Grid from "./Grid/Grid.jsx";
 const GamingMap = props => {
 	const { gInterface, onClickHandler } = props;
 	
-	const [playerPosition, setPlayerPosition] = useState(gInterface.getPlayer().position);
 	const [selectedBox, setSelectedBox] = useState(null);
 
 	const handleValidation = () => {
 		if (selectedBox && gInterface.canPlayerMove(selectedBox.x, selectedBox.y) ) {
 			gInterface.move(selectedBox);
 			gInterface.generateNewBorders();
-			setPlayerPosition(selectedBox);
 			setSelectedBox(null);
 		}
 	};
@@ -34,7 +32,7 @@ const GamingMap = props => {
 				columns={gInterface.getGridSize()}
 				rows={gInterface.getGridSize()}
 				handleClick={handleClick}
-				playerPosition={playerPosition}>
+				selectedBox={selectedBox}>
 			</Grid>
 			<Flex flexDirection="column" justifyContent="space-between" w="100%">
 				<Flex h="100%" alignItems="flex-start" justifyContent="space-between">

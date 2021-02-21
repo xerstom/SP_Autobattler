@@ -1,15 +1,19 @@
-import { CONFIG } from "../utils/constants.js";
+import { COLOR_HEX, CONFIG } from "../utils/constants.js";
 
 /**
  *
  * @prop {String} name
  * @prop {String} color
- * @prop {Number} life
+ * @prop {Number} life Current Agent life
  * @prop {Object} strategy
- * @prop {Object} position
+ * @prop {Object} position Agent position
  * @prop {Number} position.x
  * @prop {Number} position.y
- * @prop {Number} money
+ * @prop {Number} boardSize Current board size
+ * @prop {Number} level Current level (card level max)
+ * @prop {Number} money Current money
+ * @prop {Number} boardUpPrice Price for a bordSize up
+ * @prop {Number} levelUpPrice Price for a level up
  * @prop {Array<GameCard>} board
  * @prop {Array<GameCard>} bench
  *
@@ -18,7 +22,7 @@ import { CONFIG } from "../utils/constants.js";
 class Agent {
 	constructor(color) {
 		this.name = `Mr ${color.charAt(0).toUpperCase() + color.slice(1)}`;
-		this.color = color;
+		this.color = COLOR_HEX[color];
 		this.life = CONFIG.BASE_LIFE;
 		this.strategy = 0; // strategy
 
@@ -26,9 +30,15 @@ class Agent {
 			x: 0,
 			y: 0,
 		};
-		this.level = 0;
+		
+		this.boardSize = CONFIG.BASE_BOARD_PLACE;
+		this.level = 1;
 		
 		this.money = CONFIG.BASE_MONEY;
+		
+		this.boardUpPrice = CONFIG.BASE_BOARD_UP_PRICE;
+		this.levelUpPrice = CONFIG.BASE_LEVEL_UP_PRICE;
+		
 		this.board = [];
 		this.bench = []; // list of cards on bench
 	}
@@ -54,6 +64,16 @@ class Agent {
 		return res;
 	}
 
+	upLevel() {
+		this.level++;
+		this.levelUpPrice = Math.round(this.levelUpPrice * CONFIG.LEVEL_UP_MULTIPLIER);
+	}
+
+	upBoard() {
+		this.boardSize++;
+		this.boardUpPrice = Math.round(this.boardUpPrice * CONFIG.BOARD_UP_MULTIPLIER);
+	}
+
 	setPosition(x, y) {
 		this.position.x = x;
 		this.position.y = y;
@@ -64,11 +84,19 @@ class Agent {
 	}
 
 	isBoardFull() {
-		return this.board.length === CONFIG.BOARD_PLACE;
+		return this.board.length === this.boardSize;
 	}
 
 	isBenchFull() {
-		return this.bench.length === CONFIG.BENCH_PLACE;
+		return this.bench.length === CONFIG.MAX_BENCH_PLACE;
+	}
+
+	isLevelMax() {
+		return this.level === CONFIG.MAX_LEVEL;
+	}
+
+	isBoardSizeMax() {
+		return this.boardSize === CONFIG.MAX_BOARD_PLACE;
 	}
 
 	setBoard(board) {
@@ -91,12 +119,12 @@ class Agent {
 		return this.bench.splice(index, 1)[0];
 	}
 
-	increaseMoney(card) {
-		this.money += card.price;
+	increaseMoney(money) {
+		this.money += money;
 	}
 
-	decreaseMoney(card) {
-		this.money -= card.price;
+	decreaseMoney(money) {
+		this.money -= money;
 	}
 }
 

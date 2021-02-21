@@ -101,6 +101,15 @@ class GameManager {
 	generateNewBorders() {
 		this.mapManager.generateNewBorders();
 	}
+
+	// Profile
+	levelUp() {
+		return this.agentManager.levelUp();
+	}
+
+	boardUp() {
+		return this.agentManager.boardUp();
+	}
 }
 
 export default GameManager;

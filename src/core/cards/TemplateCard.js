@@ -13,9 +13,9 @@ import { rand } from "../utils/utils.js";
  * @class TemplateCard
  */
 class TemplateCard {
-	constructor(name, level) {
-		this.displayName = "Gaya";
-		this.displayImage = "archere.jpg";
+	constructor(name, level, display) {
+		this.displayName = display?.name ?? "name";
+		this.displayImage = display?.img ?? "archere.jpg";
 		this.name = String(name);
 		const l = LEVELS[level];
 		this.level = level + 1;

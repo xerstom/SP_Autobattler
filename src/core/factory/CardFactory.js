@@ -1,20 +1,23 @@
 import FightCard from "../cards/FightCard.js";
 import GameCard from "../cards/GameCard.js";
 import TemplateCard from "../cards/TemplateCard.js";
-import { LEVEL_INCR, LEVEL_PROPORTION } from "../utils/constants.js";
+import { displays, LEVEL_INCR, LEVEL_PROPORTION } from "../utils/constants.js";
 import { rand } from "../utils/utils.js";
 
-function createTemplateCard(name, level) {
-	return new TemplateCard(name, level);
+function createTemplateCard(name, level, display) {
+	return new TemplateCard(name, level, display);
 }
 
 export function generateTemplateCards(x) {
 	const cards = [];
+	const displaysIndexes = [...Array(x).keys()];
 	let incr = 0;
 	for (let j = 0; j < LEVEL_PROPORTION.length; ++j) {
 		const nCard = Math.floor(x * LEVEL_PROPORTION[j] );
 		for (let i = 0; i < nCard; ++i, ++incr) {
-			cards.push(createTemplateCard(incr, j) );
+			const r = rand(0, displaysIndexes.length);
+			cards.push(createTemplateCard(incr, j, displays[displaysIndexes[r]] ) );
+			displaysIndexes.splice(r, 1);
 		}
 	}
 	return cards;

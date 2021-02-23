@@ -1,4 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react";
+import styled from "@emotion/styled";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -6,11 +7,16 @@ import Stats from "./Stats.jsx";
 
 const MarketCard = props => {
 	const { card } = props;
+	const BorderedFlex = styled(Flex)`
+		border: 10px solid transparent;
+		border-image: url("ressources/border${card.level}.png") 54 round;
+
+	`;
 	return (
-		<Flex flexDirection="column" p={3} w="100%" h="100%" mr={5} justifyContent="space-between" bg="gray.300" >
+		<BorderedFlex flexDirection="column" p={3} w="100%" h="100%" justifyContent="space-between" bg="gray.300" >
 			<Stats card={card}/>
 			<Text fontSize="xl" textAlign="center">Price: {card.price}</Text>
-		</Flex>
+		</BorderedFlex>
 	);
 };
 

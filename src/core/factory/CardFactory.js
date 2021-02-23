@@ -20,7 +20,6 @@ export function generateTemplateCards(x) {
 			displaysIndexes.splice(r, 1);
 		}
 	}
-	console.log(cards);
 	return cards;
 }
 

@@ -14,7 +14,7 @@ const calculateColor = (life) => {
 const Agent = props => {
 	const { agent } = props;
 	return (
-		<Flex boxShadow="xl" w="25vh" h="auto" flexDirection="column" borderRadius="5%" justifyContent="space-between" alignItems="center" p={4} m={4} bg="gray.300">
+		<Flex boxShadow="xl" w="12vw" h="auto" flexDirection="column" borderRadius="5%" justifyContent="space-between" alignItems="center" p={4} m="2%" bg="gray.300">
 			<Text stroke="1px black" color={agent.color} textShadow="0px 1px 0px rgba(150, 150, 150, 1)" >{agent.name}</Text>
 			<Flex flexDirection="row" justifyContent="space-between" width="100%">
 				<Flex flexDirection="column" justifyContent="space-between" >

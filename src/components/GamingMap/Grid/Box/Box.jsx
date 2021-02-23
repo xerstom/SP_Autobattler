@@ -35,8 +35,8 @@ const Box = props => {
 		activeColor = activeColor !== bgColor ? activeColor : "black";
 	}
 	return (
-		<GridItem h={`${perc}vh`}
-			w={`${perc}vh`}
+		<GridItem h={`${perc}vw`}
+			w={`${perc}vw`}
 			border={`solid ${activeColor} ${activeColor === "black" ? "1px" : "5px"}`}
 			borderRadius="none"
 			_active={{

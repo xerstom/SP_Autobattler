@@ -7,9 +7,9 @@ import Stats from "./Stats.jsx";
 const MarketCard = props => {
 	const { card } = props;
 	return (
-		<Flex flexDirection="column" p={3} w="100%" h="100%" mr={5} justifyContent="space-between" bg="gray.300" >
+		<Flex flexDirection="column" p={3} w="100%" h="100%" justifyContent="space-between" bg="gray.300" >
 			<Stats card={card}/>
-			<Text fontSize="xl" textAlign="center">Price: {card.price}</Text>
+			<Text fontSize="1vw" textAlign="center">Price: {card.price}</Text>
 		</Flex>
 	);
 };

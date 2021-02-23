@@ -14,9 +14,9 @@ const Card = props => {
 			<Stats card={card}/>
 			{
 				interactable
-					? <Flex flexDirection="row" h="fit-content" justifyContent="space-between">
-						<IconButton aria-label="sell" icon={<SellICon color="white"/>} onClick={sell} p={1} height="2rem"> </IconButton>
-						<IconButton aria-label="swap" icon={<SwapIcon color="white"/>} onClick={swap} p={1} height="2rem"> </IconButton>
+					? <Flex flexDirection="row" h="10%" alignItems="flex-end" justifyContent="space-between">
+						<IconButton maxHeight="100%" aria-label="sell" icon={<SellICon color="white"/>} onClick={sell} p={1} height="2rem"> </IconButton>
+						<IconButton maxHeight="100%" aria-label="swap" icon={<SwapIcon color="white"/>} onClick={swap} p={1} height="2rem"> </IconButton>
 					</Flex>
 					: ""
 			}

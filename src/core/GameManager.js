@@ -1,4 +1,5 @@
 import AgentManager from "./agents/AgentManager.js";
+import BattleManager from "./battles/BattleManager.js";
 import CardManager from "./cards/CardManager.js";
 import MapManager from "./map/MapManager.js";
 import PositionManager from "./positions/PositionManager.js";
@@ -15,6 +16,7 @@ class GameManager {
 		this.positionManager = new PositionManager(this);
 		this.cardManager = new CardManager(this);
 		this.mapManager = new MapManager(this);
+		this.battleManager = new BattleManager(this);
 	}
 
 	init() {
@@ -22,6 +24,7 @@ class GameManager {
 		this.cardManager.init();
 		this.mapManager.init();
 		this.positionManager.init();
+		this.battleManager.init();
 	}
 
 	start() {
@@ -83,6 +86,8 @@ class GameManager {
 	// POSITION
 	move(position) {
 		this.positionManager.move(position);
+		this.battleManager.setup();
+		this.battleManager.battleAll();
 	}
 
 	canPlayerMove(x, y) {

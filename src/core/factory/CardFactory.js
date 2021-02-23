@@ -1,3 +1,4 @@
+import FightCard from "../cards/FightCard.js";
 import GameCard from "../cards/GameCard.js";
 import TemplateCard from "../cards/TemplateCard.js";
 import { LEVEL_INCR, LEVEL_PROPORTION } from "../utils/constants.js";
@@ -37,5 +38,16 @@ export function generateGameCards(x, templates) {
 	return cards;
 }
 
+function createFightCard(gameCard) {
+	return new FightCard(gameCard.name, gameCard.attack, gameCard.life);
+}
+
+export function generateFightCards(board) {
+	const cards = [];
+	for (const card of board) {
+		cards.push(createFightCard(card) );
+	}
+	return cards;
+}
 
 

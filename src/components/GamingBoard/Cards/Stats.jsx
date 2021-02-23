@@ -11,16 +11,16 @@ const Stats = props => {
 
 			<Heading as="h6" size="md" mb={1} textAlign="center">  {card.displayName}</Heading>
 			<Box h="60%" overflow="hidden" >
-				<Image src={`Ressources/${card.displayImage}`}></Image>
+				<Image src={`Ressources/cardImages/${card.displayImage}`}></Image>
 			</Box>
 			<Flex flexDirection="column" w="100%" h="20%" fontSize={14} justifyContent="center" bg="gray.300" >
 				<Flex flexDirection="row" justifyContent="space-between" alignItems="center">
 					<Flex flexDirection="row" alignItems="center" justifyContent="center">
-						<Text mr={1} fontSize="2xl" >{card.level}</Text>
+						<Text mr={1} fontSize="1vw" >{card.level}</Text>
 						<Image boxSize={6} src="/ressources/level.png"></Image>
 					</Flex>
 					<Flex flexDirection="row">
-						<Image boxSize="25px" src="/ressources/star.png"></Image>
+						<Image boxSize="1.2vw" src="/ressources/star.png"></Image>
 						<Text ml={1} fontSize="2xl" > {card.adaptative}</Text>
 					</Flex>
 				</Flex>

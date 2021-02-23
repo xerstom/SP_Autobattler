@@ -84,7 +84,7 @@ const GamingBoard = props => {
 				{/* Ennemy profile */}
 				{
 					onCombat
-						? <GridItem rowStart={4} colStart={1} rowSpan={3} colSpan={4}>
+						? <GridItem rowStart={3} colStart={1} rowSpan={3} colSpan={4}>
 							<Profile user={playerCombat}/>
 						</GridItem>
 						: ""
@@ -101,7 +101,7 @@ const GamingBoard = props => {
 
 				{/* Market managment Buttons */}
 				<GridItem rowStart={20} colStart={3} rowSpan={8} colSpan={2}>
-					<Management levelUp={levelUp} boardUp={boardUp}/>
+					<Management user={playerProfile} levelUp={levelUp} boardUp={boardUp}/>
 				</GridItem>
 
 				{/* Market */}

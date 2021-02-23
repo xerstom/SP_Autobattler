@@ -45,7 +45,6 @@ class BattleManager extends Manager {
 				}
 			}
 		}
-		console.log(this.battles);
 		this.ready = true;
 	}
 
@@ -64,9 +63,6 @@ class BattleManager extends Manager {
 				? `${agent1.name} a inflige ${diff} degats a ${agent2.name}!`
 				: `${agent2.name} a inflige ${-diff} degats a ${agent1.name}!`;
 			
-			console.log(agent1, agent2);
-			console.log(summary);
-			console.log(combatDetails);
 			// TODO: actually remove life
 			// TODO: what if user is actually dead
 			this.state.push( {
@@ -120,7 +116,6 @@ class BattleManager extends Manager {
 					agent2Buf,
 					det,
 				] = this.fight(agent1Name, agent2Name, agent1Board, agent2Board, agent1Cur, rand(0, agent2Board.length - 1), agent2Cur);
-				console.log("src agent1", det, agent1Buf, agent2Buf);
 			} else {
 				// source = agent2
 				// target = agent1
@@ -129,11 +124,10 @@ class BattleManager extends Manager {
 					agent1Buf,
 					det,
 				] = this.fight(agent2Name, agent1Name, agent2Board, agent1Board, agent2Cur, rand(0, agent1Board.length - 1), agent1Cur);
-				console.log("src agent2", det, agent2Buf, agent1Buf);
 			}
 			agent1Cur += agent1Buf;
 			agent2Cur += agent2Buf;
-			console.log("curs", agent1Cur, agent2Cur);
+
 			battleDetails.push(det);
 		}
 

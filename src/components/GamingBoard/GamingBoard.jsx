@@ -105,7 +105,7 @@ const GamingBoard = props => {
 				</GridItem>
 
 				{/* Market */}
-				<GridItem rowStart={18} colStart={5} rowSpan={8} colSpan={3} mb={2} >
+				<GridItem rowStart={18} colStart={5} rowSpan={8} colSpan={4} mb={2} >
 					<Market gInterface={gInterface} buyCard={buyCard} rerollCard={rerollCard} />
 				</GridItem>
 

@@ -17,7 +17,7 @@ const Grid = props => {
 			boxes.push(<Box key={`${i}-${j}`}
 				x={i}
 				y={j}
-				perc={100 / columns}
+				perc={50 / columns}
 				disable={ gInterface.isDisabled(i, j) }
 				colors={bgColor(i, j, gInterface, selectedBox)}
 				activeColors={activeColors(i, j, gInterface, selectedBox)}
@@ -28,7 +28,7 @@ const Grid = props => {
 	
 	return (
 		<>
-			<SimpleGrid id="grid" columns={columns} w="fit-content" alignSelf='baseline'>
+			<SimpleGrid id="grid" columns={columns} w="50vw" alignSelf='baseline'>
 				{boxes}
 			</SimpleGrid>
 		</>

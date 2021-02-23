@@ -15,11 +15,12 @@ export function generateTemplateCards(x) {
 	for (let j = 0; j < LEVEL_PROPORTION.length; ++j) {
 		const nCard = Math.floor(x * LEVEL_PROPORTION[j] );
 		for (let i = 0; i < nCard; ++i, ++incr) {
-			const r = rand(0, displaysIndexes.length);
+			const r = rand(0, displaysIndexes.length - 1);
 			cards.push(createTemplateCard(incr, j, displays[displaysIndexes[r]] ) );
 			displaysIndexes.splice(r, 1);
 		}
 	}
+	console.log(cards);
 	return cards;
 }
 

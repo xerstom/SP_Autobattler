@@ -5,7 +5,6 @@ import React from "react";
 
 const Management = props => {
 	const { levelUp, boardUp, user } = props;
-	console.log(user);
 	return (
 		<Flex flexDirection="column" p={5} w="100%" h="100%" justifyContent="flex-end" alignItems="flex-end" >
 			<Flex flexDirection="row" justifyContent="space-between" alignItems="center">
@@ -23,6 +22,7 @@ const Management = props => {
 Management.propTypes = {
 	levelUp: PropTypes.func,
 	boardUp: PropTypes.func,
+	user: PropTypes.object,
 };
 
 export default Management;

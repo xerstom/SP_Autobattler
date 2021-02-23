@@ -34,7 +34,7 @@ const GamingMap = props => {
 				handleClick={handleClick}
 				selectedBox={selectedBox}>
 			</Grid>
-			<Flex flexDirection="column" justifyContent="space-between" w="100%">
+			<Flex h="70vh" flexDirection="column" justifyContent="space-between" w="100%">
 				<Flex h="100%" alignItems="flex-start" justifyContent="space-between">
 					<AgentDisplayer gInterface={gInterface}></AgentDisplayer>
 					<Flex flexDirection="column" justifyContent="space-between" alignItems="flex-end" h="100%">
@@ -42,7 +42,7 @@ const GamingMap = props => {
 						<Button onClick={handleValidation} >VALIDER</Button>
 					</Flex>
 				</Flex>
-				<Box h="50vh">
+				<Box h="30vh">
 					<Code h="100%" w="100%">La partie input</Code>
 				</Box>
 			</Flex>

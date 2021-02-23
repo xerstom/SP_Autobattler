@@ -9,7 +9,7 @@ const AgentDisplayer = props => {
 
 	// const [agents, setAgents] = useState(manager.getAgents());
 
-	const agents = gInterface.getAgents().sort( (a, b) => b - a).map(agent => <Agent key={agent.color} agent={agent}></Agent>);
+	const agents = gInterface.getAgents().sort( (a, b) => b.life - a.life).map(agent => <Agent key={agent.color} agent={agent}></Agent>);
 	
 	return (
 		<Flex wrap="wrap" h="100%">

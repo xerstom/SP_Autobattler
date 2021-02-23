@@ -7,7 +7,7 @@ import Card from "../Cards/Card.jsx";
 const Board = props => {
 	const { cards, sellCard, swapCard, interactable } = props;
 	return (
-		<Flex flexDirection="row" p={2} w="100%" h="100%" bgColor="rgba(255, 255, 255, .40)">
+		<Flex flexDirection="row" p={2} w="100%" h="100%" justifyContent="center" >
 			{
 				cards.map( (e, index) => <Card key={`board${index}`} card={e} interactable={interactable} sell={() => sellCard(index, "board")} swap={() => swapCard(index, "board")}/>)
 			}

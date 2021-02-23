@@ -11,7 +11,9 @@ import { rand } from "../utils/utils.js";
  * @class GameCard
  */
 class GameCard {
-	constructor(name, level, attack, life, adaptative, price) {
+	constructor(name, level, attack, life, adaptative, price, displayName, displayImage) {
+		this.displayName = displayName;
+		this.displayImage = displayImage;
 		this.name = name;
 		this.level = level;
 		this.baseadaptative = adaptative;

@@ -29,11 +29,11 @@ const Market = props => {
 	};
 
 	return (
-		<Flex flexDirection="row" p={2} w="100%" h="100%" bgColor="rgba(255, 255, 255, .40)">
+		<Flex flexDirection="row" p={2} w="100%" h="100%" bgColor="gray.300" >
 			<MarketCard card={marketCard}></MarketCard>
 			<Flex flexDirection="column" justifyContent="space-between" p={2} h="100%">
-				<IconButton icon={<RerollIcon color="gray"/>} onClick={reroll}></IconButton>
-				<IconButton icon={<BuyIcon color="gray"/>} onClick={buy}></IconButton>
+				<IconButton icon={<RerollIcon color="white"/>} onClick={reroll}></IconButton>
+				<IconButton icon={<BuyIcon color="white"/>} onClick={buy}></IconButton>
 
 			</Flex>
 		</Flex>

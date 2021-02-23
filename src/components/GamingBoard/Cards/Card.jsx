@@ -6,15 +6,17 @@ import { SellICon, SwapIcon } from "../Icon.jsx";
 import Stats from "./Stats.jsx";
 
 const Card = props => {
-	const { card, sell, swap, interactable } = props;
+	const {
+		card, sell, swap, interactable,
+	} = props;
 	return (
-		<Flex flexDirection="column" p={2} w="100%" h="100%" mr={5} justifyContent="space-between" bgColor="rgba(255, 255, 255, .40)">
+		<Flex boxShadow="xl" flexDirection="column" p={2} width="9.4vw" h="auto" mr={5} justifyContent="space-between" bg="gray.300" borderRadius="5%" >
 			<Stats card={card}/>
 			{
 				interactable
 					? <Flex flexDirection="row" h="fit-content" justifyContent="space-between">
-						<IconButton aria-label="sell" icon={<SellICon color="gray"/>} onClick={sell} p={1} height="2rem"> </IconButton>
-						<IconButton aria-label="swap" icon={<SwapIcon color="gray"/>} onClick={swap} p={1} height="2rem"> </IconButton>
+						<IconButton aria-label="sell" icon={<SellICon color="white"/>} onClick={sell} p={1} height="2rem"> </IconButton>
+						<IconButton aria-label="swap" icon={<SwapIcon color="white"/>} onClick={swap} p={1} height="2rem"> </IconButton>
 					</Flex>
 					: ""
 			}

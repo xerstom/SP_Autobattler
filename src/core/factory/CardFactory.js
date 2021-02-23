@@ -20,7 +20,7 @@ export function generateTemplateCards(x) {
 }
 
 function createGameCard(template) {
-	return new GameCard(template.name, template.level, template.attack, template.life, template.adaptative, template.price);
+	return new GameCard(template.name, template.level, template.attack, template.life, template.adaptative, template.price, template.displayName, template.displayImage);
 }
 
 export function generateGameCard(templates, level) {

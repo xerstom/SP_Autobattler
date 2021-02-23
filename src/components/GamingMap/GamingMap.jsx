@@ -38,8 +38,8 @@ const GamingMap = props => {
 				<Flex h="100%" alignItems="flex-start" justifyContent="space-between">
 					<AgentDisplayer gInterface={gInterface}></AgentDisplayer>
 					<Flex flexDirection="column" justifyContent="space-between" alignItems="flex-end" h="100%">
-						<Button w="10%" onClick={onClickHandler} color="white" bg="gray.500" _hover={{ bg: "gray.600" }}>{ ">>" } </Button>
-						<Button onClick={handleValidation} color="white" bg="gray.500" _hover={{ bg: "gray.600" }}>VALIDER</Button>
+						<Button w="10%" onClick={onClickHandler} >{ ">>" } </Button>
+						<Button onClick={handleValidation} >VALIDER</Button>
 					</Flex>
 				</Flex>
 				<Box h="50vh">

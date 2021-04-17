@@ -1,6 +1,7 @@
 import AgentManager from "./agents/AgentManager.js";
 import BattleManager from "./battles/BattleManager.js";
 import CardManager from "./cards/CardManager.js";
+import GameLoop from "./GameLoop.js";
 import MapManager from "./map/MapManager.js";
 import PositionManager from "./positions/PositionManager.js";
 
@@ -17,6 +18,7 @@ class GameManager {
 		this.cardManager = new CardManager(this);
 		this.mapManager = new MapManager(this);
 		this.battleManager = new BattleManager(this);
+		this.gameLoop = new GameLoop(this);
 	}
 
 	init() {
@@ -28,9 +30,7 @@ class GameManager {
 	}
 
 	start() {
-		while (this.end) {
-			//
-		}
+		this.gameLoop.run();
 	}
 
 	// GETTERS

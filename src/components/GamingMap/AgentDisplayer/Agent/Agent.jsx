@@ -15,25 +15,25 @@ const Agent = props => {
 	const { agent } = props;
 	return (
 		<Flex boxShadow="xl" w="12vw" h="auto" flexDirection="column" borderRadius="5%" justifyContent="space-between" alignItems="center" p={4} m="2%" bg="gray.300">
-			<Text stroke="1px black" color={agent.color} textShadow="0px 1px 0px rgba(150, 150, 150, 1)" >{agent.name}</Text>
+			<Text stroke="1px black" color={agent.color} textShadow="0px 1px 0px rgba(150, 150, 150, 1)" fontSize="1vw" >{agent.name}</Text>
 			<Flex flexDirection="row" justifyContent="space-between" width="100%">
 				<Flex flexDirection="column" justifyContent="space-between" >
-					<Image boxSize="30px" src="/ressources/heart.png"></Image>
-					<Text color ={calculateColor(agent.life)}> {agent.life} </Text>
+					<Image boxSize="2vw" src="/ressources/heart.png"></Image>
+					<Text color ={calculateColor(agent.life)} fontSize="1vw" > {agent.life} </Text>
 				</Flex>
 				<Flex flexDirection="column" justifyContent="space-between" >
-					<Image boxSize="30px" src="/ressources/coin.png"></Image>
-					<Text color="yellow" > {agent.money}</Text>
+					<Image boxSize="2vw" src="/ressources/coin.png"></Image>
+					<Text color="yellow" fontSize="1vw" > {agent.money}</Text>
 				</Flex>
 			</Flex>
 			<Flex flexDirection="row" justifyContent="space-between" width="100%" >
 				<Flex flexDirection="column" justifyContent="space-between" alignItems="center" >
-					<Image boxSize="30px" src="/ressources/size.png"></Image>
-					<Text color="black" > {agent.boardSize} </Text>
+					<Image boxSize="2vw" src="/ressources/size.png"></Image>
+					<Text color="black" fontSize="1vw" > {agent.boardSize} </Text>
 				</Flex>
 				<Flex flexDirection="column" justifyContent="space-between" alignItems="center" >
-					<Image boxSize="30px" src="/ressources/star.png"></Image>
-					<Text color="black" > {agent.level}</Text>
+					<Image boxSize="2vw" src="/ressources/star.png"></Image>
+					<Text color="black" fontSize="1vw" > {agent.level}</Text>
 				</Flex>
 			</Flex>
 		</Flex>

@@ -110,9 +110,10 @@ export const displays = [
 	{ name: "Sossi-Al", img: "satire.jpg" },
 	{ name: "Ungree", img: "ungree.jpg" },
 	{ name: "Yoshima", img: "yoshima.jpg" },
+	{ name: "Voldefoy", img: "voldefoy.jpg" },
 	{ name: "Zomou", img: "zomou.jpg" },
 
 ];
-// 28 : {name:"Voldefeuilles",img:"voldefoy.jpg"},
+// 28 :
 
 

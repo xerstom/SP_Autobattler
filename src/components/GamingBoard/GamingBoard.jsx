@@ -16,6 +16,7 @@ const GamingBoard = props => {
 	const [playerBoard, setPlayerBoard] = useState(gInterface.getPlayerBoard() );
 	const [playerBench, setPlayerBench] = useState(gInterface.getPlayerBench() );
 	const [playerProfile, setPlayerProfile] = useState(gInterface.getPlayerProfile() );
+	const [marketCard, setMarketCard] = useState(gInterface.getMarketCard() );
 
 	const buyCard = () => {
 		const res = gInterface.buyCard();
@@ -47,9 +48,26 @@ const GamingBoard = props => {
 			setPlayerBoard(gInterface.getPlayerBoard() );
 		}
 	};
-
 	const rerollCard = () => {
 		setPlayerProfile(gInterface.getPlayerProfile() );
+	};
+	
+	const rerollNewCard = () => {
+		rerollCard();
+		gInterface.createMarketCard();
+		setMarketCard(gInterface.getMarketCard() );
+	};
+
+	const reroll = () => {
+		if (gInterface.rerollCard() ) {
+			rerollNewCard();
+		}
+	};
+
+	const buy = () => {
+		if (buyCard() ) {
+			rerollNewCard();
+		}
 	};
 
 	const levelUp = () => {
@@ -61,6 +79,27 @@ const GamingBoard = props => {
 	const boardUp = () => {
 		if (gInterface.boardUp() ) {
 			setPlayerProfile(gInterface.getPlayerProfile() );
+		}
+	};
+
+	const handleKeyPress = e => {
+		switch (e.code) {
+			case "KeyR": {
+				rerollNewCard();
+				break;
+			}
+			case "KeyB": {
+				buy();
+				break;
+			}
+			case "KeyS" : {
+				boardUp();
+				break;
+			}
+			case "KeyL" : {
+				levelUp();
+				break;
+			}
 		}
 	};
 
@@ -76,6 +115,8 @@ const GamingBoard = props => {
 				bgRepeat= "no-repeat"
 				h="100vh" w="100vw"
 				bg="yellow.50"
+				onKeyDown={handleKeyPress}
+				tabIndex={-1}
 			>
 				<GridItem rowStart={1} colStart={1} >
 					<Button w="10%" onClick={props.onClickHandler}>{ "<<" }</Button>
@@ -84,18 +125,18 @@ const GamingBoard = props => {
 				{/* Ennemy profile */}
 				{
 					onCombat
-						? <GridItem rowStart={3} colStart={1} rowSpan={3} colSpan={4}>
+						? <GridItem rowStart={3} colStart={1} rowSpan={5} colSpan={3}>
 							<Profile user={playerCombat}/>
 						</GridItem>
 						: ""
 				}
 				
-				<GridItem rowStart={8} colStart={1} rowSpan={8} colSpan={6} >
-					<Code p={0} h="100%" w="100%">Enemy monster destroyed super monster</Code>
+				<GridItem rowStart={9} colStart={1} rowSpan={7} colSpan={6} >
+					<Code h="100%" w="100%">Enemy monster destroyed super monster</Code>
 				</GridItem>
 
 				{/* Player profile  */}
-				<GridItem rowStart={16} colStart={1} rowSpan={8} colSpan={4} mt={3}>
+				<GridItem rowStart={16} colStart={1} rowSpan={5} colSpan={3} >
 					<Profile user={playerProfile} />
 				</GridItem>
 
@@ -106,7 +147,7 @@ const GamingBoard = props => {
 
 				{/* Market */}
 				<GridItem rowStart={18} colStart={5} rowSpan={8} colSpan={4} mb={2} >
-					<Market gInterface={gInterface} buyCard={buyCard} rerollCard={rerollCard} />
+					<Market buyCard={buy} rerollCard={reroll} marketCard={marketCard} />
 				</GridItem>
 
 	

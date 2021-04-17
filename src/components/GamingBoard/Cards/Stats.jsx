@@ -11,9 +11,9 @@ const Stats = props => {
 
 			<Heading as="h6" size="md" mb={1} textAlign="center">  {card.displayName}</Heading>
 			<Box h="60%" overflow="hidden" >
-				<Image src={`Ressources/cardImages/${card.displayImage}`}></Image>
+				<Image borderRadius="3%" src={`Ressources/cardImages/${card.displayImage}`}></Image>
 			</Box>
-			<Flex flexDirection="column" w="100%" h="19%" fontSize={14} justifyContent="center" bg="gray.300" >
+			<Flex flexDirection="column" w="100%" h="20%" fontSize={14} justifyContent="center" bg="gray.300" border="solid 1px black" >
 				<Flex flexDirection="row" justifyContent="space-between" alignItems="center">
 					<Flex flexDirection="row" alignItems="center" justifyContent="center">
 						<Text mr={1} fontSize="1vw" >{card.level}</Text>

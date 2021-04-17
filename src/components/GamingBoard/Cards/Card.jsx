@@ -7,18 +7,18 @@ import { SellICon, SwapIcon } from "../Icon.jsx";
 import Stats from "./Stats.jsx";
 
 
+const BorderedFlex = styled(Flex)`
+	border: 10px solid transparent;
+	border-image: url("ressources/border${(props) => props.level}.png") 54 round;
+
+`;
 
 const Card = props => {
 	const {
 		card, sell, swap, interactable,
 	} = props;
-	const BorderedFlex = styled(Flex)`
-		border: 10px solid transparent;
-		border-image: url("ressources/border${card.level}.png") 54 round;
-
-	`;
 	return (
-		<BorderedFlex boxShadow="xl" flexDirection="column" p={2} width="9.4vw" h="auto" mr={3} justifyContent="space-between" bg="gray.300" borderRadius="5%" >
+		<BorderedFlex level={card.level} boxShadow="xl" flexDirection="column" p={2} width="9.4vw" h="auto" mr={3} justifyContent="space-between" bg="gray.300" borderRadius="5%" >
 			<Stats card={card}/>
 			{
 				interactable

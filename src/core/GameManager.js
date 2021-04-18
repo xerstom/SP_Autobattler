@@ -86,8 +86,6 @@ class GameManager {
 	// POSITION
 	move(position) {
 		this.positionManager.move(position);
-		this.battleManager.setup();
-		this.battleManager.battleAll();
 	}
 
 	canPlayerMove(x, y) {
@@ -114,6 +112,11 @@ class GameManager {
 
 	boardUp() {
 		return this.agentManager.boardUp();
+	}
+
+	battle() {
+		this.battleManager.setup();
+		this.battleManager.battleAll();
 	}
 }
 

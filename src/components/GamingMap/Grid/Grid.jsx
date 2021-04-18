@@ -12,6 +12,7 @@ const Grid = props => {
 
 	// Grid creation
 	const boxes = [];
+	
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < columns; j++) {
 			boxes.push(<Box key={`${i}-${j}`}

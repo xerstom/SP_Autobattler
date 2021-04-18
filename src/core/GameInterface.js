@@ -4,6 +4,8 @@ class GameInterface {
 	constructor() {
 		this._gameManager = new GameManager();
 		this._gameManager.init();
+		this.agents = [];
+		this.updatedAgents = [];
 	}
 
 	start() {
@@ -11,6 +13,12 @@ class GameInterface {
 	}
 	
 	getAgents() {
+		this.agents = this._gameManager.getAgents();
+		return [...this.agents];
+	}
+	
+	getUpdatedAgents() {
+		// return le cache
 		return this._gameManager.getAgents();
 	}
 	

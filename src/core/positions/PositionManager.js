@@ -1,5 +1,5 @@
 import Manager from "../Manager.js";
-import { distance, rand } from "../utils/utils.js";
+import { absDistance, distance, rand } from "../utils/utils.js";
 
 function generatePosition(borders) {
 	return rand(borders.x1, borders.x2);
@@ -67,6 +67,15 @@ class PositionManager extends Manager {
 			const newPos = generateValidPosition(agents[i].position, movementPoints, nextBorders);
 			agents[i].setPosition(newPos.x, newPos.y);
 		}
+	}
+
+	isInMoveDistance(a, b, mp) {
+		return (absDistance(a.position.x, b.position.x) + absDistance(a.position.y, b.position.y) < mp);
+	}
+
+	getAgentsInRange(agent, mapManager) {
+		const mp = mapManager.getMovementPoints();
+		return this.m.getAgents().filter(a => a !== agent && this.isInMoveDistance(a, agent, mp) );
 	}
 }
 

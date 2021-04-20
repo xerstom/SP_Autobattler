@@ -24,7 +24,6 @@ class Agent {
 		this.name = `Mr ${color.charAt(0).toUpperCase() + color.slice(1)}`;
 		this.color = COLOR_HEX[color];
 		this.life = CONFIG.BASE_LIFE;
-		this.strategy = 0; // strategy
 
 		this.position = {
 			x: 0,

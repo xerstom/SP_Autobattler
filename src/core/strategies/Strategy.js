@@ -4,12 +4,12 @@ import DefensiveTravelStrategy from "./travelStrategies/DefensiveTravelStrategy.
 
 export default class Strategy {
 	constructor(agressivity) {
-		this.agressivity = agressivity ?? Math.rand();
+		this.agressivity = agressivity ?? Math.random();
 		this.passivness = 1 - this.agressivity;
 	}
 
 	getTravelStrategy() {
-		if (Math.rand() < this.agressivity) {
+		if (Math.random() < this.agressivity) {
 			return AgressiveTravelStrategy;
 		}
 		return DefensiveTravelStrategy;

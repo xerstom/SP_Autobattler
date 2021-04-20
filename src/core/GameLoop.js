@@ -40,7 +40,6 @@ class GameLoop extends Manager {
 	
 	phaseTwo(selectedBox) {
 		console.log("PHASE 2");
-		console.log("selected", selectedBox);
 		this.m.move(selectedBox);
 		this.m.moveLaterAgents();
 		this.m.generateNewBorders();

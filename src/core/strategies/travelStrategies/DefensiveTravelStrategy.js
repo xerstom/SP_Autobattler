@@ -12,9 +12,12 @@ export default class DefensiveTravelStrategy extends TravelStrategy {
 		meanX /= agents.length;
 		meanY /= agents.length;
 
-		meanX = Math.abs(meanX - mapManager.getGridSize() );
-		meanY = Math.abs(meanY - mapManager.getGridSize() );
+		meanX = mapManager.getGridSize() - Math.round(meanX);
+		meanY = mapManager.getGridSize() - Math.round(meanY);
 
-		return positionManager.getClosestPosition(agent.position, mapManager, { x: meanX, y: meanY } );
+		return positionManager.getClosestPosition(agent.position, mapManager, {
+			x: meanX,
+			y: meanY,
+		} );
 	}
 }

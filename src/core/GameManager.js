@@ -21,6 +21,7 @@ class GameManager {
 		this.gameLoop = new GameLoop(this);
 	}
 
+	// lifecycle
 	init() {
 		this.agentManager.init();
 		this.cardManager.init();
@@ -30,12 +31,25 @@ class GameManager {
 	}
 
 	start() {
-		this.gameLoop.run();
+		this.gameLoop.start();
+	}
+
+	// gameloop
+	next(selectedBox = null) {
+		return this.gameLoop.next(selectedBox);
 	}
 
 	// GETTERS
 	getAgents() {
 		return this.agentManager.getAll();
+	}
+
+	getPriorAgents() {
+		return this.agentManager.getPrior();
+	}
+
+	getLaterAgents() {
+		return this.agentManager.getLater();
 	}
 
 	getPlayer() {
@@ -86,6 +100,14 @@ class GameManager {
 	// POSITION
 	move(position) {
 		this.positionManager.move(position);
+	}
+
+	movePriorAgents() {
+		this.positionManager.movePriorAgents();
+	}
+
+	moveLaterAgents() {
+		this.positionManager.moveLaterAgents();
 	}
 
 	canPlayerMove(x, y) {

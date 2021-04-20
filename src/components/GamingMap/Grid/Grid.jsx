@@ -7,7 +7,7 @@ import { activeColors, bgColor } from "./grid.js";
 
 const Grid = props => {
 	const {
-		gInterface, columns, rows, selectedBox, handleClick,
+		gInterface, columns, rows, selectedBox, selectable, agents,
 	} = props;
 
 	// Grid creation
@@ -18,11 +18,12 @@ const Grid = props => {
 			boxes.push(<Box key={`${i}-${j}`}
 				x={i}
 				y={j}
+				// eslint-disable-next-line no-magic-numbers
 				perc={50 / columns}
 				disable={ gInterface.isDisabled(i, j) }
-				colors={bgColor(i, j, gInterface, selectedBox)}
+				colors={bgColor(i, j, agents, gInterface, selectedBox)}
 				activeColors={activeColors(i, j, gInterface, selectedBox)}
-				clickedOn={handleClick}>
+				selectable={selectable}>
 			</Box>);
 		}
 	}
@@ -43,7 +44,8 @@ Grid.propTypes = {
 		x: PropTypes.number,
 		y: PropTypes.number,
 	} ),
-	handleClick: PropTypes.func,
+	selectable: PropTypes.func,
+	agents: PropTypes.array,
 };
 
 export default Grid;

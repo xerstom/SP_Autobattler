@@ -5,21 +5,22 @@ import React from "react";
 import Agent from "./Agent/Agent.jsx";
 
 const AgentDisplayer = props => {
-	const { gInterface } = props;
+	const { agents } = props;
 
 	// const [agents, setAgents] = useState(manager.getAgents());
 
-	const agents = gInterface.getAgents().sort( (a, b) => b.life - a.life).map(agent => <Agent key={agent.color} agent={agent}></Agent>);
+	const sortedAgents = agents.sort( (a, b) => b.life - a.life)
+		.map(agent => <Agent key={agent.color} agent={agent}></Agent>);
 	
 	return (
 		<Flex wrap="wrap" h="100%">
-			{agents}
+			{sortedAgents}
 		</Flex>
 	);
 };
 
 AgentDisplayer.propTypes = {
-	gInterface: PropTypes.object,
+	agents: PropTypes.array,
 };
 
 export default AgentDisplayer;

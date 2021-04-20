@@ -16,6 +16,18 @@ class AgentManager extends Manager {
 		return this.agents;
 	}
 
+	getPrior() {
+		const sorted = [...this.agents.sort( (a, b) => a.life - b.life)];
+		const index = sorted.indexOf(this.getPlayer() );
+		return sorted.slice(0, index);
+	}
+
+	getLater() {
+		const sorted = [...this.agents.sort( (a, b) => a.life - b.life)];
+		const index = sorted.indexOf(this.getPlayer() );
+		return sorted.slice(index, sorted.length);
+	}
+
 	getPlayer() {
 		return this.agents[0];
 	}

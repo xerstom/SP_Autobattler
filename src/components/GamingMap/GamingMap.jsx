@@ -9,28 +9,19 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms) );
 }
 
-
-
 const GamingMap = props => {
 	const { gInterface, onClickHandler } = props;
 	
 	const [selectedBox, setSelectedBox] = useState(null);
 	const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
-
-	// const handlePositionValidation = () => {
-	// 	setNextButtonDisabled(true);
-	// 	if (selectedBox && gInterface.canPlayerMove(selectedBox.x, selectedBox.y) ) {
-	// 		gInterface.move(selectedBox);
-	// 		gInterface.generateNewBorders();
-	// 		setSelectedBox(null);
-	// 	}
-	// };
+	const [agents, setAgents] = useState(gInterface.getAgents() );
 
 	// movePriorPlayers
 	async function phaseOne() {
-		for (let i = 0; i < gInterface.getPriorAgentsNumber; ++i) {
+		const l = gInterface.getPriorAgents();
+		for (let i = 0; i < l; ++i) {
 			await sleep(1000);
-			selectedBox(null);
+			setAgents(gInterface.getUpdatedAgents() );
 		}
 	}
 
@@ -38,13 +29,17 @@ const GamingMap = props => {
 	// Fights
 	// Managements
 	async function phaseTwo() {
-		for (let i = 0; i < gInterface.getLaterAgentsNumber; ++i) {
+		const l = gInterface.getLaterAgents();
+		for (let i = 0; i < l; ++i) {
 			await sleep(1000);
-			selectedBox(null);
+			setAgents(gInterface.getUpdatedAgents() );
 		}
 	}
 
-	const handleNextTurn = async() => {
+	/**
+	 * Main frontend gameloop logic
+	 */
+	const handleNext = async() => {
 		const phase = gInterface.next(selectedBox); // If selectedBox not valid, phase = -1
 
 		if (phase === -1) {
@@ -52,24 +47,21 @@ const GamingMap = props => {
 		}
 		
 		setNextButtonDisabled(true);
-		if (phase === 1) {
-			await phaseOne();
-		} else if (phase === 2) {
-			await phaseTwo();
+		if (phase === 1) { // waiting for position
+			await phaseOne(); // display enemies movement
+		} else if (phase === 2) { // waiting for next turn
+			await phaseTwo(); // display battles / management
 			setSelectedBox(null);
 		}
 		setNextButtonDisabled(false);
 	};
 
-	
-
-
-	const handleClick = (x, y) => {
-		if (!gInterface.canPlayerMove(x, y) || gInterface.isDisabled(x, y) || gInterface.willBeDisabled(x, y) ) {
-			return true;
+	const selectable = (x, y) => {
+		if (!gInterface.isSelectable(x, y) ) {
+			return false;
 		}
 		setSelectedBox( { x, y } );
-		return false;
+		return true;
 	};
 
 	return (
@@ -77,17 +69,17 @@ const GamingMap = props => {
 			<Grid gInterface={gInterface}
 				columns={gInterface.getGridSize()}
 				rows={gInterface.getGridSize()}
-				handleClick={handleClick}
+				agents={agents}
+				selectable={selectable}
 				selectedBox={selectedBox}>
 			</Grid>
 			<Flex h="70vh" flexDirection="column" justifyContent="space-between" w="100%">
 				<Flex h="100%" alignItems="flex-start" justifyContent="space-between">
-					<AgentDisplayer gInterface={gInterface}></AgentDisplayer>
+					<AgentDisplayer agents={agents}></AgentDisplayer>
 					<Flex flexDirection="column" justifyContent="space-between" alignItems="flex-end" h="100%">
 						<Button w="10%" onClick={onClickHandler} >{ ">>" } </Button>
 						<Box w="7vw">
-							{/* <Button w="100%" onClick={handlePositionValidation} fontSize="0.7vw" mb="3%" >TOUR SUIVANT</Button> */}
-							<Button w="100%" disabled={isNextButtonDisabled} onClick={handleNextTurn} fontSize="0.7vw" >Suivant</Button>
+							<Button w="100%" disabled={isNextButtonDisabled} onClick={handleNext} fontSize="0.7vw" >Suivant</Button>
 						</Box>
 					</Flex>
 				</Flex>

@@ -1,9 +1,9 @@
-export const bgColor = (i, j, gInterface, selectedBox) => {
+export const bgColor = (i, j, agents, gInterface, selectedBox) => {
 	const colors = [];
-	const agents = gInterface.getAgents().filter(a => a.position.x === i && a.position.y === j);
+	const fAgents = agents.filter(a => a.position.x === i && a.position.y === j);
 
-	if (agents?.length > 0) {
-		agents.forEach( (a) => colors.push(a.color) );
+	if (fAgents?.length > 0) {
+		fAgents.forEach( (a) => colors.push(a.color) );
 	}
 	
 	if (colors.length === 0) {

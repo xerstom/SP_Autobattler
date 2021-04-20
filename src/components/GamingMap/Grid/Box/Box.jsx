@@ -17,13 +17,14 @@ const colorCalc = (colors) => {
 
 const Box = props => {
 	const {
-		x, y, clickedOn, colors, perc, disable, activeColors,
+		x, y, selectable, colors, perc, disable, activeColors,
 	} = props;
 
 	const [colorBg, setColor] = useState(null);
 
 	const handleOnClick = () => {
-		if (clickedOn(x, y) ) {
+		if (!selectable(x, y) ) {
+			// eslint-disable-next-line no-magic-numbers
 			setTimeout( () => setColor(null), 400);
 			setColor("red");
 		}
@@ -67,7 +68,7 @@ const Box = props => {
 Box.propTypes = {
 	x: PropTypes.number,
 	y: PropTypes.number,
-	clickedOn: PropTypes.func,
+	selectable: PropTypes.func,
 	color: PropTypes.string,
 	perc: PropTypes.number,
 	disable: PropTypes.bool,

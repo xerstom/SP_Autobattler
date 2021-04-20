@@ -41,6 +41,14 @@ class PositionManager extends Manager {
 		player.setPosition(position.x, position.y);
 	}
 
+	movePriorAgents() {
+		this.moveBots(this.m.getPriorAgents(), this.m.getMovementPoints(), this.m.getNextBorders() );
+	}
+
+	moveLaterAgents() {
+		this.moveBots(this.m.getLaterAgents().slice(1), this.m.getMovementPoints(), this.m.getNextBorders() );
+	}
+
 	/**
 	 * Move all agents when player has chosen where to go
 	 *
@@ -50,7 +58,6 @@ class PositionManager extends Manager {
 	move(position) {
 		if (this.canPlayerMove(position.x, position.y) ) {
 			this.setPosition(this.m.getPlayer(), position);
-			this.moveBots(this.m.getBots(), this.m.getMovementPoints(), this.m.getNextBorders() );
 		}
 	}
 
@@ -62,10 +69,10 @@ class PositionManager extends Manager {
 		return Math.abs(x - playerPositon.x) + Math.abs(y - playerPositon.y) <= movementPoints;
 	}
 
-	moveBots(agents, movementPoints, nextBorders) {
-		for (let i = 0; i < agents.length; i++) {
-			const newPos = generateValidPosition(agents[i].position, movementPoints, nextBorders);
-			agents[i].setPosition(newPos.x, newPos.y);
+	moveBots(agents, movementPoints = this.m.getMovementPoints(), nextBorders = this.m.getNextBorders() ) {
+		for (const agent of agents) {
+			const newPos = generateValidPosition(agent.position, movementPoints, nextBorders);
+			agent.setPosition(newPos.x, newPos.y);
 		}
 	}
 }

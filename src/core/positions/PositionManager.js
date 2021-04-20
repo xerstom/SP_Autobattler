@@ -1,5 +1,5 @@
 import Manager from "../Manager.js";
-import { distance, rand } from "../utils/utils.js";
+import { absDistance, distance, rand } from "../utils/utils.js";
 
 function generatePosition(borders) {
 	return rand(borders.x1, borders.x2);
@@ -73,6 +73,57 @@ class PositionManager extends Manager {
 		for (const agent of agents) {
 			const newPos = generateValidPosition(agent.position, movementPoints, nextBorders);
 			agent.setPosition(newPos.x, newPos.y);
+		}
+	}
+
+	isInMoveDistance(a, b, mp) {
+		return (absDistance(a.position.x, b.position.x) + absDistance(a.position.y, b.position.y) < mp);
+	}
+
+	getAgentsInRange(agent, mapManager) {
+		const mp = mapManager.getMovementPoints();
+		return this.m.getAgents().filter(a => a !== agent && this.isInMoveDistance(a, agent, mp) );
+	}
+
+	getClosestPosition(curPos, mapManager, pos) {
+		let xMove = curPos.x < pos.x ? curPos.x + (mapManager.getMovementPoints() / 2) : curPos.x - (mapManager.getMovementPoints() / 2);
+		this.readjustPosition(curPos.x, pos.x, xMove);
+
+		// Mp left to move
+		let mpLeft = mapManager.getMovementPoints() - xMove;
+
+		let yMove = curPos.y < pos.y ? curPos.y + mpLeft : curPos.x - mpLeft;
+
+		this.readjustPosition(curPos.y, pos.y, yMove);
+
+		mpLeft = mpLeft - yMove >= 0 ?? 0;
+
+		// While we have mp to use
+		while (mpLeft > 0) {
+			// if we are not at the x pos
+			if (xMove + curPos.x !== pos.x) {
+				xMove > 0 ? xMove++ : xMove--;
+				mpLeft--;
+			} else if (yMove + curPos.y !== pos.y) { // if we are not at the x pos
+				yMove > 0 ? yMove++ : yMove--;
+				mpLeft--;
+			} else { // We are at the exact pos
+				break;
+			}
+		}
+
+		return { x: curPos.x + xMove, y: curPos.y + yMove };
+	}
+
+	reAdjustPosition(curPos, posToGo, Move) {
+		if (curPos < posToGo) {
+			// If we are left from the posToGo
+			if (Move > posToGo) { // If we went beyond posToGo
+				Move = posToGo - curPos;
+			}
+		} else if (Move < posToGo) { // If we are right from the posToGo
+			// If we went beyond posToGo
+			Move = curPos - posToGo;
 		}
 	}
 }

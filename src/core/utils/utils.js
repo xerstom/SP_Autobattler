@@ -16,8 +16,17 @@ export function rand(min, max) {
  * @param {Number} x2
  * @returns {Number} The distance from x1 to x2
  */
-export function distance(x1, x2) {
-	return x1 - x2;
+export function distance(a, b) {
+	return a - b;
+}
+
+/**
+ * @param {Number} a
+ * @param {Number} b
+ *@returns {Number} The absolute distance from x1 to x2
+ */
+export function absDistance(a, b) {
+	return Math.abs(distance(a, b) );
 }
 
 /**

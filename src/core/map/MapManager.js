@@ -61,6 +61,10 @@ class MapManager extends Manager {
 	willBeDisabled(x, y) {
 		return this.isOutsideBorders(x, y, this.nextBorders);
 	}
+
+	validPositions(agents) {
+		return agents.filter(a => !this.willBeDisabled(a.x, a.y) );
+	}
 }
 
 export default MapManager;

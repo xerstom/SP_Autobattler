@@ -44,12 +44,34 @@ class GameManager {
 		return this.agentManager.getAll();
 	}
 
-	getPriorAgents() {
-		return this.agentManager.getPrior();
+	_populatePosition(agent) {
+		const position = this.positionManager.getPosition(agent.name);
+		return {
+			name: agent.name,
+			color: agent.color,
+			x: position.x,
+			y: position.y,
+		};
 	}
 
-	getLaterAgents() {
-		return this.agentManager.getLater();
+	getAgentsPosition() {
+		return this.agentManager.getAll().map(e => this._populatePosition(e) );
+	}
+
+	getPriorAgentsPosition() {
+		return this.agentManager.getPrior().map(e => this._populatePosition(e) );
+	}
+
+	getLaterAgentsPosition() {
+		return this.agentManager.getLater().map(e => this._populatePosition(e) );
+	}
+
+	getPriorAgents(agent) {
+		return this.agentManager.getPrior(agent);
+	}
+
+	getLaterAgents(agent) {
+		return this.agentManager.getLater(agent);
 	}
 
 	getPlayer() {
@@ -61,7 +83,7 @@ class GameManager {
 	}
 
 	getMovementPoints() {
-		return this.mapManager.getMovementPoints();
+		return this.positionManager.getMovementPoints();
 	}
 
 	getNextBorders() {
@@ -98,20 +120,20 @@ class GameManager {
 	}
 
 	// POSITION
-	move(position) {
-		this.positionManager.move(position);
+	movePlayer(position) {
+		this.positionManager.move(this.agentManager.getPlayer(), position);
 	}
 
 	movePriorAgents() {
-		this.positionManager.movePriorAgents();
+		this.positionManager.moveBots(this.agentManager.getPrior() );
 	}
 
 	moveLaterAgents() {
-		this.positionManager.moveLaterAgents();
+		this.positionManager.moveBots(this.agentManager.getLater().slice(1) );
 	}
 
 	canPlayerMove(x, y) {
-		return this.positionManager.canPlayerMove(x, y);
+		return this.positionManager.canMove(this.agentManager.getPlayer().name, x, y);
 	}
 
 	// MAP

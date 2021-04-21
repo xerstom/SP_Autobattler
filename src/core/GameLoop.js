@@ -30,20 +30,14 @@ class GameLoop extends Manager {
 	phaseOne() {
 		console.log("PHASE 1");
 		this.m.movePriorAgents();
-		// move everyone
-		
-		// move user
-		// management bots
-		// fight
-		// this.manager;
 	}
 	
 	phaseTwo(selectedBox) {
 		console.log("PHASE 2");
-		this.m.move(selectedBox);
+		this.m.movePlayer(selectedBox);
 		this.m.moveLaterAgents();
 		this.m.generateNewBorders();
-		this.m.battle();
+		// this.m.battle();
 		// this.m.management();
 	}
 }

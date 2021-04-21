@@ -21,8 +21,6 @@ class MapManager extends Manager {
 		
 		this.borders = { x1: 0, x2: this.gridSize - 1, y1: 0, y2: this.gridSize - 1 };
 		this.nextBorders = generateNextBorders(this.borders);
-		
-		this.movementPoints = CONFIG.MOVEMENT_POINTS;
 	}
 
 	init() {
@@ -39,10 +37,6 @@ class MapManager extends Manager {
 
 	getNextBorders() {
 		return this.nextBorders;
-	}
-
-	getMovementPoints() {
-		return this.movementPoints;
 	}
 
 	generateNewBorders() {

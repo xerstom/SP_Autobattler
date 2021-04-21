@@ -12,9 +12,6 @@ function format(agent) {
 	};
 }
 
-function copy(arr) {
-	return arr.map(e => format(e) );
-}
 // phase 1 => waiting for position
 // phase 2 => waiting for next turn
 class GameInterface {
@@ -30,14 +27,14 @@ class GameInterface {
 	// gameloop
 	start() {
 		this._gameManager.start();
-		this.agents = copy(this._gameManager.getAgents() );
+		this.agents = this._gameManager.getAgentsPosition();
 	}
 
 	next(selectedBox = null) {
-		if (this.currentPhase === 1 && !selectedBox) { // waiting for position
+		if (this.currentPhase === 1 && !selectedBox) { // phase = 1 => waiting for position => need selected position
 			return -1;
 		}
-		this.agents = copy(this._gameManager.getAgents() );
+		this.agents = this._gameManager.getAgentsPosition();
 
 		const phase = this._gameManager.next(selectedBox);
 		this.currentPhase = phase;
@@ -45,12 +42,12 @@ class GameInterface {
 	}
 	
 	getPriorAgents() {
-		this.updatedAgents = copy(this._gameManager.getPriorAgents() );
+		this.updatedAgents = this._gameManager.getPriorAgentsPosition();
 		return this.updatedAgents.length;
 	}
 
 	getLaterAgents() {
-		this.updatedAgents = copy(this._gameManager.getLaterAgents() );
+		this.updatedAgents = this._gameManager.getLaterAgentsPosition();
 		return this.updatedAgents.length;
 	}
 
@@ -63,7 +60,7 @@ class GameInterface {
 		if (this.updatedAgents.length > 0) {
 			const uAgent = this.updatedAgents.shift();
 			const index = this.agents.findIndex(a => a.name === uAgent.name);
-			this.agents.splice(index, 1, format(uAgent) );
+			this.agents.splice(index, 1, uAgent);
 		}
 		// return le cache
 		return this.getAgents();

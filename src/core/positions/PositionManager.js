@@ -1,4 +1,5 @@
 import Manager from "../Manager.js";
+import { CONFIG } from "../utils/constants.js";
 import { absDistance, rand } from "../utils/utils.js";
 
 function generatePosition(borders) {
@@ -9,88 +10,85 @@ class PositionManager extends Manager {
 	constructor(gameManager) {
 		super(gameManager);
 
-		this.positions = [];
+		this.positions = new Map();
+		this.movementPoints = CONFIG.MOVEMENT_POINTS;
+	}
+
+	getMovementPoints() {
+		return this.movementPoints;
+	}
+
+	setPosition(name, x, y) {
+		this.positions.set(name, { name, x, y } );
+	}
+
+	getPosition(name) {
+		return this.positions.get(name);
+	}
+
+	getAllPosition() {
+		return [...this.positions.values()];
 	}
 
 	init() {
 		const agents = this.m.getAgents();
 		for (let i = 0; i < agents.length; i++) {
-			agents[i].setPosition(generatePosition(this.m.mapManager.borders), i);
+			this.setPosition(agents[i].name, i, generatePosition(this.m.mapManager.borders) );
 		}
 	}
 
-	setPosition(player, position) {
-		player.setPosition(position.x, position.y);
-	}
-
-	canPlayerMove(x, y) {
-		return this.canMove(x, y, this.m.getPlayer().position, this.m.getMovementPoints() );
-	}
-
-	canMove(x, y, playerPositon, movementPoints) {
-		return Math.abs(x - playerPositon.x) + Math.abs(y - playerPositon.y) <= movementPoints;
-	}
-
-	movePriorAgents() {
-		this.moveBots(this.m.getPriorAgents() );
-	}
-
-	moveLaterAgents() {
-		this.moveBots(this.m.getLaterAgents().slice(1) );
+	// TODO: verifier avec les borders?
+	canMove(name, x, y) {
+		const position = this.getPosition(name);
+		return Math.abs(x - position.x) + Math.abs(y - position.y) <= this.movementPoints;
 	}
 
 	moveBots(agents) {
 		for (const agent of agents) {
-			// const newPos = generateValidPosition(agent.position, movementPoints, nextBorders);
 			const newPos = agent.strategy.getPos(this, this.m.mapManager, agent);
-			agent.setPosition(newPos.x, newPos.y);
+			this.move(agent, newPos);
 		}
 	}
 
-	/**
-	 * Move all agents when player has chosen where to go
-	 *
-	 * @param {*} position
-	 * @memberof PositionManager
-	 */
-	move(position) {
-		if (this.canPlayerMove(position.x, position.y) ) {
-			this.setPosition(this.m.getPlayer(), position);
+	move(agent, position) {
+		if (this.canMove(agent.name, position.x, position.y) ) {
+			this.setPosition(agent.name, position.x, position.y);
 		}
 	}
 
-	isInMoveDistance(a, b, mp) {
-		return (absDistance(a.position.x, b.position.x) + absDistance(a.position.y, b.position.y) <= mp);
+	getAgentsInRange(agent) {
+		return this.m.getPriorAgents(agent).filter(a => this.isInMoveDistance(a, agent) );
 	}
 
-	getAgentsInRange(agent, mapManager) {
-		const mp = mapManager.getMovementPoints();
-		return this.m.getAgents().filter(a => a !== agent && this.isInMoveDistance(a, agent, mp) );
+	isInMoveDistance(a, b) {
+		const aPos = this.getPosition(a.name);
+		const bPos = this.getPosition(b.name);
+		return (absDistance(aPos.x, bPos.x) + absDistance(aPos.y, bPos.y) <= this.movementPoints);
 	}
 
-	getClosestPosition(curPos, mapManager, pos) {
-		let xMove = curPos.x < pos.x
-			? Math.round(mapManager.getMovementPoints() / 2)
-			: -Math.round(mapManager.getMovementPoints() / 2);
-		xMove = this.reAdjustPosition(curPos.x, pos.x, xMove);
+	getClosestPosition(srcPos, targetPos, mapManager) {
+		let xMove = srcPos.x < targetPos.x
+			? Math.round(this.movementPoints / 2)
+			: -Math.round(this.movementPoints / 2);
+		xMove = this.reAdjustPosition(srcPos.x, targetPos.x, xMove);
 		// Mp left to move
-		let mpLeft = mapManager.getMovementPoints() - Math.abs(xMove);
+		let mpLeft = this.movementPoints - Math.abs(xMove);
 		
-		let yMove = curPos.y < pos.y
+		let yMove = srcPos.y < targetPos.y
 			? mpLeft
 			: -mpLeft;
 
-		yMove = this.reAdjustPosition(curPos.y, pos.y, yMove);
+		yMove = this.reAdjustPosition(srcPos.y, targetPos.y, yMove);
 
 		mpLeft = mpLeft - Math.abs(yMove) > 0 ? mpLeft : 0;
 
 		// While we have mp to use
 		while (mpLeft > 0) {
 			// if we are not at the x pos
-			if (xMove + curPos.x !== pos.x) {
+			if (xMove + srcPos.x !== targetPos.x) {
 				xMove > 0 ? xMove++ : xMove--;
 				mpLeft--;
-			} else if (yMove + curPos.y !== pos.y) { // if we are not at the x pos
+			} else if (yMove + srcPos.y !== targetPos.y) { // if we are not at the x pos
 				yMove > 0 ? yMove++ : yMove--;
 				mpLeft--;
 			} else { // We are at the exact pos
@@ -98,7 +96,7 @@ class PositionManager extends Manager {
 			}
 		}
 
-		return { x: curPos.x + xMove, y: curPos.y + yMove };
+		return { x: srcPos.x + xMove, y: srcPos.y + yMove };
 	}
 
 	reAdjustPosition(curPos, posToGo, move) {

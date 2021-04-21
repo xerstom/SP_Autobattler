@@ -16,15 +16,19 @@ class AgentManager extends Manager {
 		return this.agents;
 	}
 
-	getPrior() {
-		const sorted = [...this.agents.sort( (a, b) => a.life - b.life)];
-		const index = sorted.indexOf(this.getPlayer() );
+	getSorted() {
+		return [...this.agents].sort( (a, b) => a.life - b.life);
+	}
+
+	getPrior(agent = this.getPlayer() ) {
+		const sorted = this.getSorted();
+		const index = sorted.findIndex(a => a.name === agent.name);
 		return sorted.slice(0, index);
 	}
 
-	getLater() {
-		const sorted = [...this.agents.sort( (a, b) => a.life - b.life)];
-		const index = sorted.indexOf(this.getPlayer() );
+	getLater(agent = this.getPlayer() ) {
+		const sorted = this.getSorted();
+		const index = sorted.findIndex(a => a.name === agent.name);
 		return sorted.slice(index, sorted.length);
 	}
 
@@ -40,7 +44,7 @@ class AgentManager extends Manager {
 		return this.agents.find(predicate);
 	}
 
-	getName(name) {
+	getByName(name) {
 		return this.agents.find(a => a.name === name);
 	}
 

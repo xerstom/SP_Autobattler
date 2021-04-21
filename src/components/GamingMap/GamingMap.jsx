@@ -50,8 +50,8 @@ const GamingMap = props => {
 		if (phase === 1) { // waiting for position
 			await phaseOne(); // display enemies movement
 		} else if (phase === 2) { // waiting for next turn
-			await phaseTwo(); // display battles / management
 			setSelectedBox(null);
+			await phaseTwo(); // display battles / management
 		}
 		setNextButtonDisabled(false);
 	};

@@ -24,11 +24,6 @@ class Agent {
 		this.name = `Mr ${color.charAt(0).toUpperCase() + color.slice(1)}`;
 		this.color = COLOR_HEX[color];
 		this.life = CONFIG.BASE_LIFE;
-
-		this.position = {
-			x: 0,
-			y: 0,
-		};
 		
 		this.boardSize = CONFIG.BASE_BOARD_PLACE;
 		this.level = 1;
@@ -71,11 +66,6 @@ class Agent {
 	upBoard() {
 		this.boardSize++;
 		this.boardUpPrice = Math.round(this.boardUpPrice * CONFIG.BOARD_UP_MULTIPLIER);
-	}
-
-	setPosition(x, y) {
-		this.position.x = x;
-		this.position.y = y;
 	}
 
 	hasEnoughMoney(money) {

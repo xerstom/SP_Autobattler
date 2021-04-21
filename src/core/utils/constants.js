@@ -3,7 +3,7 @@ export const CONFIG = {
 	AGENTS: 8, // 1 player, 7 bot
 	TEMPLATE_CARDS: 30,
 	GRID_SIZE: 14,
-	MOVEMENT_POINTS: 2,
+	MOVEMENT_POINTS: 5,
 	
 	REROLL_PRICE: 2,
 

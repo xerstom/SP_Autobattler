@@ -10,18 +10,16 @@ function centerMap(gridSize) {
 
 export default class AgressiveTravelStrategy extends TravelStrategy {
 	static generatePos(agent, mapManager, positionManager) {
-		const inRange = positionManager.getAgentsInRange(agent, mapManager, positionManager);
-		const inRangeAndValid = mapManager.validPositions(inRange);
-
-		if (inRangeAndValid.length > 0) {
-			if (inRangeAndValid.length > 1) {
-				const listOfHps = inRangeAndValid.map(a => a.life);
+		const inRange = positionManager.getAgentsInRange(agent);
+		if (inRange.length > 0) {
+			if (inRange.length > 1) {
+				const listOfHps = inRange.map(a => a.life);
 				const minHP = Math.min(...listOfHps);
-				const botMinHp = inRangeAndValid.find(a => a.life === minHP);
-				return botMinHp.position;
+				const botMinHp = inRange.find(a => a.life === minHP);
+				return positionManager.getPosition(botMinHp.name);
 			}
-			return inRangeAndValid[0].position;
+			return positionManager.getPosition(inRange[0].name);
 		}
-		return positionManager.getClosestPosition(agent.position, mapManager, centerMap(mapManager.getGridSize() ) );
+		return positionManager.getClosestPosition(positionManager.getPosition(agent.name), centerMap(mapManager.getGridSize(), mapManager) );
 	}
 }

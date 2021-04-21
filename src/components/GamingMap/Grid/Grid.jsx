@@ -15,14 +15,14 @@ const Grid = props => {
 	
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < columns; j++) {
-			boxes.push(<Box key={`${i}-${j}`}
-				x={i}
-				y={j}
+			boxes.push(<Box key={`${j}-${i}`}
+				x={j}
+				y={i}
 				// eslint-disable-next-line no-magic-numbers
 				perc={50 / columns}
-				disable={ gInterface.isDisabled(i, j) }
-				colors={bgColor(i, j, agents, gInterface, selectedBox)}
-				activeColors={activeColors(i, j, gInterface, selectedBox)}
+				disable={ gInterface.isDisabled(j, i) }
+				colors={bgColor(j, i, agents, gInterface, selectedBox)}
+				activeColors={activeColors(j, i, gInterface, selectedBox)}
 				selectable={selectable}>
 			</Box>);
 		}

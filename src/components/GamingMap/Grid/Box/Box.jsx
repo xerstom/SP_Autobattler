@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { Button, GridItem } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -24,7 +25,6 @@ const Box = props => {
 
 	const handleOnClick = () => {
 		if (!selectable(x, y) ) {
-			// eslint-disable-next-line no-magic-numbers
 			setTimeout( () => setColor(null), 400);
 			setColor("red");
 		}

@@ -1,29 +1,29 @@
-export const bgColor = (i, j, agents, gInterface, selectedBox) => {
+export const bgColor = (x, y, agents, gInterface, selectedBox) => {
 	const colors = [];
-	const fAgents = agents.filter(a => a.position.x === i && a.position.y === j);
+	const fAgents = agents.filter(a => a.position.x === x && a.position.y === y);
 
 	if (fAgents?.length > 0) {
 		fAgents.forEach( (a) => colors.push(a.color) );
 	}
 	
 	if (colors.length === 0) {
-		if (gInterface.willBeDisabled(i, j) ) {
+		if (gInterface.willBeDisabled(x, y) ) {
 			return ["yellow"];
 		}
 		
-		if (selectedBox?.x === i && selectedBox?.y === j) {
+		if (selectedBox?.x === x && selectedBox?.y === y) {
 			return ["green"];
 		}
 	}
 	return colors.length !== 0 ? colors : ["gray"];
 };
 
-export const activeColors = (i, j, gInterface, selectedBox) => {
+export const activeColors = (x, y, gInterface, selectedBox) => {
 	const colors = [];
-	if (gInterface.willBeDisabled(i, j) ) {
+	if (gInterface.willBeDisabled(x, y) ) {
 		colors.push("yellow");
 	}
-	if (selectedBox?.x === i && selectedBox?.y === j) {
+	if (selectedBox?.x === x && selectedBox?.y === y) {
 		colors.push("green");
 	}
 	return colors.length !== 0 ? colors : ["black"];

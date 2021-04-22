@@ -1,4 +1,6 @@
-import { Box, Button, Code, Flex } from "@chakra-ui/react";
+import {
+	Box, Button, Flex, Text,
+} from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
@@ -38,11 +40,12 @@ const GamingMap = props => {
 			setAgentsPosition(gInterface.getUpdatedAgentsPosition() );
 		}
 		const summary = gInterface.getBattleSummary();
-		console.log(summary);
 		for (const sum of summary) {
 			await sleep(300);
-			setBattleSummary( [...battleSummary, sum.summary] );
+			battleSummary.push(sum.summary);
+			setBattleSummary( [...battleSummary] );
 		}
+		setAgents(gInterface.getAgentsProfile() );
 	}
 
 	/**
@@ -93,7 +96,8 @@ const GamingMap = props => {
 					</Flex>
 				</Flex>
 				<Box h="30vh">
-					<Code h="100%" w="100%">{battleSummary.join("\n")}</Code>
+					{/* TODO LINEBREAK */}
+					<Text h="100%" w="100%">{battleSummary.join("\n")}</Text>
 				</Box>
 			</Flex>
 

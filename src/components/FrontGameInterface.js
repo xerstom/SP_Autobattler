@@ -9,7 +9,6 @@ class FrontGameInterface {
 		this.currentPhase = 2; // waiting for next turn
 		this.agentsPosition = [];
 		this.updatedAgentsPosition = [];
-		this.agents = [];
 	}
 
 	get bgi() {
@@ -20,7 +19,6 @@ class FrontGameInterface {
 	start() {
 		this.bgi.start();
 		this.agentsPosition = this.bgi.getAgentsPosition();
-		this.agents = this.bgi.getAgents();
 	}
 
 	next(selectedBox = null) {
@@ -61,7 +59,7 @@ class FrontGameInterface {
 
 	// PROFILE
 	getAgentsProfile() {
-		return [...this.agents];
+		return [...this.bgi.getAgents()];
 	}
 
 	getProfile(agent) {

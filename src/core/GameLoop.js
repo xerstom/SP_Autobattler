@@ -37,7 +37,7 @@ class GameLoop extends Manager {
 		this.m.movePlayer(selectedBox);
 		this.m.moveLaterAgents();
 		this.m.generateNewBorders();
-		// this.m.battle();
+		this.m.battle();
 		// this.m.management();
 	}
 }

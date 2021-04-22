@@ -1,6 +1,5 @@
 import {
-	Button, Code, Flex,
-	Grid, GridItem,
+	Button, Code, Flex, Grid, GridItem,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -13,9 +12,9 @@ import Profile from "./Profile/Profile.jsx";
 
 const GamingBoard = props => {
 	const { gInterface } = props;
-	const [playerBoard, setPlayerBoard] = useState(gInterface.getPlayerBoard() );
-	const [playerBench, setPlayerBench] = useState(gInterface.getPlayerBench() );
-	const [playerProfile, setPlayerProfile] = useState(gInterface.getPlayerProfile() );
+	const [playerBoard, setPlayerBoard] = useState(gInterface.getBoard() );
+	const [playerBench, setPlayerBench] = useState(gInterface.getBench() );
+	const [playerProfile, setPlayerProfile] = useState(gInterface.getProfile() );
 	const [marketCard, setMarketCard] = useState(gInterface.getMarketCard() );
 
 	const buyCard = () => {
@@ -24,36 +23,33 @@ const GamingBoard = props => {
 			return false;
 		}
 		if (res[1] === "board") {
-			setPlayerBoard(gInterface.getPlayerBoard() );
+			setPlayerBoard(gInterface.getBoard() );
 		} else if (res[1] === "bench") {
-			setPlayerBench(gInterface.getPlayerBench() );
+			setPlayerBench(gInterface.getBench() );
 		}
-		setPlayerProfile(gInterface.getPlayerProfile() );
+		setPlayerProfile(gInterface.getProfile() );
 		return true;
 	};
 
 	const sellCard = (index, location) => {
 		gInterface.sellCard(index, location);
 		if (location === "bench") {
-			setPlayerBench(gInterface.getPlayerBench() );
+			setPlayerBench(gInterface.getBench() );
 		} else {
-			setPlayerBoard(gInterface.getPlayerBoard() );
+			setPlayerBoard(gInterface.getBoard() );
 		}
-		setPlayerProfile(gInterface.getPlayerProfile() );
+		setPlayerProfile(gInterface.getProfile() );
 	};
 
 	const swapCard = (index, location) => {
 		if (gInterface.swapCard(index, location) ) {
-			setPlayerBench(gInterface.getPlayerBench() );
-			setPlayerBoard(gInterface.getPlayerBoard() );
+			setPlayerBench(gInterface.getBench() );
+			setPlayerBoard(gInterface.getBoard() );
 		}
-	};
-	const rerollCard = () => {
-		setPlayerProfile(gInterface.getPlayerProfile() );
 	};
 	
 	const rerollNewCard = () => {
-		rerollCard();
+		setPlayerProfile(gInterface.getProfile() );
 		gInterface.createMarketCard();
 		setMarketCard(gInterface.getMarketCard() );
 	};
@@ -72,13 +68,13 @@ const GamingBoard = props => {
 
 	const levelUp = () => {
 		if (gInterface.levelUp() ) {
-			setPlayerProfile(gInterface.getPlayerProfile() );
+			setPlayerProfile(gInterface.getProfile() );
 		}
 	};
 
 	const boardUp = () => {
 		if (gInterface.boardUp() ) {
-			setPlayerProfile(gInterface.getPlayerProfile() );
+			setPlayerProfile(gInterface.getProfile() );
 		}
 	};
 
@@ -104,7 +100,7 @@ const GamingBoard = props => {
 	};
 
 	const onCombat = true;
-	const playerCombat = gInterface.getBots()[0];
+	const playerCombat = "Mr Cyan";
 	return (
 		<>
 			<Grid
@@ -126,7 +122,7 @@ const GamingBoard = props => {
 				{
 					onCombat
 						? <GridItem rowStart={3} colStart={1} rowSpan={5} colSpan={3}>
-							<Profile user={playerCombat}/>
+							<Profile user={gInterface.getProfile(playerCombat)}/>
 						</GridItem>
 						: ""
 				}
@@ -150,15 +146,13 @@ const GamingBoard = props => {
 					<Market buyCard={buy} rerollCard={reroll} marketCard={marketCard} />
 				</GridItem>
 
-	
-
 				{/* Boards */}
 				<GridItem rowStart={2} colStart={8} rowSpan={16} colSpan={18} bgColor="blackAlpha.300" >
 					<Flex h="100%" flexDirection="column" justifyContent="flex-end " >
 						{
 							onCombat
 								? <Flex h="50%" flexDirection="column" justifyContent="center" >
-									<Board cards={playerCombat.board} interactable={false}/>
+									<Board cards={gInterface.getBoard(playerCombat)} interactable={false}/>
 								</Flex>
 								: ""
 						}
@@ -172,10 +166,6 @@ const GamingBoard = props => {
 				<GridItem rowStart={18} colStart={10} rowSpan={8} colSpan={14} >
 					<Bench cards={playerBench} interactable={true} sellCard={sellCard} swapCard={swapCard}/>
 				</GridItem>
-
-			
-				
-				
 			</Grid>
 		</>
 	);

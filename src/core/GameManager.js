@@ -34,36 +34,25 @@ class GameManager {
 		this.gameLoop.start();
 	}
 
-	// gameloop
+	// GAMELOOP
 	next(selectedBox = null) {
 		return this.gameLoop.next(selectedBox);
 	}
 
-	// GETTERS
+	// AGENTS
+	getAgent(name) {
+		if (!name) {
+			return this.agentManager.getPlayer();
+		}
+		return this.agentManager.getByName(name) || this.agentManager.getPlayer();
+	}
+
+	getPlayer() {
+		return this.agentManager.getPlayer();
+	}
+
 	getAgents() {
 		return this.agentManager.getAll();
-	}
-
-	_populatePosition(agent) {
-		const position = this.positionManager.getPosition(agent.name);
-		return {
-			name: agent.name,
-			color: agent.color,
-			x: position.x,
-			y: position.y,
-		};
-	}
-
-	getAgentsPosition() {
-		return this.agentManager.getAll().map(e => this._populatePosition(e) );
-	}
-
-	getPriorAgentsPosition() {
-		return this.agentManager.getPrior().map(e => this._populatePosition(e) );
-	}
-
-	getLaterAgentsPosition() {
-		return this.agentManager.getLater().map(e => this._populatePosition(e) );
 	}
 
 	getPriorAgents(agent) {
@@ -74,14 +63,36 @@ class GameManager {
 		return this.agentManager.getLater(agent);
 	}
 
-	getPlayer() {
-		return this.agentManager.getPlayer();
-	}
-
 	getBots() {
 		return this.agentManager.getBots();
 	}
 
+	// POSITION
+	getPosition(agent) {
+		return this.positionManager.getPosition(agent.name);
+	}
+
+	movePlayer(position) {
+		this.positionManager.move(this.agentManager.getPlayer(), position);
+	}
+
+	movePriorAgents() {
+		this.positionManager.moveBots(this.agentManager.getPrior() );
+	}
+
+	moveLaterAgents() {
+		this.positionManager.moveBots(this.agentManager.getLater().slice(1) );
+	}
+
+	canPlayerMove(x, y) {
+		return this.positionManager.canMove(this.agentManager.getPlayer().name, x, y);
+	}
+
+	samePosition(agent1, agent2) {
+		return this.positionManager.samePosition(agent1, agent2);
+	}
+
+	// getters
 	getMovementPoints() {
 		return this.positionManager.getMovementPoints();
 	}
@@ -119,23 +130,6 @@ class GameManager {
 		return this.cardManager.swapCard(index, location);
 	}
 
-	// POSITION
-	movePlayer(position) {
-		this.positionManager.move(this.agentManager.getPlayer(), position);
-	}
-
-	movePriorAgents() {
-		this.positionManager.moveBots(this.agentManager.getPrior() );
-	}
-
-	moveLaterAgents() {
-		this.positionManager.moveBots(this.agentManager.getLater().slice(1) );
-	}
-
-	canPlayerMove(x, y) {
-		return this.positionManager.canMove(this.agentManager.getPlayer().name, x, y);
-	}
-
 	// MAP
 	isDisabled(x, y) {
 		return this.mapManager.isDisabled(x, y);
@@ -156,6 +150,11 @@ class GameManager {
 
 	boardUp() {
 		return this.agentManager.boardUp();
+	}
+
+	// battle
+	getBattleSummary() {
+		return this.battleManager.summary();
 	}
 
 	battle() {

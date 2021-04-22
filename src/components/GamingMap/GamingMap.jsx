@@ -14,14 +14,17 @@ const GamingMap = props => {
 	
 	const [selectedBox, setSelectedBox] = useState(null);
 	const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
-	const [agents, setAgents] = useState(gInterface.getAgents() );
+	const [agentsPosition, setAgentsPosition] = useState(gInterface.getAgentsPosition() );
+	const [agents, setAgents] = useState(gInterface.getAgentsProfile() );
+	const [battleSummary, setBattleSummary] = useState( [] );
+
 
 	// movePriorPlayers
 	async function phaseOne() {
-		const l = gInterface.getPriorAgents();
+		const l = gInterface.getPriorAgentsPosition();
 		for (let i = 0; i < l; ++i) {
 			await sleep(1000);
-			setAgents(gInterface.getUpdatedAgents() );
+			setAgentsPosition(gInterface.getUpdatedAgentsPosition() );
 		}
 	}
 
@@ -29,10 +32,16 @@ const GamingMap = props => {
 	// Fights
 	// Managements
 	async function phaseTwo() {
-		const l = gInterface.getLaterAgents();
+		const l = gInterface.getLaterAgentsPosition();
 		for (let i = 0; i < l; ++i) {
 			await sleep(1000);
-			setAgents(gInterface.getUpdatedAgents() );
+			setAgentsPosition(gInterface.getUpdatedAgentsPosition() );
+		}
+		const summary = gInterface.getBattleSummary();
+		console.log(summary);
+		for (const sum of summary) {
+			await sleep(300);
+			setBattleSummary( [...battleSummary, sum.summary] );
 		}
 	}
 
@@ -69,7 +78,7 @@ const GamingMap = props => {
 			<Grid gInterface={gInterface}
 				columns={gInterface.getGridSize()}
 				rows={gInterface.getGridSize()}
-				agents={agents}
+				agents={agentsPosition}
 				selectable={selectable}
 				selectedBox={selectedBox}>
 			</Grid>
@@ -84,7 +93,7 @@ const GamingMap = props => {
 					</Flex>
 				</Flex>
 				<Box h="30vh">
-					<Code h="100%" w="100%">La partie input</Code>
+					<Code h="100%" w="100%">{battleSummary.join("\n")}</Code>
 				</Box>
 			</Flex>
 

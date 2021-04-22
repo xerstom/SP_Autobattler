@@ -7,7 +7,12 @@ class BattleManager extends Manager {
 		super(gameManager);
 		this.ready = false;
 		this.state = [];
-
+		/**
+ 		* agent1: agent1.name,
+		* agent2: agent2.name,
+		* summary,
+		* detailedCombat: combatDetails,
+ 		*/
 		this.battles = [];
 		this.fighters = [];
 	}
@@ -23,6 +28,10 @@ class BattleManager extends Manager {
 		this.fighters = [];
 	}
 
+	summary() {
+		return this.state;
+	}
+
 	setup() {
 		this.reset();
 		const all = this.m.getAgents();
@@ -30,9 +39,7 @@ class BattleManager extends Manager {
 			// who will fight with the current agent
 			// includes the current agent + all that matches its position
 			const fighting = all
-				.filter(e => e.position.x === agent.position.x
-					&& e.position.y === agent.position.y
-					&& !this.fighters.includes(e.name) );
+				.filter(e => this.m.samePosition(e, agent) && !this.fighters.includes(e.name) );
 
 			// add to current fighters
 			fighting.forEach(e => this.fighters.push(e.name) );

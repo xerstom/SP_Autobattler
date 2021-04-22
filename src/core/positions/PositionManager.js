@@ -14,6 +14,13 @@ class PositionManager extends Manager {
 		this.movementPoints = CONFIG.MOVEMENT_POINTS;
 	}
 
+	init() {
+		const agents = this.m.getAgents();
+		for (let i = 0; i < agents.length; i++) {
+			this.setPosition(agents[i].name, i, generatePosition(this.m.mapManager.borders) );
+		}
+	}
+
 	getMovementPoints() {
 		return this.movementPoints;
 	}
@@ -30,11 +37,10 @@ class PositionManager extends Manager {
 		return [...this.positions.values()];
 	}
 
-	init() {
-		const agents = this.m.getAgents();
-		for (let i = 0; i < agents.length; i++) {
-			this.setPosition(agents[i].name, i, generatePosition(this.m.mapManager.borders) );
-		}
+	samePosition(a, b) {
+		const aPos = this.getPosition(a.name);
+		const bPos = this.getPosition(b.name);
+		return (aPos.x === bPos.x && aPos.y === bPos.y);
 	}
 
 	// TODO: verifier avec les borders?

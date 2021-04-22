@@ -2,7 +2,7 @@
 import dynamic from "next/dynamic";
 import Head from "next/head";
 
-import GameInterface from "../components/GameInterface.js";
+import FrontGameInterface from "../components/FrontGameInterface.js";
 import Manager from "../core/GameManager.js";
 import styles from "../styles/Home.module.css";
 
@@ -10,7 +10,7 @@ import styles from "../styles/Home.module.css";
 const Game = dynamic( () => import("../components/Game.jsx"),
 	{ ssr: false } );
 
-const gameInterface = new GameInterface();
+const gameInterface = new FrontGameInterface();
 
 export default function Home() {
 	gameInterface.start();

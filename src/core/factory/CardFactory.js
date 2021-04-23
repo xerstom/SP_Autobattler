@@ -42,7 +42,7 @@ export function generateGameCards(x, templates) {
 }
 
 function createFightCard(gameCard) {
-	return new FightCard(gameCard.name, gameCard.attack, gameCard.life);
+	return new FightCard(gameCard.name, gameCard.displayName, gameCard.attack, gameCard.life);
 }
 
 export function generateFightCards(board) {

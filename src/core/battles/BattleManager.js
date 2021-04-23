@@ -147,7 +147,7 @@ class BattleManager extends Manager {
 		targetBoard[targetIndex].life -= sourceBoard[sourceIndex].attack;
 		sourceBoard[sourceIndex].life -= targetBoard[targetIndex].attack;
 
-		let fightDetails = `${sourceName}'s ${sourceBoard[sourceIndex].name} attack ${targetName} ${targetBoard[targetIndex].name}. `;
+		let fightDetails = `${sourceName}'s ${sourceBoard[sourceIndex].displayName} attack ${targetName}'s ${targetBoard[targetIndex].displayName}. `;
 		
 		const isTargetDead = targetBoard[targetIndex].life <= 0;
 		const isSourceDead = sourceBoard[sourceIndex].life <= 0;

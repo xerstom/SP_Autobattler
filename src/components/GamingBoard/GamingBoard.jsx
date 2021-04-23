@@ -37,21 +37,7 @@ const GamingBoard = props => {
 			await sleep(300);
 		}
 	}, [] );
-
-	const buyCard = () => {
-		const res = gInterface.buyCard();
-		if (!res[0] ) {
-			return false;
-		}
-		if (res[1] === "board") {
-			setPlayerBoard(gInterface.getBoard() );
-		} else if (res[1] === "bench") {
-			setPlayerBench(gInterface.getBench() );
-		}
-		setPlayerProfile(gInterface.getProfile() );
-		return true;
-	};
-
+	
 	const sellCard = (index, location) => {
 		gInterface.sellCard(index, location);
 		if (location === "bench") {
@@ -71,7 +57,6 @@ const GamingBoard = props => {
 	
 	const rerollNewCard = () => {
 		setPlayerProfile(gInterface.getProfile() );
-		gInterface.createMarketCard();
 		setMarketCard(gInterface.getMarketCard() );
 	};
 
@@ -82,9 +67,18 @@ const GamingBoard = props => {
 	};
 
 	const buy = () => {
-		if (buyCard() ) {
-			rerollNewCard();
+		const res = gInterface.buyCard();
+		if (!res[0] ) {
+			return false;
 		}
+		if (res[1] === "board") {
+			setPlayerBoard(gInterface.getBoard() );
+		} else if (res[1] === "bench") {
+			setPlayerBench(gInterface.getBench() );
+		}
+		setPlayerProfile(gInterface.getProfile() );
+		rerollNewCard();
+		return true;
 	};
 
 	const levelUp = () => {

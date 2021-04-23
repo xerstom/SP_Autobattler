@@ -105,10 +105,6 @@ class BackGameInterface {
 		return this.gm.boardUp();
 	}
 
-	createMarketCard() {
-		this.gm.createMarketCard();
-	}
-
 	rerollCard() {
 		return this.gm.rerollCard();
 	}

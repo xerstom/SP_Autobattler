@@ -102,10 +102,6 @@ class FrontGameInterface {
 	swapCard(index, location) {
 		return this.bgi.swapCard(index, location);
 	}
-
-	createMarketCard() {
-		this.bgi.createMarketCard();
-	}
 	
 	rerollCard() {
 		return this.bgi.rerollCard();

@@ -106,28 +106,24 @@ class GameManager {
 	}
 
 	getMarketCard() {
-		return this.cardManager.getMarketCard();
+		return this.cardManager.getMarketCard(this.agentManager.getPlayer().name);
 	}
 
 	// CARDS
-	createMarketCard() {
-		this.cardManager.rerollMarketCard();
-	}
-
 	rerollCard() {
-		return this.cardManager.rerollCard();
+		return this.cardManager.rerollCard(this.agentManager.getPlayer() );
 	}
 
 	buyCard() {
-		return this.cardManager.buyCard();
+		return this.cardManager.buyCard(this.agentManager.getPlayer() );
 	}
 
 	sellCard(index, location) {
-		return this.cardManager.sellCard(index, location);
+		return this.cardManager.sellCard(this.agentManager.getPlayer(), index, location);
 	}
 
 	swapCard(index, location) {
-		return this.cardManager.swapCard(index, location);
+		return this.cardManager.swapCard(this.agentManager.getPlayer(), index, location);
 	}
 
 	// MAP

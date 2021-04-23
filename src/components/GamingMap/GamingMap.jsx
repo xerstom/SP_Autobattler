@@ -1,9 +1,11 @@
+/* eslint-disable no-magic-numbers */
 import {
-	Box, Button, Flex, Text,
+	Box, Button, Flex,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
+import LogOutput from "../LogOutput.jsx";
 import AgentDisplayer from "./AgentDisplayer/AgentDisplayer.jsx";
 import Grid from "./Grid/Grid.jsx";
 
@@ -18,7 +20,7 @@ const GamingMap = props => {
 	const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
 	const [agentsPosition, setAgentsPosition] = useState(gInterface.getAgentsPosition() );
 	const [agents, setAgents] = useState(gInterface.getAgentsProfile() );
-	const [battleSummary, setBattleSummary] = useState( [] );
+	const [battleSummary, setBattleSummary] = useState(gInterface.getBattleSummary() );
 
 
 	// movePriorPlayers
@@ -36,14 +38,15 @@ const GamingMap = props => {
 	async function phaseTwo() {
 		const l = gInterface.getLaterAgentsPosition();
 		for (let i = 0; i < l; ++i) {
-			await sleep(1000);
 			setAgentsPosition(gInterface.getUpdatedAgentsPosition() );
+			await sleep(800);
 		}
+		setBattleSummary( [] );
 		const summary = gInterface.getBattleSummary();
 		for (const sum of summary) {
-			await sleep(300);
-			battleSummary.push(sum.summary);
+			battleSummary.push(sum);
 			setBattleSummary( [...battleSummary] );
+			await sleep(400);
 		}
 		setAgents(gInterface.getAgentsProfile() );
 	}
@@ -77,7 +80,7 @@ const GamingMap = props => {
 	};
 
 	return (
-		<Flex bg="gray.200">
+		<Flex h="100vh" bg="gray.200">
 			<Grid gInterface={gInterface}
 				columns={gInterface.getGridSize()}
 				rows={gInterface.getGridSize()}
@@ -95,10 +98,7 @@ const GamingMap = props => {
 						</Box>
 					</Flex>
 				</Flex>
-				<Box h="30vh">
-					{/* TODO LINEBREAK */}
-					<Text h="100%" w="100%">{battleSummary.join("\n")}</Text>
-				</Box>
+				<LogOutput minH="30vh" summary={battleSummary} />
 			</Flex>
 
 		</Flex>

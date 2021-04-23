@@ -1,14 +1,20 @@
+/* eslint-disable no-magic-numbers */
 import {
-	Button, Code, Flex, Grid, GridItem,
+	Button, Flex, Grid, GridItem,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
+import LogOutput from "../LogOutput.jsx";
 import Bench from "./Bench/Bench.jsx";
 import Board from "./Board/Board.jsx";
 import Management from "./Management/Management.jsx";
 import Market from "./Market/Market.jsx";
 import Profile from "./Profile/Profile.jsx";
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms) );
+}
 
 const GamingBoard = props => {
 	const { gInterface } = props;
@@ -16,6 +22,21 @@ const GamingBoard = props => {
 	const [playerBench, setPlayerBench] = useState(gInterface.getBench() );
 	const [playerProfile, setPlayerProfile] = useState(gInterface.getProfile() );
 	const [marketCard, setMarketCard] = useState(gInterface.getMarketCard() );
+	const [combatSummary, setCombatSummary] = useState(gInterface.getLastCombat(playerProfile.name) );
+	const [detailedCombats, setDetailedCombats] = useState( [] );
+
+	useEffect(async() => {
+		const allSum = gInterface.getLastCombat(playerProfile.name);
+		if (!allSum) {
+			return;
+		}
+		const combatSum = allSum.detailedCombat;
+		for (const combat of combatSum) {
+			detailedCombats.push(combat);
+			setDetailedCombats( [...detailedCombats] );
+			await sleep(300);
+		}
+	}, [] );
 
 	const buyCard = () => {
 		const res = gInterface.buyCard();
@@ -99,8 +120,8 @@ const GamingBoard = props => {
 		}
 	};
 
-	const onCombat = true;
-	const playerCombat = "Mr Cyan";
+	const onCombat = combatSummary !== null;
+	const agentCombat = combatSummary !== null && (combatSummary.agent1 === playerProfile.name ? combatSummary.agent2 : combatSummary.agent1);
 	return (
 		<>
 			<Grid
@@ -121,14 +142,13 @@ const GamingBoard = props => {
 				{/* Ennemy profile */}
 				{
 					onCombat
-						? <GridItem rowStart={3} colStart={1} rowSpan={5} colSpan={3}>
-							<Profile user={gInterface.getProfile(playerCombat)}/>
+						&& <GridItem rowStart={3} colStart={1} rowSpan={5} colSpan={3}>
+							<Profile user={gInterface.getProfile(agentCombat)}/>
 						</GridItem>
-						: ""
 				}
 				
-				<GridItem rowStart={9} colStart={1} rowSpan={7} colSpan={6} >
-					<Code h="100%" w="100%">Enemy monster destroyed super monster</Code>
+				<GridItem rowStart={9} colStart={1} rowSpan={7} colSpan={6}>
+					<LogOutput maxH="27.5vh" summary={detailedCombats}></LogOutput>
 				</GridItem>
 
 				{/* Player profile  */}
@@ -151,10 +171,9 @@ const GamingBoard = props => {
 					<Flex h="100%" flexDirection="column" justifyContent="flex-end " >
 						{
 							onCombat
-								? <Flex h="50%" flexDirection="column" justifyContent="center" >
-									<Board cards={gInterface.getBoard(playerCombat)} interactable={false}/>
+								&& <Flex h="50%" flexDirection="column" justifyContent="center" >
+									<Board cards={gInterface.getBoard(agentCombat)} interactable={false}/>
 								</Flex>
-								: ""
 						}
 						<Flex h="50%" flexDirection="column" justifyContent="center" alignItems="center" >
 							<Board cards={playerBoard} interactable={true} sellCard={sellCard} swapCard={swapCard}/>

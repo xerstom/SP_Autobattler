@@ -130,7 +130,13 @@ class FrontGameInterface {
 
 	// battle
 	getBattleSummary() {
-		return this.bgi.getBattleSummary();
+		return this.bgi.getBattleSummary().map(e => e.summary);
+	}
+
+	getLastCombat(agent) {
+		const sum = this.bgi.getBattleSummary();
+		const filtered = sum.filter(e => e.agent1 === agent || e.agent2 === agent);
+		return filtered.length > 0 ? filtered.pop() : null;
 	}
 }
 

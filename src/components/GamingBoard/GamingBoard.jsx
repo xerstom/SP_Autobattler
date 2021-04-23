@@ -22,7 +22,7 @@ const GamingBoard = props => {
 	const [playerBench, setPlayerBench] = useState(gInterface.getBench() );
 	const [playerProfile, setPlayerProfile] = useState(gInterface.getProfile() );
 	const [marketCard, setMarketCard] = useState(gInterface.getMarketCard() );
-	const [combatSummary, setCombatSummary] = useState(gInterface.getLastCombat(playerProfile.name) );
+	const [combatSummary] = useState(gInterface.getLastCombat(playerProfile.name) );
 	const [detailedCombats, setDetailedCombats] = useState( [] );
 
 	useEffect(async() => {

@@ -2,10 +2,11 @@ import ManagementStrategy from "./ManagementStrategy.js";
 
 export default class LevelUpStrategy extends ManagementStrategy {
 	static executeTurn(strategy, agent, agentManager) {
-		// eslint-disable-next-line curly
-		while (agentManager.buy(agent, "levelUp") ) ;
+		while (agentManager.buy(agent, "levelUp") ) {
+			strategy.choice = null;
+		}
 
-		if (agent.isLevelMax() && strategy !== -1) {
+		if (agent.isLevelMax() && strategy.levelUpStrategy !== -1) {
 			ManagementStrategy.redistributeProba("levelUpStrategy", strategy);
 		}
 	}

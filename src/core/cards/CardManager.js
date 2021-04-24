@@ -106,6 +106,15 @@ class CardManager extends Manager {
 		}
 		return true;
 	}
+
+	optimizeBoards(board, bench, boardMaxlength) {
+		const cards = [...board, ...bench];
+		cards.sort( (a, b) => b.stats - a.stats);
+		const updatedBoard = cards.slice(0, boardMaxlength);
+		const updatedBench = cards.slice(boardMaxlength);
+
+		return [updatedBoard, updatedBench];
+	}
 }
 
 export default CardManager;

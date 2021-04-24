@@ -32,6 +32,10 @@ class GameCard {
 		const life = value - attack;
 		this.life += life;
 	}
+
+	get stats() {
+		return this.life + this.attack;
+	}
 }
 
 export default GameCard;

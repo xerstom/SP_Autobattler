@@ -8,6 +8,8 @@ class CardManager extends Manager {
 		this.templates = generateTemplateCards(CONFIG.TEMPLATE_CARDS);
 
 		this.marketCards = new Map();
+
+		this.buffPercentage = CONFIG.BUFF_PERCENTAGE;
 	}
 	
 	// init
@@ -48,6 +50,10 @@ class CardManager extends Manager {
 		return false;
 	}
 
+	getPercentageBuff(marketCard) {
+		return Math.round( (marketCard.life + marketCard.attack) * this.buffPercentage);
+	}
+
 	buyCard(agent) {
 		const res = [false, ""];
 		const marketCard = this.getMarketCard(agent.name);
@@ -56,7 +62,7 @@ class CardManager extends Manager {
 		}
 		const [existing, location] = agent.cardExist(marketCard);
 		if (existing) {
-			existing.buff(1);
+			existing.buff(this.getPercentageBuff(marketCard) );
 			res[1] = location;
 		} else if (agent.isBoardFull() ) {
 			if (agent.isBenchFull() ) {

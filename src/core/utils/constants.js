@@ -4,7 +4,7 @@ export const CONFIG = {
 	TEMPLATE_CARDS: 30,
 	GRID_SIZE: 14,
 	MOVEMENT_POINTS: 5,
-	
+
 	REROLL_PRICE: 2,
 
 	BASE_CARDS: 2,
@@ -15,11 +15,13 @@ export const CONFIG = {
 	MAX_BOARD_PLACE: 7,
 	MAX_LEVEL: 3,
 	MAX_BENCH_PLACE: 5,
-	
+
+	BUFF_PERCENTAGE: 0.2,
+
 	BASE_BOARD_UP_PRICE: 10,
 	BASE_LEVEL_UP_PRICE: 10,
-	BOARD_UP_MULTIPLIER: 1.4,
-	LEVEL_UP_MULTIPLIER: 1.4,
+	BOARD_UP_MULTIPLIER: 1.4, // money to board up
+	LEVEL_UP_MULTIPLIER: 2, // money to level up
 };
 
 export const LEVELS = [

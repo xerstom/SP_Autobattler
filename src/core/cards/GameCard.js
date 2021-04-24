@@ -29,7 +29,7 @@ class GameCard {
 		this.adaptative += value;
 		const attack = rand(0, value);
 		this.attack += attack;
-		const life = rand(0, value - attack);
+		const life = value - attack;
 		this.life += life;
 	}
 }

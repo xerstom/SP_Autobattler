@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: '14'
       - run: yarn
-      - run: yarn build & yarn export & touch out/.nojekyll
+      - run: yarn build && yarn export && touch out/.nojekyll
       # - run: yarn export
         env:
             CI: true

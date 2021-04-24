@@ -110,12 +110,12 @@ class GameManager {
 	}
 
 	// CARDS
-	rerollCard() {
-		return this.cardManager.rerollCard(this.agentManager.getPlayer() );
+	rerollCard(agent) {
+		return this.cardManager.rerollCard(agent || this.agentManager.getPlayer() );
 	}
 
-	buyCard() {
-		return this.cardManager.buyCard(this.agentManager.getPlayer() );
+	buyCard(agent) {
+		return this.cardManager.buyCard(agent || this.agentManager.getPlayer() );
 	}
 
 	sellCard(index, location) {
@@ -140,12 +140,12 @@ class GameManager {
 	}
 
 	// Profile
-	levelUp() {
-		return this.agentManager.levelUp();
+	levelUp(agent) {
+		return this.agentManager.levelUp(agent || this.agentManager.getPlayer() );
 	}
 
-	boardUp() {
-		return this.agentManager.boardUp();
+	boardUp(agent) {
+		return this.agentManager.boardUp(agent || this.agentManager.getPlayer() );
 	}
 
 	// battle

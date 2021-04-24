@@ -48,24 +48,30 @@ class AgentManager extends Manager {
 		return this.agents.find(a => a.name === name);
 	}
 
-	boardUp() {
-		const player = this.getPlayer();
-		if (!player.isBoardSizeMax() && player.hasEnoughMoney(player.boardUpPrice) ) {
-			player.decreaseMoney(player.boardSize);
-			player.upBoard();
+	boardUp(agent) {
+		if (!agent.isBoardSizeMax() && agent.hasEnoughMoney(agent.boardUpPrice) ) {
+			agent.decreaseMoney(agent.boardSize);
+			agent.upBoard();
 			return true;
 		}
 		return false;
 	}
 
-	levelUp() {
-		const player = this.getPlayer();
-		if (!player.isLevelMax() && player.hasEnoughMoney(player.levelUpPrice) ) {
-			player.decreaseMoney(player.levelUpPrice);
-			player.upLevel();
+	levelUp(agent) {
+		if (!agent.isLevelMax() && agent.hasEnoughMoney(agent.levelUpPrice) ) {
+			agent.decreaseMoney(agent.levelUpPrice);
+			agent.upLevel();
 			return true;
 		}
 		return false;
+	}
+
+	buy(agent, action) {
+		return this[action](agent);
+	}
+
+	increaseMoneyForAllAgents(moneyToAdd) {
+		this.agents.forEach(a => a.increaseMoney(moneyToAdd) );
 	}
 }
 

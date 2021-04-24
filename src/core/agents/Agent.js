@@ -115,6 +115,10 @@ class Agent {
 	decreaseMoney(money) {
 		this.money -= money;
 	}
+
+	decreaseLife(life) {
+		this.life -= life;
+	}
 }
 
 export default Agent;

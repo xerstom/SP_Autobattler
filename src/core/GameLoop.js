@@ -38,7 +38,12 @@ class GameLoop extends Manager {
 		this.m.moveLaterAgents();
 		this.m.generateNewBorders();
 		this.m.battle();
-		// this.m.management();
+		this.managment();
+	}
+
+	managment() {
+		console.log("cc");
+		this.m.getBots().forEach(agent => agent.strategy.executeTurn(agent, this.m.agentManager, this.m.cardManager) );
 	}
 }
 

@@ -93,7 +93,7 @@ const GamingMap = props => {
 				<Flex h="100%" alignItems="flex-start" justifyContent="space-between">
 					<AgentDisplayer agents={agents}></AgentDisplayer>
 					<Flex flexDirection="column" justifyContent="space-between" alignItems="flex-end" h="100%">
-						<Button w="10%" onClick={onClickHandler} >{ ">>" } </Button>
+						<Button w="10%" disabled={isNextButtonDisabled} onClick={onClickHandler} >{ ">>" } </Button>
 						<Box w="7vw">
 							<Button w="100%" disabled={isNextButtonDisabled} onClick={handleNext} fontSize="0.7vw" >Suivant</Button>
 						</Box>

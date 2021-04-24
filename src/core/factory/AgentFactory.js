@@ -9,7 +9,7 @@ function createAgent(bot, color) {
 
 export default function generateAgents(x, COLORS) {
 	const agents = [];
-	agents.push(createAgent(true, COLORS[0] ) );
+	agents.push(createAgent(false, COLORS[0] ) );
 	for (let i = 1; i < x; ++i) {
 		agents.push(createAgent(true, COLORS[i] ) );
 	}

@@ -79,10 +79,6 @@ class FrontGameInterface {
 	}
 	
 	// PLAYER INTERACTIONS
-	move(position) {
-		this.bgi.move(position);
-	}
-
 	boardUp() {
 		return this.bgi.boardUp();
 	}

@@ -45,7 +45,7 @@ class BackGameInterface {
 	}
 
 	getLaterAgentsPosition() {
-		return this.gm.getLaterAgents().map(e => this._formatPosition(e) );
+		return this.gm.getLaterAgentsCache().map(e => this._formatPosition(e) );
 	}
 
 	// AGENTS

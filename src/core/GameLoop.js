@@ -36,6 +36,7 @@ class GameLoop extends Manager {
 	phaseTwo(selectedBox) {
 		this.m.movePlayer(selectedBox);
 		this.m.moveLaterAgents();
+		this.m.setLaterAgentsCache();
 		this.m.generateNewBorders();
 		this.management();
 		this.m.battle();

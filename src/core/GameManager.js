@@ -19,6 +19,8 @@ class GameManager {
 		this.mapManager = new MapManager(this);
 		this.battleManager = new BattleManager(this);
 		this.gameLoop = new GameLoop(this);
+
+		this.laterAgentsCache = [];
 	}
 
 	// lifecycle
@@ -57,6 +59,14 @@ class GameManager {
 
 	getPriorAgents(agent) {
 		return this.agentManager.getPrior(agent || this.agentManager.getPlayer() );
+	}
+
+	getLaterAgentsCache() {
+		return this.laterAgentsCache;
+	}
+
+	setLaterAgentsCache(agent) {
+		this.laterAgentsCache = this.agentManager.getLater(agent || this.agentManager.getPlayer() );
 	}
 
 	getLaterAgents(agent) {

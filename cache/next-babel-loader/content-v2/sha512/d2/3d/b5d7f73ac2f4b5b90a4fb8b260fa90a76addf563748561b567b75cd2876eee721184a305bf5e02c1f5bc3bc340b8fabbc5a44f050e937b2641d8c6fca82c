@@ -1,1 +1,0 @@
-{"ast":null,"code":"import ManagementStrategy from \"./ManagementStrategy.js\";\nexport default class BuyStrategy extends ManagementStrategy {\n  static executeTurn(strategy, agent, agentManager, cardManager) {\n    while (cardManager.buyCard(agent)[0]) {\n      strategy.choice = null;\n    }\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}

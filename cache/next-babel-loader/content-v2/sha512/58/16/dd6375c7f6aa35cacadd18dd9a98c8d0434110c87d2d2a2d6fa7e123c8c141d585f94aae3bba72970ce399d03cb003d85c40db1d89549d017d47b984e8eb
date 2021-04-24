@@ -1,1 +1,0 @@
-{"ast":null,"code":"class FightCard {\n  constructor(name, displayName, attack, life) {\n    this.name = name;\n    this.displayName = displayName;\n    this.attack = attack;\n    this.life = life;\n  }\n\n}\n\nexport default FightCard;","map":null,"metadata":{},"sourceType":"module"}

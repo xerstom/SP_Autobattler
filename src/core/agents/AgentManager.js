@@ -50,7 +50,7 @@ class AgentManager extends Manager {
 
 	boardUp(agent) {
 		if (!agent.isBoardSizeMax() && agent.hasEnoughMoney(agent.boardUpPrice) ) {
-			agent.decreaseMoney(agent.boardSize);
+			agent.decreaseMoney(agent.boardUpPrice);
 			agent.upBoard();
 			return true;
 		}

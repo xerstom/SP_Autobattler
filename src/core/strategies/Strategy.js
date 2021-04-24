@@ -1,26 +1,30 @@
 import BoardUpStrategy from "./managmentStrategies/BoardUpStrategy.js";
 import BuyStrategy from "./managmentStrategies/BuyStrategy.js";
 import LevelUpStrategy from "./managmentStrategies/LevelUpStrategy.js";
+import ManagementStrategy from "./managmentStrategies/ManagementStrategy.js";
 import AgressiveTravelStrategy from "./travelStrategies/AgressiveTravelStrategy.js";
 import DefensiveTravelStrategy from "./travelStrategies/DefensiveTravelStrategy.js";
+
 // import TravelStrategy from "./travelStrategies/TravelStrategy.js";
 
 export default class Strategy {
-	constructor(agressivity, buyProbability, boardUpProbability) {
+	constructor(agressivity, levelUpProbability, boardUpProbability) {
 		// travelStrategy
 		this.agressivity = agressivity ?? Math.random();
 		this.passivness = 1 - this.agressivity;
 
+		this.choice = null;
+
 		// Managment strategy
 		let probaLeft = 1;
 
-		this.buyProbability = buyProbability ?? Math.random();
-		probaLeft -= this.buyProbability;
+		this.levelUpProbability = levelUpProbability ?? Math.random();
+		probaLeft -= this.levelUpProbability;
 
 		this.boardUpProbability = boardUpProbability < (probaLeft) ? boardUpProbability : Math.random() * probaLeft;
 		probaLeft -= this.boardUpProbability;
 
-		this.levelUpProbability = probaLeft;
+		this.buyProbability = probaLeft;
 	}
 
 	getTravelStrategy() {
@@ -35,17 +39,23 @@ export default class Strategy {
 	}
 	
 	executeTurn(agent, agentManager, cardManager) {
-		return this.getManagmentStrategy().executeTurn(this, agent, agentManager, cardManager);
+		return ManagementStrategy._executeTurn(this.getManagmentStrategy(), this, agent, agentManager, cardManager);
 	}
 
 	getManagmentStrategy() {
+		if (this.choice) {
+			return this.choice;
+		}
 		const rand = Math.random();
 		if (rand < this.buyProbability) {
+			this.choice = BuyStrategy;
 			return BuyStrategy;
 		}
 		if (rand < (this.boardUpProbability + this.buyProbability) ) {
+			this.choice = BoardUpStrategy;
 			return BoardUpStrategy;
 		}
+		this.choice = LevelUpStrategy;
 		return LevelUpStrategy;
 	}
 }

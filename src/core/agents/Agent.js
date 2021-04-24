@@ -69,7 +69,7 @@ class Agent {
 	}
 
 	hasEnoughMoney(money) {
-		return this.money > money;
+		return this.money >= money;
 	}
 
 	isBoardFull() {
@@ -118,6 +118,11 @@ class Agent {
 
 	decreaseLife(life) {
 		this.life -= life;
+	}
+
+	setNewGamingBoard(board, bench) {
+		this.board = board;
+		this.bench = bench;
 	}
 }
 

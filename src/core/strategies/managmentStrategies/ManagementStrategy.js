@@ -4,6 +4,12 @@ export default class ManagementStrategy {
 		throw new Error("not implemented");
 	}
 
+	static _executeTurn(managementStrat, strategy, agent, agentManager, cardManager) {
+		managementStrat.executeTurn(strategy, agent, agentManager, cardManager);
+		const [board, bench] = cardManager.optimizeBoards(agent.board, agent.bench, agent.boardSize);
+		agent.setNewGamingBoard(board, bench);
+	}
+
 	static redistributeProba(probaToChange, strategy) {
 		let toDistribute = strategy[probaToChange];
 		strategy[probaToChange] = -1;

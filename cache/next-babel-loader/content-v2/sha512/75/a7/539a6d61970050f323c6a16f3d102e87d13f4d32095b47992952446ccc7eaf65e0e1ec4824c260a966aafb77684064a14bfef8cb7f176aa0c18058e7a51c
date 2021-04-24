@@ -1,0 +1,1 @@
+{"ast":null,"code":"import Agent from \"./Agent.js\";\n\nclass Player extends Agent {}\n\nexport default Player;","map":null,"metadata":{},"sourceType":"module"}

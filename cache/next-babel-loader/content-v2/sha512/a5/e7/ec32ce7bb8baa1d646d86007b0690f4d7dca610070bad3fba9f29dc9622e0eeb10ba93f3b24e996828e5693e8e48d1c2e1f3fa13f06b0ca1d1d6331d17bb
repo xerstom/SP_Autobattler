@@ -1,0 +1,1 @@
+{"ast":null,"code":"import Strategy from \"../strategies/Strategy.js\";\nimport Agent from \"./Agent.js\";\n\nclass Bot extends Agent {\n  constructor(color) {\n    super(color);\n    this.strategy = new Strategy(Math.random(), 0.5, 0.4);\n  }\n\n}\n\nexport default Bot;","map":null,"metadata":{},"sourceType":"module"}

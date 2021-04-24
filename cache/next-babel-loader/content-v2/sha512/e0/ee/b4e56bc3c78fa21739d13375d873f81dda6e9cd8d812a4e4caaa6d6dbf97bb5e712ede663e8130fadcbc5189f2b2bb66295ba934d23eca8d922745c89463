@@ -1,0 +1,1 @@
+{"ast":null,"code":"class Manager {\n  constructor(gameManager) {\n    this._manager = gameManager;\n  }\n\n  get manager() {\n    return this._manager;\n  }\n\n  get m() {\n    return this._manager;\n  }\n\n  init() {\n    throw new Error(\"Not Implemented.\");\n  }\n\n}\n\nexport default Manager;","map":null,"metadata":{},"sourceType":"module"}

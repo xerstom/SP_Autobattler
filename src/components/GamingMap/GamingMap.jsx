@@ -9,6 +9,8 @@ import LogOutput from "../LogOutput.jsx";
 import AgentDisplayer from "./AgentDisplayer/AgentDisplayer.jsx";
 import Grid from "./Grid/Grid.jsx";
 
+const TIMEOUT_MOVEMENT = 1000;
+
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms) );
 }
@@ -22,13 +24,12 @@ const GamingMap = props => {
 	const [agents, setAgents] = useState(gInterface.getAgentsProfile() );
 	const [battleSummary, setBattleSummary] = useState(gInterface.getBattleSummary() );
 
-
 	// movePriorPlayers
 	async function phaseOne() {
 		const l = gInterface.getPriorAgentsPosition();
 		for (let i = 0; i < l; ++i) {
-			await sleep(1000);
 			setAgentsPosition(gInterface.getUpdatedAgentsPosition() );
+			await sleep(TIMEOUT_MOVEMENT);
 		}
 	}
 
@@ -39,7 +40,7 @@ const GamingMap = props => {
 		const l = gInterface.getLaterAgentsPosition();
 		for (let i = 0; i < l; ++i) {
 			setAgentsPosition(gInterface.getUpdatedAgentsPosition() );
-			await sleep(800);
+			await sleep(TIMEOUT_MOVEMENT);
 		}
 		setBattleSummary( [] );
 		const summary = gInterface.getBattleSummary();

@@ -1,4 +1,5 @@
 import Manager from "./Manager.js";
+import { CONFIG } from "./utils/constants.js";
 
 const PHASE_ONE = 1; // waiting for player position
 const PHASE_TWO = 2; // waiting for next turn
@@ -6,6 +7,7 @@ class GameLoop extends Manager {
 	constructor(gameManager) {
 		super(gameManager);
 		this.currentPhase = 0;
+		this.moneyPerTUrn = CONFIG.MONEY_PER_TURN;
 	}
 
 	start() {
@@ -28,21 +30,19 @@ class GameLoop extends Manager {
 	}
 
 	phaseOne() {
-		console.log("PHASE 1");
 		this.m.movePriorAgents();
 	}
 	
 	phaseTwo(selectedBox) {
-		console.log("PHASE 2");
 		this.m.movePlayer(selectedBox);
 		this.m.moveLaterAgents();
 		this.m.generateNewBorders();
+		this.management();
 		this.m.battle();
-		this.managment();
+		this.m.agentManager.increaseMoneyForAllAgents(this.moneyPerTUrn);
 	}
 
-	managment() {
-		console.log("cc");
+	management() {
 		this.m.getBots().forEach(agent => agent.strategy.executeTurn(agent, this.m.agentManager, this.m.cardManager) );
 	}
 }

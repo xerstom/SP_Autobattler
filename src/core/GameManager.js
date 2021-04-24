@@ -56,11 +56,11 @@ class GameManager {
 	}
 
 	getPriorAgents(agent) {
-		return this.agentManager.getPrior(agent);
+		return this.agentManager.getPrior(agent || this.agentManager.getPlayer() );
 	}
 
 	getLaterAgents(agent) {
-		return this.agentManager.getLater(agent);
+		return this.agentManager.getLater(agent || this.agentManager.getPlayer() );
 	}
 
 	getBots() {
@@ -77,11 +77,11 @@ class GameManager {
 	}
 
 	movePriorAgents() {
-		this.positionManager.moveBots(this.agentManager.getPrior() );
+		this.positionManager.moveBots(this.agentManager.getPrior(this.agentManager.getPlayer() ) );
 	}
 
 	moveLaterAgents() {
-		this.positionManager.moveBots(this.agentManager.getLater().slice(1) );
+		this.positionManager.moveBots(this.agentManager.getLater(this.agentManager.getPlayer() ).slice(1) );
 	}
 
 	canPlayerMove(x, y) {

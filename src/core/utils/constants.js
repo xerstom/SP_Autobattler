@@ -7,20 +7,25 @@ export const CONFIG = {
 
 	REROLL_PRICE: 2,
 
+	MONEY_PER_TURN: 5, // money earned per turn
+	MONEY_PER_COMBAT: 20, // money to split per combat
+
+	DAMAGE_PER_CARD: 5, // damage to deal per card at the end of battles
+
 	BASE_CARDS: 2,
 	BASE_LIFE: 100,
-	BASE_MONEY: 500,
+	BASE_MONEY: 5,
 	BASE_BOARD_PLACE: 2,
-	
+
 	MAX_BOARD_PLACE: 7,
 	MAX_LEVEL: 3,
 	MAX_BENCH_PLACE: 5,
 
 	BUFF_PERCENTAGE: 0.2,
 
-	BASE_BOARD_UP_PRICE: 10,
-	BASE_LEVEL_UP_PRICE: 10,
-	BOARD_UP_MULTIPLIER: 1.4, // money to board up
+	BASE_BOARD_UP_PRICE: 20,
+	BASE_LEVEL_UP_PRICE: 20,
+	BOARD_UP_MULTIPLIER: 2, // money to board up
 	LEVEL_UP_MULTIPLIER: 2, // money to level up
 };
 

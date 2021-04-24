@@ -1,5 +1,6 @@
 import { generateFightCards } from "../factory/CardFactory.js";
 import Manager from "../Manager.js";
+import { CONFIG } from "../utils/constants.js";
 import { rand } from "../utils/utils.js";
 
 class BattleManager extends Manager {
@@ -15,6 +16,23 @@ class BattleManager extends Manager {
  		*/
 		this.battles = [];
 		this.fighters = [];
+		this.damagePerCard = CONFIG.DAMAGE_PER_CARD;
+		this.moneyPerFight = CONFIG.MONEY_PER_COMBAT;
+	}
+
+	get battleSalary() {
+		return Math.round(this.moneyPerFight / 4);
+	}
+
+	get moneyToSplit() {
+		return Math.round(this.moneyPerFight / 2);
+	}
+
+	getMoneyBattle(agent, totalCards) {
+		if (totalCards === 0) {
+			return Math.round(this.moneyToSplit / 2);
+		}
+		return Math.round(this.moneyToSplit * (agent.board.length / totalCards) );
 	}
 
 	init() {
@@ -65,13 +83,18 @@ class BattleManager extends Manager {
 			const agent2 = this.prepareBattle(battle[1] );
 			const combatDetails = this.battle(agent1, agent2);
 			
-			const diff = agent1.board.length - agent2.board.length;
-			const summary = diff > 0
-				? `${agent1.name} a inflige ${diff} degats a ${agent2.name}!`
-				: `${agent2.name} a inflige ${-diff} degats a ${agent1.name}!`;
+			const totalCards = agent1.board.length + agent2.board.length;
+			battle[0].increaseMoney(this.getMoneyBattle(agent1, totalCards) );
+			battle[1].increaseMoney(this.getMoneyBattle(agent2, totalCards) );
 			
-			// TODO: actually remove life
-			// TODO: what if user is actually dead
+			battle[0].decreaseLife(agent2.board.length * this.damagePerCard);
+			battle[1].decreaseLife(agent1.board.length * this.damagePerCard);
+
+			battle[0].increaseMoney(this.battleSalary);
+			battle[1].increaseMoney(this.battleSalary);
+
+			const summary = `${agent1.name} a inflige ${agent1.board.length * this.damagePerCard} degats a ${agent2.name} et ${agent2.name} a inflige ${agent2.board.length * this.damagePerCard} degats a ${agent1.name}!`;
+
 			this.state.push( {
 				agent1: agent1.name,
 				agent2: agent2.name,

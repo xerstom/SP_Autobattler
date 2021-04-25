@@ -20,5 +20,8 @@
         "editor.codeActionsOnSave": {
             "source.fixAll.eslint": true
         },
+    },
+	"extensions": {
+        "recommendations": ["dbaeumer.vscode-eslint","xabikos.reactsnippets","msjsdiag.debugger-for-chrome","oouo-diogo-perdigao.docthis" ]
     }
 }

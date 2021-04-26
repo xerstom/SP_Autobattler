@@ -12,17 +12,17 @@ export function rand(min, max) {
 /**
  *
  *
- * @param {Number} x1
- * @param {Number} x2
- * @returns {Number} The distance from x1 to x2
+ * @param {Number} a coordinate
+ * @param {Number} b coordinate
+ * @returns {Number} The distance from a to b
  */
 export function distance(a, b) {
 	return a - b;
 }
 
 /**
- * @param {Number} a
- * @param {Number} b
+ * @param {Number} a coordinate
+ * @param {Number} b coordinate
  *@returns {Number} The absolute distance from x1 to x2
  */
 export function absDistance(a, b) {
@@ -31,8 +31,6 @@ export function absDistance(a, b) {
 
 /**
  * Sleep for a number of ms.
- *
- * @export
  * @param {Number} ms
  * @returns {Promise} Resolve after the time to wait for
  */

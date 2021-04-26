@@ -1,6 +1,21 @@
 import { distance, rand } from "../../utils/utils.js";
 
+/**
+ * The super class that defines a default travel strategy
+ *
+ * @export
+ * @class TravelStrategy
+ */
 export default class TravelStrategy {
+	/**
+	 * Returns a new random position for the agent
+	 *
+	 * @param {Agent} agent the agent whose position is generated
+	 * @param {MapManager} mapManager the map manager
+	 * @param {PositionManager} positionManager the position manager
+	 * @return {Position}
+	 * @memberof Strategy
+	 */
 	// eslint-disable-next-line no-unused-vars
 	static generatePos(agent, mapManager, positionManager) {
 		const mp = mapManager.getMovementPoints();

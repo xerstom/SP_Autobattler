@@ -1,6 +1,11 @@
 import TravelStrategy from "./TravelStrategy.js";
 
-// center of the map
+/**
+ * Return the center of the map
+ *
+ * @param {Number} gridSize the size of the map/grid
+ * @return {Position} the position of the center of the map
+ */
 function centerMap(gridSize) {
 	return {
 		x: Math.round( (gridSize - 1) / 2),
@@ -8,7 +13,23 @@ function centerMap(gridSize) {
 	};
 }
 
+/**
+ * The class that defines an agressive travel strategy
+ *
+ * @export
+ * @class AgressiveTravelStrategy
+ * @extends {TravelStrategy}
+ */
 export default class AgressiveTravelStrategy extends TravelStrategy {
+/**
+	 * Returns the position of the lowest hp and in range agent or the position to go near center
+	 *
+	 * @param {Agent} agent the agent whose position is generated
+	 * @param {MapManager} mapManager the map manager
+	 * @param {PositionManager} positionManager the position manager
+	 * @return {Position}
+	 * @memberof Strategy
+	 */
 	static generatePos(agent, mapManager, positionManager) {
 		const inRange = positionManager.getAgentsInRange(agent);
 		if (inRange.length > 0) {

@@ -7,11 +7,20 @@ import PositionManager from "./positions/PositionManager.js";
 
 /**
  *
- * @prop {Array<Agent>} agents
- * @prop {Array<CardTemplate>} templates
+ *
+ * @prop {AgentManger} agentManager the agent manager
+ * @prop {PositionManager} positionManager the position manager
+ * @prop {CardManager} cardManager the card manager
+ * @prop {MapManager} mapManager the map manager
+ * @prop {BattleManager} battleManager the battle manager
+ * @prop {GameLoop} gameLoop the game loop
  * @class GameManager
  */
 class GameManager {
+	/**
+	 * Constructor of game manager that instanciates all the sub managers
+	 * @memberof GameManager
+	 */
 	constructor() {
 		this.agentManager = new AgentManager(this);
 		this.positionManager = new PositionManager(this);
@@ -24,6 +33,11 @@ class GameManager {
 	}
 
 	// lifecycle
+	/**
+	 *  Calls all the sub managers init
+	 *
+	 * @memberof GameManager
+	 */
 	init() {
 		this.agentManager.init();
 		this.cardManager.init();
@@ -32,16 +46,37 @@ class GameManager {
 		this.battleManager.init();
 	}
 
+	// GAMELOOP
+	
+	/**
+	 * Starts the game loop
+	 *
+	 * @memberof GameManager
+	 */
 	start() {
 		this.gameLoop.start();
 	}
 
-	// GAMELOOP
+	/**
+	 * Starts the next phase
+	 *
+	 * @param {Position} [selectedBox=null]
+	 * @return {Number} the current phase
+	 * @memberof GameManager
+	 */
 	next(selectedBox = null) {
 		return this.gameLoop.next(selectedBox);
 	}
 
 	// AGENTS
+
+	/**
+	 * Get an agent by his name
+	 *
+	 * @param {String} name the name of the agent or null
+	 * @return {Agent} the found agent or the player if name is null
+	 * @memberof GameManager
+	 */
 	getAgent(name) {
 		if (!name) {
 			return this.agentManager.getPlayer();
@@ -49,34 +84,79 @@ class GameManager {
 		return this.agentManager.getByName(name) || this.agentManager.getPlayer();
 	}
 
+	/**
+	 * get the player
+	 *
+	 * @return {Player}
+	 * @memberof GameManager
+	 */
 	getPlayer() {
 		return this.agentManager.getPlayer();
 	}
 
+	/**
+	 * returns all the agents
+	 *
+	 * @return {Agent[]} all the agents
+	 * @memberof GameManager
+	 */
 	getAgents() {
 		return this.agentManager.getAll();
 	}
 
+	/**
+	 * returns all the agents playing before the given agent
+	 *
+	 * @param {Agent} agent the given agent
+	 * @return {Agent[]} the prior agents
+	 * @memberof GameManager
+	 */
 	getPriorAgents(agent) {
 		return this.agentManager.getPrior(agent || this.agentManager.getPlayer() );
 	}
 
+	/**
+	 * returns the later agents cache
+	 *
+	 * @return {Agent[]} the cached later agents
+	 * @memberof GameManager
+	 */
 	getLaterAgentsCache() {
 		return this.laterAgentsCache;
 	}
 
+	/**
+	 * Sets the later agent cache based on a given agent
+	 *
+	 * @param {Agent} agent the given agent
+	 * @memberof GameManager
+	 */
 	setLaterAgentsCache(agent) {
 		this.laterAgentsCache = this.agentManager.getLater(agent || this.agentManager.getPlayer() );
 	}
 
+	/**
+	 * get all the agents playing after the given agent
+	 *
+	 * @param {Agent} agent the given agent
+	 * @return {Agent[]} the later agent
+	 * @memberof GameManager
+	 */
 	getLaterAgents(agent) {
 		return this.agentManager.getLater(agent || this.agentManager.getPlayer() );
 	}
 
+	/**
+	 * returns the list of bots
+	 *
+	 * @return {Bot[]} the list of boots
+	 * @memberof GameManager
+	 */
 	getBots() {
 		return this.agentManager.getBots();
 	}
 
+	
 	// POSITION
 	getPosition(agent) {
 		return this.positionManager.getPosition(agent.name);

@@ -1,6 +1,23 @@
 import TravelStrategy from "./TravelStrategy.js";
 
+
+/**
+ * The class that defines a defensive travel strategy
+ *
+ * @export
+ * @class DefensiveTravelStrategy
+ * @extends {TravelStrategy}
+ */
 export default class DefensiveTravelStrategy extends TravelStrategy {
+	/**
+	 * Returns the opposite of the mean position
+	 *
+	 * @param {Agent} agent the agent whose position is generated
+	 * @param {MapManager} mapManager the map manager
+	 * @param {PositionManager} positionManager the position manager
+	 * @return {Position}
+	 * @memberof Strategy
+	 */
 	static generatePos(agent, mapManager, positionManager) {
 		let meanX = 0;
 		let meanY = 0;

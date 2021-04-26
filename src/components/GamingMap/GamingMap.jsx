@@ -96,7 +96,9 @@ const GamingMap = props => {
 					<Flex flexDirection="column" justifyContent="space-between" alignItems="flex-end" h="100%">
 						<Button w="10%" disabled={isNextButtonDisabled} onClick={onClickHandler} >{ ">>" } </Button>
 						<Box w="7vw">
-							<Button w="100%" disabled={isNextButtonDisabled} onClick={handleNext} fontSize="0.7vw" >Suivant</Button>
+							<Button w="100%" disabled={isNextButtonDisabled} onClick={handleNext} fontSize="0.7vw">
+								{gInterface.currentPhase === 2 ? "Tour suivant" : "Valider position"}
+							</Button>
 						</Box>
 					</Flex>
 				</Flex>

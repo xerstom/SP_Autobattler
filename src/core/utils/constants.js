@@ -19,7 +19,7 @@ export const CONFIG = {
 
 	BASE_CARDS: 2,
 	BASE_LIFE: 100,
-	BASE_MONEY: 5,
+	BASE_MONEY: 500,
 	BASE_BOARD_PLACE: 2,
 
 	MAX_BOARD_PLACE: 7,
@@ -29,8 +29,8 @@ export const CONFIG = {
 	BUFF_PERCENTAGE: 0.2,
 
 	BASE_BOARD_UP_PRICE: 20,
-	BASE_LEVEL_UP_PRICE: 20,
-	BOARD_UP_MULTIPLIER: 2, // money to board up
+	BASE_LEVEL_UP_PRICE: 25,
+	BOARD_UP_MULTIPLIER: 1.7, // money to board up
 	LEVEL_UP_MULTIPLIER: 2, // money to level up
 };
 

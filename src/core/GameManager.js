@@ -233,6 +233,28 @@ class GameManager {
 
 	// getters
 	/**
+	 * Whether the user has its board maxed
+	 *
+	 * @param {String} name
+	 * @returns {Boolean}
+	 * @memberof GameManager
+	 */
+	isBoardMax(name) {
+		return this.agentManager.getByName(name).isBoardSizeMax();
+	}
+
+	/**
+	 * Whether the agent has its level maxed
+	 *
+	 * @param {String} name
+	 * @returns {Boolean}
+	 * @memberof GameManager
+	 */
+	isLevelMax(name) {
+		return this.agentManager.getByName(name).isLevelMax();
+	}
+
+	/**
 	 * returns the maximum movement points of the agents
 	 *
 	 * @return {Number} maximum movement points of the agents

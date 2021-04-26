@@ -152,7 +152,7 @@ const GamingBoard = props => {
 
 				{/* Market managment Buttons */}
 				<GridItem rowStart={20} colStart={3} rowSpan={8} colSpan={2}>
-					<Management user={playerProfile} levelUp={levelUp} boardUp={boardUp}/>
+					<Management gInterface={gInterface} user={playerProfile} levelUp={levelUp} boardUp={boardUp}/>
 				</GridItem>
 
 				{/* Market */}

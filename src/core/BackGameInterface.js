@@ -266,6 +266,28 @@ class BackGameInterface {
 		return this.gm.swapCard(index, location);
 	}
 
+	/**
+	 * Whether the user has its board maxed
+	 *
+	 * @param {String} name
+	 * @returns {Boolean}
+	 * @memberof BackGameInterface
+	 */
+	isBoardMax(name) {
+		return this.gm.isBoardMax(name);
+	}
+
+	/**
+	 * Whether the agent has its level maxed
+	 *
+	 * @param {String} name
+	 * @returns {Boolean}
+	 * @memberof BackGameInterface
+	 */
+	isLevelMax(name) {
+		return this.gm.isLevelMax(name);
+	}
+
 	// MAP
 	/**
 	 * Whether the location is disabled

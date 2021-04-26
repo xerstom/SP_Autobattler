@@ -108,6 +108,14 @@ class FrontGameInterface {
 		return this.bgi.rerollCard();
 	}
 
+	isBoardMax(name) {
+		return this.bgi.isBoardMax(name);
+	}
+
+	isLevelMax(name) {
+		return this.bgi.isLevelMax(name);
+	}
+
 	// MAP
 	getGridSize() {
 		return this.bgi.getGridSize();

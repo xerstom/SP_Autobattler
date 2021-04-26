@@ -19,6 +19,7 @@ class CardManager extends Manager {
 		this.marketCards = new Map();
 
 		this.buffPercentage = CONFIG.BUFF_PERCENTAGE;
+		this.rerollPrice = CONFIG.REROLL_PRICE;
 	}
 	
 	// init
@@ -94,8 +95,8 @@ class CardManager extends Manager {
 	 * @memberof CardManager
 	 */
 	rerollCard(agent) {
-		if (agent.hasEnoughMoney(CONFIG.REROLL_PRICE) ) {
-			agent.decreaseMoney(CONFIG.REROLL_PRICE);
+		if (agent.hasEnoughMoney(this.rerollPrice) ) {
+			agent.decreaseMoney(this.rerollPrice);
 			this.rerollMarketCard(agent);
 			return true;
 		}
@@ -149,7 +150,7 @@ class CardManager extends Manager {
 
 	/**
 	 * Sell a card located on either board or bench at a specific index
-	 * Increase the Agent money
+	 * Increase the Agent money. Sell for the price of the card minus the reroll price
 	 *
 	 * @param {Agent} agent
 	 * @param {Number} index The card index
@@ -166,7 +167,7 @@ class CardManager extends Manager {
 		} else {
 			return false;
 		}
-		agent.increaseMoney(card.price);
+		agent.increaseMoney(card.price - this.rerollPrice);
 		return true;
 	}
 

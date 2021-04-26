@@ -7,29 +7,29 @@ export const CONFIG = {
 	AGENTS: 8, // 1 player, 7 bot
 	TEMPLATE_CARDS: 30,
 	GRID_SIZE: 14,
-	MOVEMENT_POINTS: 5,
-	GRID_SHRINK_RATE: 1,
+	MOVEMENT_POINTS: 3, // number of deplacement point
+	GRID_SHRINK_RATE: 2, // number of turn for the grid to reduce
 
-	REROLL_PRICE: 2,
+	REROLL_PRICE: 2, // reroll cost
 
 	MONEY_PER_TURN: 5, // money earned per turn
 	MONEY_PER_COMBAT: 20, // money to split per combat
 
 	DAMAGE_PER_CARD: 5, // damage to deal per card at the end of battles
 
-	BASE_CARDS: 2,
-	BASE_LIFE: 100,
-	BASE_MONEY: 500,
-	BASE_BOARD_PLACE: 2,
+	BASE_CARDS: 2, // number of card on the board when starting
+	BASE_LIFE: 100, // life when starting
+	BASE_MONEY: 10, // money when starting
+	BASE_BOARD_PLACE: 2, // board size when starting
 
-	MAX_BOARD_PLACE: 7,
-	MAX_LEVEL: 3,
-	MAX_BENCH_PLACE: 5,
+	MAX_BOARD_PLACE: 7, // maximum board size
+	MAX_LEVEL: 3, // maximum level
+	MAX_BENCH_PLACE: 5, // maximum bench size
 
-	BUFF_PERCENTAGE: 0.2,
+	BUFF_PERCENTAGE: 0.3, // percentage pf stats a card get when buffed
 
-	BASE_BOARD_UP_PRICE: 20,
-	BASE_LEVEL_UP_PRICE: 25,
+	BASE_BOARD_UP_PRICE: 20, // starting price to board up
+	BASE_LEVEL_UP_PRICE: 25, // starting price to level up
 	BOARD_UP_MULTIPLIER: 1.7, // money to board up
 	LEVEL_UP_MULTIPLIER: 2, // money to level up
 };

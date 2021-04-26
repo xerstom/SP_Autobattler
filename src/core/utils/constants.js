@@ -1,9 +1,14 @@
 /* eslint-disable no-magic-numbers */
+
+/**
+ * Game configuration
+ */
 export const CONFIG = {
 	AGENTS: 8, // 1 player, 7 bot
 	TEMPLATE_CARDS: 30,
 	GRID_SIZE: 14,
 	MOVEMENT_POINTS: 5,
+	GRID_SHRINK_RATE: 1,
 
 	REROLL_PRICE: 2,
 
@@ -29,6 +34,9 @@ export const CONFIG = {
 	LEVEL_UP_MULTIPLIER: 2, // money to level up
 };
 
+/**
+ * Level repartition
+ */
 export const LEVELS = [
 	{
 		minStat: 8,
@@ -50,6 +58,9 @@ export const LEVELS = [
 	},
 ];
 
+/**
+ * Level percentage
+ */
 export const LEVEL_PROPORTION = [
 	0.55,
 	0.30,
@@ -64,7 +75,9 @@ export const LEVEL_INCR = LEVEL_PROPORTION.reduce( (acc, cur) => [
 		: cur,
 ], [] );
 
-
+/**
+ * Possible colors for all agents (names)
+ */
 export const COLORS = [
 	"blue", // player
 	"white",
@@ -76,6 +89,9 @@ export const COLORS = [
 	"cyan",
 ];
 
+/**
+ * Display colors used in the frontend
+ */
 export const COLOR_HEX = {
 	blue: "blue", // player
 	white: "white",
@@ -87,6 +103,9 @@ export const COLOR_HEX = {
 	cyan: "cyan",
 };
 
+/**
+ * Display images
+ */
 export const displays = [
 	{ name: "Achille", img: "achille.jpg" },
 	{ name: "Gaya", img: "archere.jpg" },

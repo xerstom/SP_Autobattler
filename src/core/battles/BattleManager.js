@@ -3,31 +3,72 @@ import Manager from "../Manager.js";
 import { CONFIG } from "../utils/constants.js";
 import { rand } from "../utils/utils.js";
 
+/**
+ * @typedef {{
+ * 	agent1: String,
+ * 	agent2: String,
+ * 	summary: String,
+ * 	detailedCombat: Array<String>
+ * }} State
+ * @typedef {{
+ * 	name: String,
+ * 	board: Array<FightCard>,
+ * }} PartialAgent
+ */
+
+/**
+ * Manager that handles all battles and fight
+ *
+ * @class BattleManager
+ * @extends {Manager}
+ * @prop {Boolean} ready
+ * @prop {Array<State>} states
+ * @prop {Array<Array<[Agent, Agent]>>} battles All tuple of agents/fight
+ * @prop {Array<String>} fighters All agents name that will fight this turn
+ * @prop {Number} damagePerCard The amount of damage a card will do to the agent at the end of the fight
+ * @prop {Number} moneyPerFight The amount of money to split between the agents after a fight
+ */
 class BattleManager extends Manager {
 	constructor(gameManager) {
 		super(gameManager);
 		this.ready = false;
-		this.state = [];
-		/**
- 		* agent1: agent1.name,
-		* agent2: agent2.name,
-		* summary,
-		* detailedCombat: combatDetails,
- 		*/
+		this.states = [];
 		this.battles = [];
 		this.fighters = [];
 		this.damagePerCard = CONFIG.DAMAGE_PER_CARD;
 		this.moneyPerFight = CONFIG.MONEY_PER_COMBAT;
 	}
 
+	/**
+	 * The base money everybody gets after a fight
+	 *
+	 * @readonly
+	 * @returns {Number}
+	 * @memberof BattleManager
+	 */
 	get battleSalary() {
 		return Math.round(this.moneyPerFight / 4);
 	}
 
+	/**
+	 * The money to split between the 2 fighters at the end of a fight
+	 *
+	 * @readonly
+	 * @returns {Number}
+	 * @memberof BattleManager
+	 */
 	get moneyToSplit() {
 		return Math.round(this.moneyPerFight / 2);
 	}
 
+	/**
+	 * The money for an agent depending of the percentage of the total left card he has
+	 *
+	 * @param {PartialAgent} agent
+	 * @param {Number} totalCards
+	 * @returns {Number}
+	 * @memberof BattleManager
+	 */
 	getMoneyBattle(agent, totalCards) {
 		if (totalCards === 0) {
 			return Math.round(this.moneyToSplit / 2);
@@ -39,17 +80,33 @@ class BattleManager extends Manager {
 		//
 	}
 
+	/**
+	 * Reset the battle manager
+	 *
+	 * @memberof BattleManager
+	 */
 	reset() {
 		this.ready = false;
-		this.state = [];
+		this.states = [];
 		this.battles = [];
 		this.fighters = [];
 	}
 
+	/**
+	 * Get all states of this turn battles
+	 *
+	 * @returns {Array<State>}
+	 * @memberof BattleManager
+	 */
 	summary() {
-		return this.state;
+		return this.states;
 	}
 
+	/**
+	 * Setup battles for the upcoming turn based of player positions
+	 *
+	 * @memberof BattleManager
+	 */
 	setup() {
 		this.reset();
 		const all = this.m.getAgents();
@@ -73,6 +130,12 @@ class BattleManager extends Manager {
 		this.ready = true;
 	}
 
+	/**
+	 * Battles all agents one to another
+	 *
+	 * @returns
+	 * @memberof BattleManager
+	 */
 	battleAll() {
 		if (!this.ready) {
 			return;
@@ -95,7 +158,7 @@ class BattleManager extends Manager {
 
 			const summary = `${agent1.name} a inflige ${agent1.board.length * this.damagePerCard} degats a ${agent2.name} et ${agent2.name} a inflige ${agent2.board.length * this.damagePerCard} degats a ${agent1.name}!`;
 
-			this.state.push( {
+			this.states.push( {
 				agent1: agent1.name,
 				agent2: agent2.name,
 				summary,
@@ -104,17 +167,24 @@ class BattleManager extends Manager {
 		}
 	}
 
+	/**
+	 * Create a partial agent with fight cards of the original agent
+	 *
+	 * @param {Agent} agent
+	 * @returns {PartialAgent}
+	 * @memberof BattleManager
+	 */
 	prepareBattle(agent) {
 		return { name: agent.name, board: generateFightCards(agent.board) };
 	}
 
 	/**
+	 * Handles one battle between 2 agents
 	 *
-	 *
-	 * @param {Array<FightCard>} agent1 Board for Agent1
-	 * @param {Array<FightCard>} agent2 Board for Agent2
-	 * @return {Array<String>}
-	 * @memberof CombatManager
+	 * @param {PartialAgent} agent1
+	 * @param {PartialAgent} agent2
+	 * @return {Array<String>} The details of this battle
+	 * @memberof BattleManager
 	 */
 	battle( { name: agent1Name, board: agent1Board }, { name: agent2Name, board: agent2Board } ) {
 		let agent1Cur = 0;
@@ -164,6 +234,19 @@ class BattleManager extends Manager {
 		return battleDetails;
 	}
 
+	/**
+	 * Handles a fight between 2 cards
+	 *
+	 * @param {String} sourceName The name of the attacker agent
+	 * @param {String} targetName The name of the defender agent
+	 * @param {Array<FightCard>} sourceBoard The board of the attacker Agent
+	 * @param {Array<FightCard>} targetBoard The board of the defender Agent
+	 * @param {Number} sourceIndex
+	 * @param {Number} targetIndex
+	 * @param {Number} targetCur
+	 * @returns {Array<[Number, Number, Array<String>]>}
+	 * @memberof BattleManager
+	 */
 	fight(sourceName, targetName, sourceBoard, targetBoard, sourceIndex, targetIndex, targetCur) {
 		let sourceInd = 0;
 		let targetInd = 0;

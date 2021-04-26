@@ -5,12 +5,12 @@ import {
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
+import Agent from "../GamingMap/AgentDisplayer/Agent/Agent.jsx";
 import LogOutput from "../LogOutput.jsx";
 import Bench from "./Bench/Bench.jsx";
 import Board from "./Board/Board.jsx";
 import Management from "./Management/Management.jsx";
 import Market from "./Market/Market.jsx";
-import Profile from "./Profile/Profile.jsx";
 
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms) );
@@ -137,7 +137,7 @@ const GamingBoard = props => {
 				{
 					onCombat
 						&& <GridItem rowStart={3} colStart={1} rowSpan={5} colSpan={3}>
-							<Profile user={gInterface.getProfile(agentCombat)}/>
+							<Agent agent={gInterface.getProfile(agentCombat)} isPlayer={false} />
 						</GridItem>
 				}
 				
@@ -147,7 +147,7 @@ const GamingBoard = props => {
 
 				{/* Player profile  */}
 				<GridItem rowStart={16} colStart={1} rowSpan={5} colSpan={3} >
-					<Profile user={playerProfile} />
+					<Agent agent={playerProfile} isPlayer={true} />
 				</GridItem>
 
 				{/* Market managment Buttons */}

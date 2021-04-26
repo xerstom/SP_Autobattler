@@ -12,10 +12,13 @@ const calculateColor = (life) => {
 
 
 const Agent = props => {
-	const { agent } = props;
+	const { agent, isPlayer } = props;
 	return (
-		<Flex boxShadow="xl" w="12vw" h="auto" flexDirection="column" borderRadius="5%" justifyContent="space-between" alignItems="center" p={4} m="2%" bg="gray.300">
-			<Text stroke="1px black" color={agent.color} textShadow="0px 1px 0px rgba(150, 150, 150, 1)" fontSize="1vw" >{agent.name}</Text>
+		<Flex border={`solid ${isPlayer ? "5px" : "2px"} ${agent.color}`} boxShadow="xl" w="12vw" h="auto" flexDirection="column" borderRadius="5%" justifyContent="space-between" alignItems="center" p={4} m="2%" bg={`${isPlayer ? agent.color : "gray"}.200`}>
+			<Flex alignItems="center" justifyContent="space-between" >
+				{isPlayer ? <Image boxSize="2vw" mr="0.4vw" src="/ressources/crown.png"></Image> : ""}
+				<Text stroke="1px black" color={agent.color} fontSize="1vw" >{agent.name}</Text>
+			</Flex>
 			<Flex flexDirection="row" justifyContent="space-between" width="100%">
 				<Flex flexDirection="column" justifyContent="space-between" >
 					<Image boxSize="2vw" src="/ressources/heart.png"></Image>
@@ -42,6 +45,7 @@ const Agent = props => {
 
 Agent.propTypes = {
 	agent: PropTypes.object,
+	isPlayer: PropTypes.bool,
 };
 
 export default Agent;

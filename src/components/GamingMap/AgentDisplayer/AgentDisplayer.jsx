@@ -5,12 +5,12 @@ import React from "react";
 import Agent from "./Agent/Agent.jsx";
 
 const AgentDisplayer = props => {
-	const { agents } = props;
+	const { agents, player } = props;
 
 	// const [agents, setAgents] = useState(manager.getAgents());
 
 	const sortedAgents = agents.sort( (a, b) => b.life - a.life)
-		.map(agent => <Agent key={agent.color} agent={agent}></Agent>);
+		.map(agent => <Agent key={agent.color} isPlayer={agent.color === player.color} agent={agent}></Agent>);
 	
 	return (
 		<Flex wrap="wrap" h="100%">
@@ -21,6 +21,7 @@ const AgentDisplayer = props => {
 
 AgentDisplayer.propTypes = {
 	agents: PropTypes.array,
+	player: PropTypes.object,
 };
 
 export default AgentDisplayer;

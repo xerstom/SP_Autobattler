@@ -156,7 +156,7 @@ class BattleManager extends Manager {
 			battle[0].increaseMoney(this.battleSalary);
 			battle[1].increaseMoney(this.battleSalary);
 
-			const summary = `${agent1.name} a inflige ${agent1.board.length * this.damagePerCard} degats a ${agent2.name} et ${agent2.name} a inflige ${agent2.board.length * this.damagePerCard} degats a ${agent1.name}!`;
+			const summary = `${agent1.name} a inflige ${agent1.board.length * this.damagePerCard} degats a ${agent2.name} et ${agent2.name} a inflige ${agent2.board.length * this.damagePerCard} degats a ${agent1.name} !`;
 
 			this.states.push( {
 				agent1: agent1.name,

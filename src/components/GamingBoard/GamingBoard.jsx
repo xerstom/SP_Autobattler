@@ -96,7 +96,7 @@ const GamingBoard = props => {
 	const handleKeyPress = e => {
 		switch (e.code) {
 			case "KeyR": {
-				rerollNewCard();
+				reroll();
 				break;
 			}
 			case "KeyB": {

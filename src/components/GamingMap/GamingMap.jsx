@@ -16,7 +16,7 @@ function sleep(ms) {
 }
 
 const GamingMap = props => {
-	const { gInterface, onClickHandler } = props;
+	const { gInterface, onClickHandler, openModal } = props;
 	
 	const [selectedBox, setSelectedBox] = useState(null);
 	const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
@@ -69,6 +69,14 @@ const GamingMap = props => {
 		} else if (phase === 2) { // waiting for next turn
 			setSelectedBox(null);
 			await phaseTwo(); // display battles / management
+
+			
+			if (gInterface.getProfile().life <= 0) {
+				openModal("loose");
+			}
+			if (gInterface.getAgentsPosition().length < 2) {
+				openModal("win");
+			}
 		}
 		setNextButtonDisabled(false);
 	};
@@ -112,6 +120,7 @@ const GamingMap = props => {
 GamingMap.propTypes = {
 	gInterface: PropTypes.object,
 	onClickHandler: PropTypes.func,
+	openModal: PropTypes.func,
 };
 	
 export default GamingMap;

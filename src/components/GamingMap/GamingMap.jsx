@@ -92,7 +92,7 @@ const GamingMap = props => {
 			</Grid>
 			<Flex h="70vh" flexDirection="column" justifyContent="space-between" w="100%">
 				<Flex h="100%" alignItems="flex-start" justifyContent="space-between">
-					<AgentDisplayer agents={agents}></AgentDisplayer>
+					<AgentDisplayer agents={agents} player={gInterface.getProfile()}></AgentDisplayer>
 					<Flex flexDirection="column" justifyContent="space-between" alignItems="flex-end" h="100%">
 						<Button w="10%" disabled={isNextButtonDisabled} onClick={onClickHandler} >{ ">>" } </Button>
 						<Box w="7vw">
@@ -102,7 +102,7 @@ const GamingMap = props => {
 						</Box>
 					</Flex>
 				</Flex>
-				<LogOutput minH="30vh" summary={battleSummary} />
+				<LogOutput maxH="30vh" minH="20vh" summary={battleSummary} />
 			</Flex>
 
 		</Flex>

@@ -21,7 +21,8 @@ const Stats = props => {
 						
 					</Flex>
 					<Flex flexDirection="row">
-						<Text mr={1} fontSize="1vw" > {card.adaptative}</Text>
+						{/* use adaptative if you want the number of stats instead of the number of buff */}
+						<Text mr={1} fontSize="1vw" > {card.buffAmount}</Text>
 						<Image boxSize="1.3vw" src="/ressources/star.png"></Image>
 					</Flex>
 				</Flex>

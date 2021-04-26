@@ -26,6 +26,7 @@ const GamingMap = props => {
 
 	// movePriorPlayers
 	async function phaseOne() {
+		setBattleSummary( [] );
 		const l = gInterface.getPriorAgentsPosition();
 		for (let i = 0; i < l; ++i) {
 			setAgentsPosition(gInterface.getUpdatedAgentsPosition() );
@@ -42,7 +43,6 @@ const GamingMap = props => {
 			setAgentsPosition(gInterface.getUpdatedAgentsPosition() );
 			await sleep(TIMEOUT_MOVEMENT);
 		}
-		setBattleSummary( [] );
 		const summary = gInterface.getBattleSummary();
 		for (const sum of summary) {
 			battleSummary.push(sum);
@@ -50,6 +50,7 @@ const GamingMap = props => {
 			await sleep(400);
 		}
 		setAgents(gInterface.getAgentsProfile() );
+		setAgentsPosition(gInterface.getAgentsPosition() );
 	}
 
 	/**
@@ -95,7 +96,9 @@ const GamingMap = props => {
 					<Flex flexDirection="column" justifyContent="space-between" alignItems="flex-end" h="100%">
 						<Button w="10%" disabled={isNextButtonDisabled} onClick={onClickHandler} >{ ">>" } </Button>
 						<Box w="7vw">
-							<Button w="100%" disabled={isNextButtonDisabled} onClick={handleNext} fontSize="0.7vw" >Suivant</Button>
+							<Button w="100%" disabled={isNextButtonDisabled} onClick={handleNext} fontSize="0.7vw">
+								{gInterface.currentPhase === 2 ? "Tour suivant" : "Valider position"}
+							</Button>
 						</Box>
 					</Flex>
 				</Flex>

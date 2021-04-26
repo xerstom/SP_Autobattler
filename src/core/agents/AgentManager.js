@@ -28,6 +28,16 @@ class AgentManager extends Manager {
 	getAll() {
 		return this.agents;
 	}
+	
+	/**
+	 * All alive agents
+	 *
+	 * @returns {Array<Agent>}
+	 * @memberof AgentManager
+	 */
+	getAlive() {
+		return this.agents.filter(a => a.isAlive() );
+	}
 
 	/**
 	 * All agents sorted by the amount of life they have
@@ -36,7 +46,7 @@ class AgentManager extends Manager {
 	 * @memberof AgentManager
 	 */
 	getSorted() {
-		return [...this.agents].sort( (a, b) => b.life - a.life);
+		return this.getAlive().sort( (a, b) => b.life - a.life);
 	}
 
 	/**

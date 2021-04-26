@@ -126,8 +126,8 @@ class MapManager extends Manager {
 	/**
 	 * Returns the list of agents that will be valid next turn
 	 *
-	 * @param {Agent[]} agents the array of agents to check
-	 * @return {Agent[]} the filtered agents
+	 * @param {Array<Agent>} agents the array of agents to check
+	 * @return {Array<Agent>} the filtered agents
 	 * @memberof MapManager
 	 */
 	validPositions(agents) {

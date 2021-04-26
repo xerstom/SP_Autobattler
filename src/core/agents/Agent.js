@@ -39,54 +39,13 @@ class Agent {
 	}
 
 	/**
-	 * wether the card already exist in board / bench
-	 *
-	 * @param {GameCard} card
-	 * @returns {Array<GameCard, String>} [card, location]
-	 * @memberof Agent
-	 */
-	cardExist(card) {
-		const res = [null, ""];
-		res[0] = this.board.find(c => c.name === card.name);
-		if (res[0] ) {
-			res[1] = "board";
-		} else {
-			res[0] = this.bench.find(c => c.name === card.name);
-			if (res[0] ) {
-				res[1] = "bench";
-			}
-		}
-		return res;
-	}
-
-	/**
-	 * Increase the level and the level up price
-	 *
-	 * @memberof Agent
-	 */
-	upLevel() {
-		this.level++;
-		this.levelUpPrice = Math.round(this.levelUpPrice * CONFIG.LEVEL_UP_MULTIPLIER);
-	}
-
-	/**
-	 * Increase the board and the board up price
-	 *
-	 * @memberof Agent
-	 */
-	upBoard() {
-		this.boardSize++;
-		this.boardUpPrice = Math.round(this.boardUpPrice * CONFIG.BOARD_UP_MULTIPLIER);
-	}
-
-	/**
 	 * Check whether the agent has enough money
 	 *
 	 * @param {Number} money
 	 * @returns {Boolean}
 	 * @memberof Agent
 	 */
-	hasEnoughMoney(money) {
+	 hasEnoughMoney(money) {
 		return this.money >= money;
 	}
 
@@ -128,6 +87,57 @@ class Agent {
 	 */
 	isBoardSizeMax() {
 		return this.boardSize === CONFIG.MAX_BOARD_PLACE;
+	}
+
+	/**
+	 * Whether the Agent is alive
+	 *
+	 * @returns {Boolean}
+	 * @memberof Agent
+	 */
+	isAlive() {
+		return this.life > 0;
+	}
+
+	/**
+	 * wether the card already exist in board / bench
+	 *
+	 * @param {GameCard} card
+	 * @returns {Array<GameCard, String>} [card, location]
+	 * @memberof Agent
+	 */
+	cardExist(card) {
+		const res = [null, ""];
+		res[0] = this.board.find(c => c.name === card.name);
+		if (res[0] ) {
+			res[1] = "board";
+		} else {
+			res[0] = this.bench.find(c => c.name === card.name);
+			if (res[0] ) {
+				res[1] = "bench";
+			}
+		}
+		return res;
+	}
+
+	/**
+	 * Increase the level and the level up price
+	 *
+	 * @memberof Agent
+	 */
+	upLevel() {
+		this.level++;
+		this.levelUpPrice = Math.round(this.levelUpPrice * CONFIG.LEVEL_UP_MULTIPLIER);
+	}
+
+	/**
+	 * Increase the board and the board up price
+	 *
+	 * @memberof Agent
+	 */
+	upBoard() {
+		this.boardSize++;
+		this.boardUpPrice = Math.round(this.boardUpPrice * CONFIG.BOARD_UP_MULTIPLIER);
 	}
 
 	/**
@@ -233,6 +243,9 @@ class Agent {
 	 */
 	decreaseLife(life) {
 		this.life -= life;
+		if (this.life < 0) {
+			this.life = 0;
+		}
 	}
 }
 

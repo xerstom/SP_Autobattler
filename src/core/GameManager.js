@@ -95,9 +95,9 @@ class GameManager {
 	}
 
 	/**
-	 * returns all the agents
+	 * Returns all the agents
 	 *
-	 * @return {Agent[]} all the agents
+	 * @return {Array<Agent>} all the agents
 	 * @memberof GameManager
 	 */
 	getAgents() {
@@ -105,10 +105,20 @@ class GameManager {
 	}
 
 	/**
+	 * Returns all the alive agents
+	 *
+	 * @return {Array<Agent>} all alive agents
+	 * @memberof GameManager
+	 */
+	 getAliveAgents() {
+		return this.agentManager.getAlive();
+	}
+
+	/**
 	 * returns all the agents playing before the given agent
 	 *
 	 * @param {Agent} agent the given agent
-	 * @return {Agent[]} the prior agents
+	 * @return {Array<Agent>} the prior agents
 	 * @memberof GameManager
 	 */
 	getPriorAgents(agent) {
@@ -118,7 +128,7 @@ class GameManager {
 	/**
 	 * returns the later agents cache
 	 *
-	 * @return {Agent[]} the cached later agents
+	 * @return {Array<Agent>} the cached later agents
 	 * @memberof GameManager
 	 */
 	getLaterAgentsCache() {
@@ -139,7 +149,7 @@ class GameManager {
 	 * get all the agents playing after the given agent
 	 *
 	 * @param {Agent} agent the given agent
-	 * @return {Agent[]} the later agent
+	 * @return {Array<Agent>} the later agent
 	 * @memberof GameManager
 	 */
 	getLaterAgents(agent) {
@@ -149,7 +159,7 @@ class GameManager {
 	/**
 	 * returns the list of bots
 	 *
-	 * @return {Bot[]} the list of boots
+	 * @return {Array<Bot>} the list of boots
 	 * @memberof GameManager
 	 */
 	getBots() {
@@ -222,6 +232,28 @@ class GameManager {
 	}
 
 	// getters
+	/**
+	 * Whether the user has its board maxed
+	 *
+	 * @param {String} name
+	 * @returns {Boolean}
+	 * @memberof GameManager
+	 */
+	isBoardMax(name) {
+		return this.agentManager.getByName(name).isBoardSizeMax();
+	}
+
+	/**
+	 * Whether the agent has its level maxed
+	 *
+	 * @param {String} name
+	 * @returns {Boolean}
+	 * @memberof GameManager
+	 */
+	isLevelMax(name) {
+		return this.agentManager.getByName(name).isLevelMax();
+	}
+
 	/**
 	 * returns the maximum movement points of the agents
 	 *
@@ -371,7 +403,7 @@ class GameManager {
 	/**
 	 * Returns the summary of the battles
 	 *
-	 * @return {State[]}
+	 * @return {Array<State>}
 	 * @memberof GameManager
 	 */
 	getBattleSummary() {

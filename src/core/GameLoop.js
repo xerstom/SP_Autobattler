@@ -3,6 +3,15 @@ import { CONFIG } from "./utils/constants.js";
 
 const PHASE_ONE = 1; // waiting for player position
 const PHASE_TWO = 2; // waiting for next turn
+
+/**
+ * Manager that handles the Gameloop
+ *
+ * @class GameLoop
+ * @extends {Manager}
+ * @prop {Number} currentPhase The current phase we are in
+ * @prop {Number} moneyPerTurn The amount of money each player get at each turn
+ */
 class GameLoop extends Manager {
 	constructor(gameManager) {
 		super(gameManager);
@@ -10,11 +19,23 @@ class GameLoop extends Manager {
 		this.moneyPerTUrn = CONFIG.MONEY_PER_TURN;
 	}
 
+	/**
+	 * Start the Ganeloop
+	 *
+	 * @memberof GameLoop
+	 */
 	start() {
 		// management time
 		this.currentPhase = 2;
 	}
 
+	/**
+	 * Move to the next phase
+	 *
+	 * @param {{x: Number, y: Number}} selectedBox The selected position the player wants to move to
+	 * @returns {Number} The current phase
+	 * @memberof GameLoop
+	 */
 	next(selectedBox) {
 		if (this.currentPhase === PHASE_ONE) { // waiting for position
 			if (!selectedBox || !this.m.canPlayerMove(selectedBox.x, selectedBox.y) ) {
@@ -29,10 +50,21 @@ class GameLoop extends Manager {
 		return this.currentPhase;
 	}
 
+	/**
+	 * Execute the phase one logic
+	 *
+	 * @memberof GameLoop
+	 */
 	phaseOne() {
 		this.m.movePriorAgents();
 	}
 	
+	/**
+	 * Execute the phase two logic
+	 *
+	 * @param {{x: Number, y: Number}} selectedBox The selected position the player wants to move to
+	 * @memberof GameLoop
+	 */
 	phaseTwo(selectedBox) {
 		this.m.movePlayer(selectedBox);
 		this.m.moveLaterAgents();
@@ -43,6 +75,11 @@ class GameLoop extends Manager {
 		this.m.agentManager.increaseMoneyForAllAgents(this.moneyPerTUrn);
 	}
 
+	/**
+	 * Calls the management phase for each bot
+	 *
+	 * @memberof GameLoop
+	 */
 	management() {
 		this.m.getBots().forEach(agent => agent.strategy.executeTurn(agent, this.m.agentManager, this.m.cardManager) );
 	}

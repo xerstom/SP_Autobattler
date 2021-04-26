@@ -255,7 +255,7 @@ class BattleManager extends Manager {
 		targetBoard[targetIndex].life -= sourceBoard[sourceIndex].attack;
 		sourceBoard[sourceIndex].life -= targetBoard[targetIndex].attack;
 
-		let fightDetails = `${sourceName}'s ${sourceBoard[sourceIndex].displayName} attack ${targetName}'s ${targetBoard[targetIndex].displayName}. `;
+		let fightDetails = `${sourceName} ${sourceBoard[sourceIndex].displayName} a attaqué ${targetName} ${targetBoard[targetIndex].displayName}. `;
 		
 		const isTargetDead = targetBoard[targetIndex].life <= 0;
 		const isSourceDead = sourceBoard[sourceIndex].life <= 0;
@@ -265,15 +265,15 @@ class BattleManager extends Manager {
 			targetIndex < targetCur && --targetInd;
 
 			if (isSourceDead) {
-				fightDetails += "They both killed each other.";
+				fightDetails += "Ils se sont entretués.";
 			} else {
-				fightDetails += "The former killed the latter.";
+				fightDetails += "Le premier a tué le deuxieme.";
 			}
 		}
 		if (isSourceDead) {
 			sourceBoard.splice(sourceIndex, 1);
 			if (!isTargetDead) {
-				fightDetails += "The latter killed the former.";
+				fightDetails += "Le deuxieme a tué le premier.";
 			}
 		} else {
 			sourceInd++;

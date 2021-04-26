@@ -21,9 +21,9 @@ const ModalComponent = props => {
 		<Modal isOpen={isOpen} onClose={close}>
 			<ModalOverlay />
 			<ModalContent>
-				{gameState === "win"
-					? <ModalHeader textAlign="center" color="green.400">Bravo vous avez gagné !</ModalHeader>
-					: <ModalHeader textAlign="center" color="red.400"> Dommage vous avez perdu !</ModalHeader>
+				{gameState === "loose"
+					? <ModalHeader textAlign="center" color="red.400"> Dommage vous avez perdu !</ModalHeader>
+					: <ModalHeader textAlign="center" color="green.400">Bravo vous avez gagné !</ModalHeader>
 				}
 				<ModalBody>
 				</ModalBody>

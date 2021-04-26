@@ -10,14 +10,15 @@ import ModalComponent from "./ModalComponent.jsx";
 const Game = props => {
 	const { gInterface } = props;
 	const [view, setView] = useState(true);
+	const [gameState, setGameState] = useState("");
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	let gameState = "";
+	
 	const changeView = () => {
 		setView(!view);
 	};
 	const openModal = gs => {
+		setGameState(gs);
 		onOpen();
-		gameState = gs;
 	};
 
 	return (

@@ -119,7 +119,7 @@ class PositionManager extends Manager {
 	/**
 	 * move all the bots using their strategies
 	 *
-	 * @param {Agent[]} agents The agents to move
+	 * @param {Array<Agent>} agents The agents to move
 	 * @memberof PositionManager
 	 */
 	moveBots(agents) {
@@ -146,7 +146,7 @@ class PositionManager extends Manager {
 	 * Returns an array with all the in range agents
 	 *
 	 * @param {Agent} agent the agents to look around
-	 * @return {Agent[]} the array of agents
+	 * @return {Array<Agent>} the array of agents
 	 * @memberof PositionManager
 	 */
 	getAgentsInRange(agent) {

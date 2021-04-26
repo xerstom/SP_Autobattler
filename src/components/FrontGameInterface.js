@@ -44,7 +44,7 @@ class FrontGameInterface {
 	}
 	
 	getAgentsPosition() {
-		return [...this.agentsPosition];
+		return [...this.bgi.getAgentsPosition()];
 	}
 
 	getUpdatedAgentsPosition() {
@@ -54,7 +54,7 @@ class FrontGameInterface {
 			this.agentsPosition.splice(index, 1, uAgent);
 		}
 		// return le cache
-		return this.getAgentsPosition();
+		return [...this.agentsPosition];
 	}
 
 	// PROFILE
@@ -62,6 +62,11 @@ class FrontGameInterface {
 		return [...this.bgi.getAgents()];
 	}
 
+	/**
+	 * Call without parameter to get the player
+	 * @param {String} agent
+	 * @returns
+	 */
 	getProfile(agent) {
 		return { ...this.bgi.getAgent(agent) };
 	}

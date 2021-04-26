@@ -89,7 +89,7 @@ class BackGameInterface {
 	 * @memberof BackGameInterface
 	 */
 	getAgentsPosition() {
-		return this.gm.getAgents().map(e => this._formatPosition(e) );
+		return this.gm.getAliveAgents().map(e => this._formatPosition(e) );
 	}
 
 	/**

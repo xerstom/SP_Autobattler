@@ -109,7 +109,7 @@ class BattleManager extends Manager {
 	 */
 	setup() {
 		this.reset();
-		const all = this.m.getAgents();
+		const all = this.m.getAliveAgents();
 		for (const agent of all) {
 			// who will fight with the current agent
 			// includes the current agent + all that matches its position

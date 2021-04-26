@@ -26,6 +26,7 @@ const GamingMap = props => {
 
 	// movePriorPlayers
 	async function phaseOne() {
+		setBattleSummary( [] );
 		const l = gInterface.getPriorAgentsPosition();
 		for (let i = 0; i < l; ++i) {
 			setAgentsPosition(gInterface.getUpdatedAgentsPosition() );
@@ -42,7 +43,6 @@ const GamingMap = props => {
 			setAgentsPosition(gInterface.getUpdatedAgentsPosition() );
 			await sleep(TIMEOUT_MOVEMENT);
 		}
-		setBattleSummary( [] );
 		const summary = gInterface.getBattleSummary();
 		for (const sum of summary) {
 			battleSummary.push(sum);
@@ -50,6 +50,7 @@ const GamingMap = props => {
 			await sleep(400);
 		}
 		setAgents(gInterface.getAgentsProfile() );
+		setAgentsPosition(gInterface.getAgentsPosition() );
 	}
 
 	/**
